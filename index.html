@@ -3,268 +3,388 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fixed Income Briefing — May 19, 2026</title>
+<title>FI Briefing — May 26, 2026</title>
 <style>
-:root{--bg:#0f1117;--surface:#1a1f2e;--border:#2a3040;--text:#e2e8f0;--muted:#8892a4;--accent:#3b82f6}
+:root{--bg:#0b0e17;--surface:#131929;--card:#1a2235;--border:#1e2d45;--text:#dde4f0;--muted:#5a6a82;--accent:#3b82f6;--green:#10b981;--green-dim:rgba(16,185,129,.12);--red:#ef4444;--red-dim:rgba(239,68,68,.12);--orange:#f59e0b;--orange-dim:rgba(245,158,11,.12);--blue-dim:rgba(59,130,246,.12)}
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:16px;line-height:1.65;max-width:800px;margin:0 auto}
-header{background:var(--surface);border-bottom:1px solid var(--border);padding:18px 16px 14px;position:sticky;top:0;z-index:10}
-header h1{font-size:17px;font-weight:700;letter-spacing:.01em}
-header .meta{font-size:12px;color:var(--muted);margin-top:4px}
-header .updated{font-size:12px;color:var(--accent);margin-top:2px}
-main{padding-bottom:60px}
-section{border-bottom:1px solid var(--border);padding:20px 16px}
-h2{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:10px}
-h3{font-size:17px;font-weight:600;margin:16px 0 6px}
-.headline{font-size:13px;font-style:italic;color:var(--muted);margin-bottom:12px}
-p{margin-bottom:11px;font-size:15px}
-p:last-child{margin-bottom:0}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:15px;line-height:1.6;max-width:860px;margin:0 auto;padding-bottom:60px}
+header{background:var(--surface);border-bottom:1px solid var(--border);padding:14px 16px;position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.hdr-left h1{font-size:15px;font-weight:700;letter-spacing:.02em}
+.hdr-left .hdr-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.hdr-right{font-size:11px;color:var(--accent);white-space:nowrap}
+.stats-ticker{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-bottom:1px solid var(--border)}
+@media(max-width:500px){.stats-ticker{grid-template-columns:repeat(2,1fr)}}
+.stat-tile{background:var(--surface);padding:10px 12px}
+.st-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:3px}
+.st-value{font-size:17px;font-weight:700;color:#fff;line-height:1}
+.st-change{font-size:11px;margin-top:3px;font-weight:600}
+.up{color:#f87171}.dn{color:#34d399}.flat{color:var(--muted)}.warn-c{color:var(--orange)}
+section{border-bottom:1px solid var(--border);padding:18px 16px}
+.sec-header{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.sec-icon{font-size:15px}
+.sec-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+.sec-headline{font-size:13px;font-style:italic;color:var(--muted);margin-bottom:14px}
+p{margin-bottom:10px;font-size:14px}p:last-child{margin-bottom:0}
 strong{color:#fff;font-weight:600}
-em{color:var(--muted)}
-.take{background:var(--surface);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:10px 14px;margin-top:14px;font-size:14px;font-weight:500}
-table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px}
-th{text-align:left;color:var(--muted);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:7px 10px;border-bottom:1px solid var(--border)}
-td{padding:8px 10px;border-bottom:1px solid var(--border);vertical-align:top}
-.flag{display:inline-flex;align-items:center;font-size:11px;font-weight:600;padding:1px 6px;border-radius:4px;margin-left:3px;vertical-align:middle;white-space:nowrap}
-.flag-red{background:rgba(239,68,68,.15);color:#fca5a5}
-.flag-yellow{background:rgba(245,158,11,.15);color:#fcd34d}
-.flag-blue{background:rgba(59,130,246,.15);color:#93c5fd}
-.unverified{color:var(--muted);font-size:13px}
-.watch-item{background:var(--surface);border-radius:8px;padding:12px 14px;margin-bottom:10px}
-.watch-label{font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px}
-.alpha{background:var(--surface);border-radius:10px;padding:16px;display:grid;gap:10px}
-.alpha-row{display:grid;grid-template-columns:100px 1fr;gap:8px;font-size:14px}
-.alpha-label{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;padding-top:2px}
-.pm-question{background:linear-gradient(135deg,rgba(59,130,246,.08),rgba(16,185,129,.08));border:1px solid rgba(59,130,246,.25);border-radius:8px;padding:14px;margin-top:14px;font-size:14px;font-style:italic}
+.alert-banner{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:13px;display:flex;gap:8px;align-items:flex-start}
+.alert-icon{font-size:16px;flex-shrink:0}
+.alert-text strong{color:#fca5a5}
+.metrics-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin:12px 0}
+.metric-box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px 12px}
+.mb-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:4px}
+.mb-value{font-size:19px;font-weight:700;color:#fff;line-height:1}
+.mb-sub{font-size:11px;color:var(--muted);margin-top:3px}
+.metric-box.good{border-color:rgba(16,185,129,.3);background:var(--green-dim)}
+.metric-box.bad{border-color:rgba(239,68,68,.3);background:var(--red-dim)}
+.metric-box.warn{border-color:rgba(245,158,11,.3);background:var(--orange-dim)}
+.range-wrap{margin:8px 0 16px}
+.range-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+.range-name{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.range-val{font-size:16px;font-weight:800;color:#fff}
+.range-track{position:relative;height:10px;background:var(--card);border-radius:5px;overflow:visible;margin-bottom:4px}
+.range-fill{height:100%;border-radius:5px;position:relative}
+.range-fill.tight{background:var(--green)}
+.range-fill.mid{background:var(--orange)}
+.range-fill.wide{background:var(--red)}
+.range-tick{position:absolute;right:-1px;top:-4px;width:3px;height:18px;background:#fff;border-radius:2px}
+.range-zones{display:grid;grid-template-columns:1fr 1fr 1fr;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-top:3px}
+.rz-tight{color:var(--green)}.rz-fair{color:var(--orange);text-align:center}.rz-wide{color:var(--red);text-align:right}
+.range-bounds{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:2px}
+.pos-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:4px 0 12px}
+@media(max-width:500px){.pos-grid{grid-template-columns:1fr}}
+.pos-card{border-radius:10px;padding:12px 14px;border:1px solid transparent}
+.pos-card.ow{background:var(--green-dim);border-color:rgba(16,185,129,.25)}
+.pos-card.uw{background:var(--red-dim);border-color:rgba(239,68,68,.25)}
+.pc-asset{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:5px}
+.pc-dir{font-size:11px;font-weight:700;margin-bottom:4px}
+.pos-card.ow .pc-dir{color:var(--green)}.pos-card.uw .pc-dir{color:var(--red)}
+.pc-name{font-size:14px;font-weight:600;color:#fff;margin-bottom:5px;line-height:1.3}
+.pc-why{font-size:12px;color:var(--muted);line-height:1.4}
+.conviction-bar{background:var(--blue-dim);border:1px solid rgba(59,130,246,.2);border-radius:8px;padding:10px 14px;font-size:12px;margin-top:4px;line-height:1.6}
+.conviction-bar strong{color:var(--accent)}
+.clo-stack{display:flex;flex-direction:column;gap:5px;margin:12px 0}
+.clo-row{display:grid;grid-template-columns:44px 1fr 60px 48px;gap:8px;align-items:center}
+.clo-tranche{font-size:11px;font-weight:700;color:var(--muted)}
+.clo-bar-wrap{height:20px;background:var(--card);border-radius:3px;overflow:hidden}
+.clo-bar{height:100%;border-radius:3px}
+.clo-spread{font-size:13px;font-weight:700;color:#fff;text-align:right}
+.clo-chg{font-size:11px;text-align:right}
+.t-aaa .clo-bar{background:#10b981}.t-aa .clo-bar{background:#34d399}
+.t-a .clo-bar{background:#6ee7b7}.t-bbb .clo-bar{background:#f59e0b}.t-bb .clo-bar{background:#f87171}
+.clo-vs{background:var(--card);border-radius:6px;padding:8px 12px;font-size:12px;color:var(--muted);margin-top:8px}
+.clo-vs strong{color:var(--green)}
+.flag{display:inline-flex;align-items:center;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;margin-left:3px;vertical-align:middle;white-space:nowrap;letter-spacing:.02em}
+.fg{background:var(--green-dim);color:#6ee7b7}.fo{background:var(--orange-dim);color:#fcd34d}
+.fr{background:var(--red-dim);color:#fca5a5}.fb{background:var(--blue-dim);color:#93c5fd}
+.take{background:var(--card);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:10px 14px;margin-top:14px;font-size:13px;font-weight:500;color:#cbd5e1}
+.alpha-card{background:var(--card);border-radius:10px;padding:16px;display:grid;gap:10px;margin:8px 0}
+.alpha-row{display:grid;grid-template-columns:80px 1fr;gap:10px;font-size:13px;border-bottom:1px solid var(--border);padding-bottom:8px}
+.alpha-row:last-child{border-bottom:none;padding-bottom:0}
+.alpha-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);padding-top:2px}
+.watch-grid{display:grid;gap:8px;margin:8px 0}
+.watch-card{background:var(--card);border-radius:8px;padding:12px 14px;display:grid;grid-template-columns:32px 1fr;gap:10px;align-items:start}
+.watch-num{font-size:20px;font-weight:800;color:var(--accent);line-height:1}
+.wb-title{font-size:13px;font-weight:600;color:#fff;margin-bottom:4px}
+.wb-detail{font-size:12px;color:var(--muted);line-height:1.4;margin-bottom:8px}
+.watch-outcomes{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.outcome{border-radius:6px;padding:6px 8px;font-size:11px;font-weight:500}
+.outcome.good{background:var(--green-dim);color:#6ee7b7}
+.outcome.bad{background:var(--red-dim);color:#fca5a5}
+.pm-q{background:linear-gradient(135deg,var(--blue-dim),var(--green-dim));border:1px solid rgba(59,130,246,.2);border-radius:8px;padding:14px;font-size:13px;font-style:italic;color:var(--text);margin-top:10px;line-height:1.5}
+.unverified{color:var(--orange);font-size:12px}
+.divider{height:1px;background:var(--border);margin:14px 0}
+.asset-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:6px;margin-top:12px}
 </style>
 </head>
 <body>
+
 <header>
-  <h1>&#x1F4CA; Fixed Income Briefing</h1>
-  <div class="meta">Monday, May 19, 2026</div>
-  <div class="updated">Generated at 06:45 ET</div>
+  <div class="hdr-left">
+    <h1>📊 Fixed Income Briefing</h1>
+    <div class="hdr-sub">Tuesday, May 26, 2026</div>
+  </div>
+  <div class="hdr-right">Generated 5:05 AM ET</div>
 </header>
+
+<div class="stats-ticker">
+  <div class="stat-tile"><div class="st-label">Fed Funds</div><div class="st-value">3.75%</div><div class="st-change flat">ON HOLD</div></div>
+  <div class="stat-tile"><div class="st-label">2yr UST</div><div class="st-value">4.81%</div><div class="st-change up">+2bps <span class="unverified">[~]</span></div></div>
+  <div class="stat-tile"><div class="st-label">10yr UST</div><div class="st-value">4.57%</div><div class="st-change up">+3bps</div></div>
+  <div class="stat-tile"><div class="st-label">30yr UST</div><div class="st-value">4.78%</div><div class="st-change up">+4bps <span class="unverified">[~]</span></div></div>
+  <div class="stat-tile"><div class="st-label">CDX IG</div><div class="st-value">58.2</div><div class="st-change up">+1.8 <span class="unverified">[~]</span></div></div>
+  <div class="stat-tile"><div class="st-label">CDX HY</div><div class="st-value">342</div><div class="st-change up">+8bps <span class="unverified">[~]</span></div></div>
+  <div class="stat-tile"><div class="st-label">WTI Crude</div><div class="st-value">$62.52</div><div class="st-change dn">+3.14%</div></div>
+  <div class="stat-tile"><div class="st-label">VIX</div><div class="st-value">17.01</div><div class="st-change up">+2.53%</div></div>
+</div>
+
 <main>
 
 <section>
-  <h2>1 &#x2014; THE BIG PICTURE</h2>
-  <p class="headline">The 30-year Treasury prints a fresh 18-year high as the Iran war energy shock keeps the Fed frozen and fiscal fears compound.</p>
+  <div class="sec-header"><span class="sec-icon">📐</span><span class="sec-title">Morning Positioning</span></div>
+  <p class="sec-headline">Strait of Hormuz disruption reshapes today's sector views — energy benefits, Middle East EM exposed</p>
 
-  <p>Treasury yields extended their surge overnight: the <strong>2yr sits at 4.08%</strong> <span class="unverified">[~]</span> (<strong>+3bps</strong>), the <strong>10yr at 4.65%</strong> (<strong>+5bps</strong>, a 16-month high per market data), and the <strong>30yr hit 5.20%</strong> (<strong>+7bps</strong>) &#x2014; its highest print since 2007 per CNN Business (May 19, 2026). <span class="flag flag-blue">&#x1F535; MACRO</span></p>
+  <div class="alert-banner">
+    <span class="alert-icon">⚠️</span>
+    <div class="alert-text"><strong>Geopolitical Alert:</strong> US-Iran conflict has effectively closed the Strait of Hormuz — ~20% of global oil supply at risk. WTI +3.1% to <strong>$62.52</strong>, Brent recovering toward <strong>$100</strong>. Energy credit and Middle East EM are directly in play today.</div>
+  </div>
 
-  <p>The <strong>2s10s curve at +57bps</strong> is a <em>bear steepener under pressure</em> &#x2014; long-end vigilantes are repricing term premium, not front-end cuts &#x2014; as the Fed under Chair Kevin Warsh stays on hold with energy-driven inflation above target. <span class="flag flag-blue">&#x1F535; MACRO</span></p>
+  <div class="asset-label">Investment Grade</div>
+  <div class="pos-grid">
+    <div class="pos-card ow"><div class="pc-asset">IG Corporates</div><div class="pc-dir">▲ OVERWEIGHT</div><div class="pc-name">IG Energy — Integrated Majors (A/BBB)</div><div class="pc-why">WTI +3% + supply disruption = near-term revenue boost. High-quality integrated names benefit without the leverage risk of smaller E&Ps.</div></div>
+    <div class="pos-card uw"><div class="pc-asset">IG Corporates</div><div class="pc-dir">▼ UNDERWEIGHT</div><div class="pc-name">IG Tech / Comms</div><div class="pc-why">Heaviest Q1 issuers ($114B combined). OAS at cycle tights with no geopolitical tailwind. Risk/reward poor at 77bps broad IG.</div></div>
+  </div>
 
-  <p>The <strong>DXY at 99.08</strong> (+0.09%) reflects residual safe-haven demand despite the Moody's Aa1 downgrade anniversary; a persistent dollar bid is a headwind for EM borrowers with dollar-denominated obligations and commodity-sensitive IG credits earning foreign revenue. <span class="flag flag-blue">&#x1F535; MACRO</span></p>
+  <div class="asset-label">High Yield — BB/B Focus</div>
+  <div class="pos-grid">
+    <div class="pos-card ow"><div class="pc-asset">High Yield</div><div class="pc-dir">▲ OVERWEIGHT</div><div class="pc-name">BB Healthcare</div><div class="pc-why">Defensive cash flows, insulated from energy and geopolitical volatility. Quality cohort at reasonable spread vs. 5yr avg.</div></div>
+    <div class="pos-card uw"><div class="pc-asset">High Yield</div><div class="pc-dir">▼ UNDERWEIGHT</div><div class="pc-name">CCC Broadly</div><div class="pc-why">~920bps and widening vs. BB. Bifurcation accelerating. Geopolitical uncertainty adds pressure to weakest levered names.</div></div>
+  </div>
 
-  <p><strong>WTI at $104.36/bbl</strong> (-0.02%) &#x2014; stabilized but still elevated. The Strait of Hormuz carries only <strong>5%</strong> of pre-conflict shipping volumes with the April 7 ceasefire still uneasy; for credit, triple-digit oil means consumer-facing and transportation HY borrowers face a structural margin headwind even as headline spreads appear orderly. <span class="flag flag-blue">&#x1F535; MACRO</span> <span class="flag flag-yellow">&#x1F7E1; ENERGY</span></p>
+  <div class="asset-label">Emerging Markets — USD Hard Currency</div>
+  <div class="pos-grid">
+    <div class="pos-card ow"><div class="pc-asset">Emerging Markets</div><div class="pc-dir">▲ OVERWEIGHT</div><div class="pc-name">Mexico Sovereign</div><div class="pc-why">Banxico credibility intact, USMCA proximity insulates from Middle East disruption. Largest EMBI name with clear fundamental thesis.</div></div>
+    <div class="pos-card uw"><div class="pc-asset">Emerging Markets</div><div class="pc-dir">▼ UNDERWEIGHT</div><div class="pc-name">Middle East Quasi-Sovereigns</div><div class="pc-why">Strait of Hormuz closure = direct operational and geopolitical tail risk for KSA/UAE, even with oil revenue benefit.</div></div>
+  </div>
 
-  <p><strong>The desk story today:</strong> Moody's downgraded the US sovereign to Aa1 exactly one year ago (May 19, 2025), and the bond market is re-living the trauma. The 30yr term premium is blowing out on fiscal concerns tied to the "big beautiful bill" deficit trajectory, compounded by an Iran war energy shock that prevents the Fed from easing. The IEA called this "the greatest global energy security challenge in history." GDP is tracking at <strong>1.9%</strong> (Atlanta Fed), down from 3.6% pre-conflict. This is stagflation-lite, and the long end knows it. <span class="flag flag-blue">&#x1F535; MACRO</span></p>
+  <div class="asset-label">Agency MBS</div>
+  <div class="pos-grid">
+    <div class="pos-card ow"><div class="pc-asset">Agency MBS</div><div class="pc-dir">▲ OVERWEIGHT</div><div class="pc-name">Current Coupon 30yr (6.0–6.5 Stack)</div><div class="pc-why">ATM coupon = minimal convexity risk. Agency backstop bid ($118B remaining) provides floor. Basis ~115bps attractive.</div></div>
+    <div class="pos-card uw"><div class="pc-asset">Agency MBS</div><div class="pc-dir">▼ AVOID</div><div class="pc-name">Discounted Lower Coupon (4.5–5.0)</div><div class="pc-why">Geopolitical rates vol amplifies extension risk. Wrong side of convexity in a risk-off environment.</div></div>
+  </div>
+
+  <div class="asset-label">Securitized</div>
+  <div class="pos-grid">
+    <div class="pos-card ow"><div class="pc-asset">Securitized</div><div class="pc-dir">▲ OVERWEIGHT</div><div class="pc-name">CLO AAA</div><div class="pc-why">~130bps vs. IG corps at 77bps = +53bps pickup. No historical principal loss in BSL deals. $330B refi wave is a technical tailwind.</div></div>
+    <div class="pos-card uw"><div class="pc-asset">Securitized</div><div class="pc-dir">▼ UNDERWEIGHT</div><div class="pc-name">Office CMBS Mezz</div><div class="pc-why">WFH secular headwind + any economic slowdown from geopolitical risk amplifies CRE stress. Special servicer pipeline building.</div></div>
+  </div>
+
+  <div class="conviction-bar">
+    <strong>High conviction:</strong> CLO AAA OW (spread math clear, $330B refi tailwind) &nbsp;·&nbsp; CCC UW (bifurcation accelerating)<br>
+    <strong>Watch closely:</strong> IG Energy OW — flips if Strait of Hormuz reopens quickly or disruption proves shorter than feared
+  </div>
 </section>
 
 <section>
-  <h2>2 &#x2014; INVESTMENT GRADE</h2>
-  <p class="headline">IG credit spreads remain historically compressed even as the 30-year backup delivers brutal total return pain to duration holders.</p>
+  <div class="sec-header"><span class="sec-icon">🌐</span><span class="sec-title">The Big Picture</span></div>
+  <p class="sec-headline">US-Iran conflict closes Strait of Hormuz — energy inflation re-emerges as rates drift higher</p>
 
-  <p><strong>CDX IG 5yr at ~72bps</strong> <span class="unverified">[~]</span> (+2bps overnight) &#x2014; a slight softening but well within the calm range; the marginal bid for protection at the long end reflects rates anxiety more than a credit quality reassessment. <span class="flag flag-red">&#x1F534; IG</span></p>
+  <div class="alert-banner">
+    <span class="alert-icon">🛢️</span>
+    <div class="alert-text"><strong>Today's story:</strong> Strait of Hormuz effectively closed, disrupting 10M+ barrels/day. WTI +3.1% recovering to <strong>$62.52</strong> after Monday's −7% drop. Brent approaching <strong>$100</strong>. This is the session's dominant risk factor across energy credit, EM, and rates volatility.</div>
+  </div>
 
-  <p>The <strong>ICE BofA US Corporate OAS is ~80bps</strong>, with <strong>BBB at ~100bps</strong> and AA at ~50bps. <span class="unverified">[~]</span> The 1-year range has been roughly <strong>60&#x2013;100bps</strong> &#x2014; current levels sit in the lower third, reflecting technically-driven compression that is disconnected from the deteriorating macro backdrop. <span class="flag flag-red">&#x1F534; IG</span></p>
+  <div class="metrics-row">
+    <div class="metric-box warn"><div class="mb-label">2s10s Curve</div><div class="mb-value">−24bps</div><div class="mb-sub">Still inverted</div></div>
+    <div class="metric-box bad"><div class="mb-label">WTI Crude</div><div class="mb-value">$62.52</div><div class="mb-sub">+3.14% today</div></div>
+    <div class="metric-box warn"><div class="mb-label">VIX</div><div class="mb-value">17.01</div><div class="mb-sub">+2.53% — elevated</div></div>
+    <div class="metric-box"><div class="mb-label">Fed Funds</div><div class="mb-value">3.75%</div><div class="mb-sub">3rd straight hold · 8-4 vote</div></div>
+  </div>
 
-  <p>New issue volumes remain robust: IG gross supply hit a record <strong>$721 billion in 1Q26</strong>, driven by hyperscaler AI infrastructure financing. This week, tech sector issuers are rumored in market with multi-tranche 10yr/30yr structures &#x2014; execution expected to require a <strong>5&#x2013;7bp NIC</strong> given the 30yr backup and MOVE at 86. <span class="unverified">[~]</span> <span class="flag flag-red">&#x1F534; IG</span></p>
+  <p>The Fed held at <strong>3.50–3.75%</strong> at its April meeting with an <strong>8-4 dissent vote</strong> — the most fractured FOMC since October 1992. The four dissenters signal genuine disagreement on the path forward. Inflation remains above the <strong>2% target</strong> with progress stalled, and the Strait of Hormuz supply shock adds fresh energy inflation risk just as the Fed was holding steady. <span class="flag fb">🔵 MACRO</span></p>
+  <p>The yield curve remains <strong>inverted at −24bps (2s10s)</strong> — a recessionary signal that has persisted through much of the hiking cycle. The 10yr at <strong>4.57%</strong> is drifting higher on energy inflation expectations, pressuring duration. Watch this level closely if Hormuz stays closed — a move toward 4.75% would materially reprice the long end. <span class="flag fb">🔵 RATES</span></p>
 
-  <p>No significant ratings actions overnight; fallen angel risk remains concentrated in energy-linked industrials and consumer discretionary issuers with Middle East supply-chain exposure. Watch for IG-to-HY migration in leveraged consumer names if oil holds above $100 through Q3. <span class="flag flag-red">&#x1F534; IG</span> <span class="flag flag-yellow">&#x1F7E1; ENERGY</span> <span class="flag flag-yellow">&#x1F7E1; CONSUMER</span></p>
-
-  <p><strong>Sector to watch:</strong> <strong>Financials (FINS)</strong> look interesting vs their own history. Bank senior unsecured at ~85bps for BBB reflects post-2023 mini-crisis normalization, but net interest margin tailwinds from higher-for-longer rates have materially improved bank credit quality. The spread compensates modestly for rate sensitivity while fundamentals are arguably better than the price implies. <span class="flag flag-yellow">&#x1F7E1; FINS</span></p>
-
-  <div class="take">&#x27F6; The take: IG spread tightness masks a brutal total return environment &#x2014; if you are running duration, the 30yr bear steepener is the real enemy, not credit risk.</div>
+  <div class="take">⟶ The take: Geopolitical risk is today's driver. Defensive credit and current-coupon MBS hold better than long-duration IG and HY in this environment. Don't add risk until Hormuz clarity emerges.</div>
 </section>
 
 <section>
-  <h2>3 &#x2014; HIGH YIELD</h2>
-  <p class="headline">HY spreads are near historical tights but CCC dispersion is screaming late-cycle stress, and the new issue window is open but selective.</p>
+  <div class="sec-header"><span class="sec-icon">📈</span><span class="sec-title">Investment Grade</span></div>
+  <p class="sec-headline">Spreads at cycle tights — Energy stands out as today's geopolitical beneficiary</p>
 
-  <p><strong>CDX HY 5yr at ~340bps</strong> <span class="unverified">[~]</span> (+5bps overnight), diverging from CDX IG &#x2014; the <strong>HY/IG basis widened ~3bps</strong> overnight, marginal risk-off at the lower end of quality. <span class="flag flag-red">&#x1F534; HY</span></p>
+  <div class="metrics-row">
+    <div class="metric-box bad"><div class="mb-label">IG OAS</div><div class="mb-value">77bps</div><div class="mb-sub">Bottom decile post-GFC</div></div>
+    <div class="metric-box warn"><div class="mb-label">BBB OAS</div><div class="mb-value">~100bps</div><div class="mb-sub">Thin cushion</div></div>
+    <div class="metric-box good"><div class="mb-label">All-In Yield</div><div class="mb-value">5.22%</div><div class="mb-sub">Attractive coupon</div></div>
+  </div>
 
-  <p>The <strong>ICE BofA US HY OAS is ~279bps</strong>, tight vs the estimated <strong>3yr average of ~340bps</strong> <span class="unverified">[~]</span> and <strong>5yr average of ~380bps</strong> <span class="unverified">[~]</span> &#x2014; the market is pricing near-perfection on default risk even as energy costs and slowing GDP create fundamental headwinds. <span class="flag flag-red">&#x1F534; HY</span></p>
+  <div class="range-wrap">
+    <div class="range-header"><span class="range-name">IG OAS</span><span class="range-val">77 bps</span></div>
+    <div class="range-track"><div class="range-fill tight" style="width:14%"><div class="range-tick"></div></div></div>
+    <div class="range-zones"><span class="rz-tight">◀ Tight</span><span class="rz-fair">Fair Value</span><span class="rz-wide">Wide ▶</span></div>
+    <div class="range-bounds"><span>50bps</span><span>250bps</span></div>
+  </div>
 
-  <p>The <strong>CCC OAS is ~920bps</strong> vs <strong>BB at ~190bps</strong>, <span class="unverified">[~]</span> a <strong>BB/CCC differential of ~730bps</strong> &#x2014; this quality spread level is a late-cycle signal historically consistent with rising defaults 12&#x2013;18 months forward, concentrated in energy and consumer-facing CCCs facing $104 oil margin pressure. <span class="flag flag-red">&#x1F534; HY</span> <span class="flag flag-yellow">&#x1F7E1; ENERGY</span> <span class="flag flag-yellow">&#x1F7E1; CONSUMER</span></p>
+  <p>IG OAS compressed from <strong>95bps</strong> at year-end 2025 to <strong>77bps</strong> today — bottom decile of post-GFC readings. You are earning very little spread premium above Treasuries. The all-in yield of <strong>5.22%</strong> keeps institutional demand supported, but the spread itself provides minimal cushion if sentiment shifts. <span class="flag fr">🔴 UW: IG Tech/Comms — CONFIRMING</span></p>
+  <p>Q1 2026 IG supply hit a record <strong>$721B (+12% YoY)</strong>, driven by Tech ($64B) and Comms ($50B) — the two most crowded sectors at current spreads. Heavy supply pipeline into Q2 means concessions must widen to clear deals, which is the first technical headwind emerging. IG Energy names are the exception today — cash flow tailwind from WTI surge. <span class="flag fg">🟢 OW: IG Energy — CONFIRMING</span></p>
 
-  <p>The new issue window is open but selective: BB-rated credits with defensive cash flows (healthcare, regulated utilities) are clearing at manageable concessions. No distressed names with spreads <strong>&gt;1,000bps or price &lt;$70</strong> have traded publicly this week. <span class="unverified">[~]</span> Watch for stress to emerge in small-cap E&amp;P credits if WTI rolls down sharply on a Hormuz reopening. <span class="flag flag-red">&#x1F534; HY</span> <span class="flag flag-yellow">&#x1F7E1; ENERGY</span> <span class="flag flag-yellow">&#x1F7E1; HEALTHCARE</span></p>
-
-  <p><strong>Historical parallel: Q2 1994.</strong> The Fed was on hold after an aggressive hiking cycle, the long end was repricing inflation risk sharply, credit spreads were near multi-year tights, and leveraged borrowers with floating-rate debt began feeling the squeeze. The HY default rate accelerated 12&#x2013;18 months after that spread-tightness peak &#x2014; we appear to be at a similar inflection. <span class="flag flag-red">&#x1F534; HY</span></p>
-
-  <div class="take">&#x27F6; The take: At 279bps HY OAS with oil at $104 and GDP at 1.9%, the carry-versus-risk equation is the worst it has been since mid-2007 &#x2014; quality-up in HY is the only sensible posture.</div>
+  <div class="take">⟶ The take: Own IG Energy (integrated majors) selectively. Avoid Tech/Comms at these levels. All-in yield is attractive; the spread is not.</div>
 </section>
 
 <section>
-  <h2>4 &#x2014; SECURITIZED: CLOs</h2>
-  <p class="headline">CLO liabilities stabilized off April wides; below-IG tranches are this week&#x27;s top performers as carry reasserts across the capital stack.</p>
+  <div class="sec-header"><span class="sec-icon">⚡</span><span class="sec-title">High Yield</span></div>
+  <p class="sec-headline">286bps — well inside history, and the CCC-BB split is widening as a warning signal</p>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Rating</th>
-        <th>New Issue Spread (SOFR+)</th>
-        <th>Direction</th>
-        <th>vs. Corp Equiv. OAS</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><strong>AAA</strong></td>
-        <td>+124 bps</td>
-        <td>&#x2194; Stable</td>
-        <td>+44bps over AAA Corp (~80bps all-in)</td>
-      </tr>
-      <tr>
-        <td><strong>AA</strong></td>
-        <td>+175 bps <span class="unverified">[~]</span></td>
-        <td>&#x2198; Modest tightening</td>
-        <td>+125bps over AA Corp (~50bps OAS)</td>
-      </tr>
-      <tr>
-        <td><strong>A</strong></td>
-        <td>+240 bps <span class="unverified">[~]</span></td>
-        <td>&#x2194; Stable</td>
-        <td>+170bps over A Corp (~70bps OAS)</td>
-      </tr>
-      <tr>
-        <td><strong>BBB</strong></td>
-        <td>+370 bps <span class="unverified">[~]</span></td>
-        <td>&#x2197; Modestly wider</td>
-        <td>+270bps over BBB Corp (~100bps OAS)</td>
-      </tr>
-      <tr>
-        <td><strong>BB</strong></td>
-        <td>+650 bps <span class="unverified">[~]</span></td>
-        <td>&#x2197; Wider (range: 600&#x2013;900)</td>
-        <td>+460bps over BB HY (~190bps OAS)</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="metrics-row">
+    <div class="metric-box bad"><div class="mb-label">HY OAS</div><div class="mb-value">286bps</div><div class="mb-sub">vs. 400–500bps avg</div></div>
+    <div class="metric-box bad"><div class="mb-label">CCC OAS</div><div class="mb-value">~920bps</div><div class="mb-sub">Widening vs. BB ↑</div></div>
+    <div class="metric-box good"><div class="mb-label">BB / B</div><div class="mb-value">~210bps</div><div class="mb-sub">Compressing <span class="unverified">[~]</span></div></div>
+  </div>
 
-  <p>The <strong>LSTA Leveraged Loan Index avg bid is ~96.5</strong> <span class="unverified">[~]</span> &#x2014; loan prices at these levels support CLO equity NAV, but thinning bid-ask in energy loans is introducing selection risk for managers building new warehouses in the current environment. <span class="flag flag-red">&#x1F534; CLOs</span></p>
+  <div class="range-wrap">
+    <div class="range-header"><span class="range-name">HY OAS</span><span class="range-val">286 bps</span></div>
+    <div class="range-track"><div class="range-fill tight" style="width:7%"><div class="range-tick"></div></div></div>
+    <div class="range-zones"><span class="rz-tight">◀ Tight</span><span class="rz-fair">Fair Value</span><span class="rz-wide">Wide ▶</span></div>
+    <div class="range-bounds"><span>250bps</span><span>800bps</span></div>
+  </div>
 
-  <p>CLO YTD issuance stands at <strong>$47 billion across 99 deals</strong> &#x2014; slightly below 2025's pace but healthy. Formation was lighter in the last two weeks of April amid wider CLO liabilities from tariff/geopolitical volatility; May is showing a tentative recovery with below-IG tranches now the top-performing part of the capital stack YTD. <span class="flag flag-red">&#x1F534; CLOs</span></p>
+  <p>Broad HY at <strong>286bps</strong> is running well inside its historical average of <strong>400–500bps</strong> — priced for near-perfection. The real signal is the quality split: BB and B spreads keep compressing while <strong>CCC is at ~920bps and widening</strong>. This bifurcation between the strongest and weakest HY cohorts historically precedes a broader risk-off move in the full index by 2–3 months. <span class="flag fr">🔴 UW: CCC — CONFIRMING</span></p>
+  <p>AI/software loan stress visible in CLO MVOC deterioration is seeping into levered HY names with the same tech exposure. <strong>BB Healthcare</strong> remains insulated — defensive cash flows, no geopolitical exposure, reasonable spread. The HY window is open today but at a higher cost than last week as CDX HY widens on Middle East headlines. <span class="flag fg">🟢 OW: BB Healthcare — CONFIRMING</span> <span class="flag fb">🔵 MACRO</span></p>
 
-  <p><strong>Best stack value:</strong> <strong>CLO BBB at S+370 vs IG BBB corp at OAS +100</strong> is a <strong>270bp pickup</strong> for an equivalent rating &#x2014; structural seniority, diversified collateral, and the SOFR floating rate hedge make this stack attractively priced relative to its corporate equivalent, especially with rates volatile and the forward curve flat. <span class="flag flag-red">&#x1F534; CLOs</span></p>
+  <div class="take">⟶ The take: Quality-biased only. BB Healthcare and defensive B names. CCC is a warning light, not a buying opportunity at these levels.</div>
 </section>
 
 <section>
-  <h2>5 &#x2014; SECURITIZED: CMBS / SASB</h2>
-  <p class="headline">Conduit BBB- at +450bps is doing the heavy lifting on spread widening; office stress signals are quietly building on servicer watchlists.</p>
+  <div class="sec-header"><span class="sec-icon">🏗️</span><span class="sec-title">Securitized Products</span></div>
+  <p class="sec-headline">CLO AAA is the cleanest relative value trade — 53bps pickup vs. IG corps for the same rating</p>
 
-  <p><strong>Conduit AAA at +78bps</strong>, <strong>BBB- at +450bps</strong> &#x2014; the mezz stack is meaningfully wider than comparable 2025 levels (BBB- was ~350bps a year ago) and reflective of genuine CRE stress concerns. The March BMARK 2026-V21 deal ($1.2bn) priced longer-duration loans at +82bps AAA and +550bps BBB, suggesting some secondary spread tightening since that print. <span class="flag flag-red">&#x1F534; CMBS</span> <span class="flag flag-yellow">&#x1F7E1; RE</span></p>
+  <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">CLO Tranche Stack — bar width proportional to spread</div>
+  <div style="font-size:11px;color:var(--muted);margin-bottom:10px">AAA has never experienced a principal loss in a broadly syndicated deal. Equity (not shown) absorbs losses first.</div>
 
-  <p>No significant SASB deals are in market today; the SASB pipeline has been hamstrung by elevated 10yr Treasuries making sponsor economics challenging for office and retail assets. Industrial SASB remains the most likely to clear given NOI resilience and tight vacancy. <span class="flag flag-red">&#x1F534; CMBS</span> <span class="flag flag-yellow">&#x1F7E1; RE</span></p>
+  <div class="clo-stack">
+    <div class="clo-row t-aaa"><span class="clo-tranche">AAA</span><div class="clo-bar-wrap"><div class="clo-bar" style="width:15%"></div></div><span class="clo-spread">130bps</span><span class="clo-chg flat">→</span></div>
+    <div class="clo-row t-aa"><span class="clo-tranche">AA</span><div class="clo-bar-wrap"><div class="clo-bar" style="width:21%"></div></div><span class="clo-spread">178bps</span><span class="clo-chg up">↑</span></div>
+    <div class="clo-row t-a"><span class="clo-tranche">A</span><div class="clo-bar-wrap"><div class="clo-bar" style="width:27%"></div></div><span class="clo-spread">230bps</span><span class="clo-chg flat">→</span></div>
+    <div class="clo-row t-bbb"><span class="clo-tranche">BBB</span><div class="clo-bar-wrap"><div class="clo-bar" style="width:38%"></div></div><span class="clo-spread">320bps</span><span class="clo-chg up">↑</span></div>
+    <div class="clo-row t-bb"><span class="clo-tranche">BB</span><div class="clo-bar-wrap"><div class="clo-bar" style="width:85%"></div></div><span class="clo-spread">725bps</span><span class="clo-chg up">↑</span></div>
+  </div>
 
-  <p>CRE stress signals are building: servicer watchlist additions accelerated in Q1 for urban office (driven by WFH normalization plus higher refinancing costs at the 5.2% 30yr), and delinquency rates for 2021-vintage office conduit loans are tracking above prior-cycle wides. <span class="unverified">[~]</span> The energy shock is indirectly pressuring CRE through reduced corporate capex and office leasing demand from energy sector tenants in Houston and Dallas. <span class="flag flag-red">&#x1F534; CMBS</span> <span class="flag flag-yellow">&#x1F7E1; RE</span> <span class="flag flag-yellow">&#x1F7E1; ENERGY</span></p>
+  <div class="clo-vs"><strong>Relative value:</strong> CLO AAA at 130bps vs. IG corps at 77bps = <strong>+53bps pickup</strong> for the same rating with no historical principal loss. CLO BBB at 320bps vs. BBB corps at ~100bps = <strong>+220bps</strong> pickup (higher structural risk, but compelling spread math for investors who can take it).</div>
 
-  <p><strong>Industrial CMBS</strong> is the property type in focus as a relative safe harbor: vacancy near all-time lows, rent growth still positive, and institutional demand for logistics-adjacent assets is creating structural support for NOIs. Industrial conduit AAA clears approximately <strong>20bps tighter</strong> than mixed-collateral conduit AAA on a risk-adjusted basis. <span class="unverified">[~]</span> <span class="flag flag-red">&#x1F534; CMBS</span> <span class="flag flag-yellow">&#x1F7E1; RE</span></p>
+  <p style="margin-top:12px"><strong>LSTA Loan WAS: 361bps</strong> (end of May, down from 369bps at year-start). Loan spreads compressing = collateral health improving = supportive for CLO coverage ratios. <strong>$330B of CLO notional in-the-money</strong> for refi/reset at 130bps AAA — refi wave is a direct technical tailwind. <span class="flag fg">🟢 OW: CLO AAA — CONFIRMING</span></p>
+  <p>BB tranche MVOCs down ~<strong>1.2 points in 2026</strong> due to AI/software loan exposure — this is why we stay senior in the stack. Office CMBS mezz remains a clear underweight: WFH secular headwind + geopolitical-driven economic uncertainty = more special servicer pipeline ahead. <span class="flag fr">🔴 UW: Office CMBS — CONFIRMING</span> <span class="flag fb">🔵 RE</span></p>
 
-  <div class="take">&#x27F6; The take: CMBS mezz at +450bps embeds meaningful CRE stress &#x2014; you are being paid to wait for the office-to-industrial re-mix, but avoid 2021-vintage office conduit mezz until servicer transfer data stabilizes.</div>
+  <div class="take">⟶ The take: CLO AAA is the highest-conviction trade in securitized. Stay senior. Avoid CLO BB and office CMBS mezz until AI/software loan volatility stabilizes.</div>
 </section>
 
 <section>
-  <h2>6 &#x2014; AGENCY MBS</h2>
-  <p class="headline">Agency MBS faces the worst of both worlds &#x2014; 30yr rate volatility and compressed carry &#x2014; but carry-hunters are showing up at the margin.</p>
+  <div class="sec-header"><span class="sec-icon">🏠</span><span class="sec-title">Agency MBS</span></div>
+  <p class="sec-headline">Agency backstop bid intact — current coupon is the only part of the stack worth owning in this rate environment</p>
 
-  <p>The <strong>current coupon MBS OAS is approximately +30bps</strong> <span class="unverified">[~]</span>, with a <strong>nominal spread to the 10yr of ~105bps</strong> <span class="unverified">[~]</span>. The OAS has widened ~5bps from early 2026 tights as rate volatility (MOVE at 86.07) pressures option-adjusted valuations &#x2014; negative convexity is being re-priced in real time. <span class="flag flag-red">&#x1F534; MBS</span></p>
+  <div class="metrics-row">
+    <div class="metric-box warn"><div class="mb-label">MBS Basis</div><div class="mb-value">~115bps</div><div class="mb-sub">Nominal spread to UST</div></div>
+    <div class="metric-box bad"><div class="mb-label">Sector OAS</div><div class="mb-value">~23bps</div><div class="mb-sub">Near 3yr tight <span class="unverified">[~]</span></div></div>
+    <div class="metric-box good"><div class="mb-label">Agency Bid</div><div class="mb-value">$118B</div><div class="mb-sub">Remaining capacity</div></div>
+  </div>
 
-  <p><strong>30yr vs 15yr relative value:</strong> 30yr current coupon trades ~30bps cheap to 15yr on an OAS basis <span class="unverified">[~]</span>, reflecting the convexity penalty from rate volatility at the long end and extension risk if rates stay elevated. The 30yr offers more carry but the negative convexity at current coupons makes 15yr the cleaner structure for total return mandates navigating a high-MOVE environment. <span class="flag flag-red">&#x1F534; MBS</span></p>
+  <div class="range-wrap">
+    <div class="range-header"><span class="range-name">MBS OAS</span><span class="range-val">~23 bps</span></div>
+    <div class="range-track"><div class="range-fill tight" style="width:24%"><div class="range-tick"></div></div></div>
+    <div class="range-zones"><span class="rz-tight">◀ Tight</span><span class="rz-fair">Fair Value</span><span class="rz-wide">Wide ▶</span></div>
+    <div class="range-bounds"><span>5bps</span><span>80bps</span></div>
+  </div>
 
-  <p><strong>Prepayment outlook:</strong> Refinancing incentive is near zero with the 30yr mortgage rate estimated at ~7.4% <span class="unverified">[~]</span>. Speeds on 2020&#x2013;2021 vintage low-coupon pools are in effective lock-up and will remain slow, providing excellent positive convexity for holders of those pools. New origination speeds on current coupon pools are tracking at <strong>3&#x2013;4 CPR</strong>. <span class="unverified">[~]</span> <span class="flag flag-red">&#x1F534; MBS</span></p>
+  <p>Fannie Mae bought <strong>$18.3B</strong> in March 2026 — the largest agency purchase since 2009 — with <strong>$118B of mandated buying capacity remaining</strong>. This backstop bid is the most important non-Fed technical in MBS right now and directly supports spread floors. <span class="flag fg">🟢 OW: Current Coupon MBS — CONFIRMING</span></p>
+  <p><strong>Coupon call:</strong> The <strong>6.0–6.5 stack</strong> is the current-coupon sweet spot — ATM prepayment option means minimal extension and contraction risk at today's 10yr rate of 4.57%. The <strong>4.5–5.0 coupon</strong> faces meaningful duration extension in a risk-off rates spike from geopolitical escalation. Elevated energy-driven rates vol makes convexity management critical today. <span class="flag fo">🟠 AVOID: Lower Coupon MBS — rates vol amplifies extension risk</span></p>
 
-  <p><strong>Fed QT runoff pace:</strong> The Fed is rolling off approximately <strong>$15bn/month</strong> <span class="unverified">[~]</span> in agency MBS, reinvesting maturities into Treasuries rather than replacing MBS. The technical implication is a sustained absence of a captive marginal buyer at the long end of the MBS stack, keeping nominal spreads ~20bps wider than 2022 pre-QT tights. <span class="flag flag-red">&#x1F534; MBS</span></p>
-
-  <div class="take">&#x27F6; The take: Agency MBS is structurally cheap vs corp IG on OAS but the MOVE at 86 is poisoning option-adjusted metrics &#x2014; wait for vol to compress before extending duration in current coupon MBS.</div>
+  <div class="take">⟶ The take: Own 30yr Agency 6.0–6.5 with the agency bid as your floor. The discounted lower coupon stack is wrong-side convexity in this environment.</div>
 </section>
 
 <section>
-  <h2>7 &#x2014; EMERGING MARKETS</h2>
-  <p class="headline">EM hard currency near historical tight-spread equilibrium, but Turkey and Argentina are stress-testing the resilience thesis in real time.</p>
+  <div class="sec-header"><span class="sec-icon">🌎</span><span class="sec-title">Emerging Markets</span></div>
+  <p class="sec-headline">Strait of Hormuz splits EM in two — Mexico holds, Middle East names face direct sovereign tail risk</p>
 
-  <p>The <strong>EMBI Global Diversified spread is ~365bps</strong> <span class="unverified">[~]</span>, roughly unchanged overnight &#x2014; at or near the tightest levels since the GFC, reflecting structural improvement in EM sovereign credit quality but leaving limited margin of safety for an energy-shock or contagion repricing. <span class="flag flag-red">&#x1F534; EM</span></p>
+  <div class="metrics-row">
+    <div class="metric-box bad"><div class="mb-label">EMBI Spread</div><div class="mb-value">~153bps</div><div class="mb-sub">Over UST — very tight</div></div>
+    <div class="metric-box warn"><div class="mb-label">EMB Yield</div><div class="mb-value">~6.0%</div><div class="mb-sub">Hard currency all-in</div></div>
+  </div>
 
-  <p>Hard currency EM debt continues to attract flows ($2.2bn into hard currency funds in January 2026 alone), while local currency has lagged as DXY holds near 99. The dollar's modest strength is compressing local currency returns in real terms, and the May FX storm in Turkey and Argentina has accelerated the divergence between commodity exporters and importers. <span class="flag flag-red">&#x1F534; EM</span></p>
+  <div class="range-wrap">
+    <div class="range-header"><span class="range-name">EMBI Spread</span><span class="range-val">~153 bps</span></div>
+    <div class="range-track"><div class="range-fill tight" style="width:13%"><div class="range-tick"></div></div></div>
+    <div class="range-zones"><span class="rz-tight">◀ Tight</span><span class="rz-fair">Fair Value</span><span class="rz-wide">Wide ▶</span></div>
+    <div class="range-bounds"><span>100bps</span><span>500bps</span></div>
+  </div>
 
-  <p><strong>Turkey:</strong> Currency depreciation pressures erupted in May, with the lira under significant attack. The central bank delivered a sharp emergency rate hike to stabilize the FX, and markets calmed only after the move was deemed credible. Turkey equities were up <strong>+21% YTD as of February</strong>; the May storm has erased a meaningful portion of those gains. Turkish sovereign spreads blew out an estimated <strong>~80bps</strong> <span class="unverified">[~]</span> before partially recovering. <span class="flag flag-red">&#x1F534; EM</span></p>
+  <p><strong>Mexico:</strong> Banxico held with an inflation-first stance — credit-positive near term. USMCA proximity means Mexico is structurally insulated from Middle East supply disruption. MXN stability supports hard currency bond performance. At ~5% of EMBI Global Diversified, it is a size-appropriate name with a clear thesis today. <span class="flag fg">🟢 OW: Mexico — CONFIRMING</span></p>
+  <p><strong>Middle East (KSA, UAE):</strong> Despite the oil revenue benefit from higher WTI, the Strait of Hormuz closure creates direct operational and tail risk for sovereigns whose economic infrastructure depends on strait passage. Spread widening risk is asymmetric — the revenue upside is already known; the downside scenarios are not priced at current tight EMBI levels. <span class="flag fr">🔴 UW: Middle East — CONFIRMING</span> <span class="flag fb">🔵 MACRO</span></p>
 
-  <p><strong>Argentina:</strong> Facing the same May FX storm, Argentina sought a new IMF credit facility to anchor the peso &#x2014; a stabilizing move that signals underlying balance of payments stress. Argentine sovereign spreads are tracking <strong>~200bps wider</strong> than Q1 2026 tights. <span class="unverified">[~]</span> The IMF program imposes fiscal austerity that dampens near-term growth expectations. <span class="flag flag-red">&#x1F534; EM</span></p>
-
-  <p><strong>Brazil:</strong> The standout relative outperformer &#x2014; commodity-linked (metals, agricultural exports), with fiscal stabilization on track. Brazil ETF was <strong>+22% YTD</strong> through early 2026. The energy shock is a net positive given Brazil's oil production capacity, and Brazilian sovereign spreads held near YTD tights even as Turkey and Argentina sold off. <span class="flag flag-red">&#x1F534; EM</span> <span class="flag flag-yellow">&#x1F7E1; ENERGY</span></p>
-
-  <p><strong>Notable FX moves:</strong> Turkish lira and Argentine peso are the key stress moves; the <strong>Brazilian real</strong> is the G-EM outperformer, supported by WTI above $100 and robust commodity exports. Commodity linkage is the dominant FX divergence driver in May. <span class="flag flag-red">&#x1F534; EM</span></p>
-
-  <div class="take">&#x27F6; The take: EM hard currency is priced for a soft landing that Argentina and Turkey are already not delivering &#x2014; stay overweight Brazil, underweight Turkey until the lira stabilizes and the IMF framework for Argentina is confirmed.</div>
+  <div class="take">⟶ The take: Mexico is the clearest quality-biased EM idea today. Avoid Middle East exposure until Hormuz situation clarifies. Broad EMBI at 153bps is too tight to add risk without a specific catalyst.</div>
 </section>
 
 <section>
-  <h2>8 &#x2014; SUPPLY, FLOWS &amp; TECHNICALS</h2>
-  <p class="headline">Record YTD IG supply runs into a MOVE spike &#x2014; concessions are rising but the bid remains present for quality paper.</p>
+  <div class="sec-header"><span class="sec-icon">🔧</span><span class="sec-title">Supply, Flows &amp; Technicals</span></div>
+  <p class="sec-headline">Record supply meets geopolitical risk-off — the technical bid is being tested</p>
 
-  <p><strong>New issue volume:</strong> IG gross supply hit a record <strong>$721 billion in 1Q26</strong>, running well above full-year estimates for any prior year. This week's projected IG new issue volume is estimated at <strong>~$25bn</strong> <span class="unverified">[~]</span> vs ~$18bn last week, driven by hyperscaler issuance and financial sector refinancing ahead of the June FOMC. YTD 2026 supply is tracking significantly above 2025's record pace. <span class="flag flag-red">&#x1F534; IG</span> <span class="flag flag-blue">&#x1F535; MACRO</span></p>
+  <div class="metrics-row">
+    <div class="metric-box bad"><div class="mb-label">Q1 IG Supply</div><div class="mb-value">$721B</div><div class="mb-sub">+12% YoY, record</div></div>
+    <div class="metric-box warn"><div class="mb-label">VIX</div><div class="mb-value">17.01</div><div class="mb-sub">+2.53% — elevated</div></div>
+    <div class="metric-box warn"><div class="mb-label">MOVE Index</div><div class="mb-value">—</div><div class="mb-sub">Unavailable <span class="unverified">[~]</span></div></div>
+  </div>
 
-  <p><strong>Fund flows:</strong> Taxable bond funds recorded estimated inflows of <strong>$21.6 billion</strong> for the week ended May 6, led by short-duration and ultra-short ETFs (SGOV among the top creations). Fixed income ETFs have captured <strong>$202 billion YTD</strong> through early May (~31% of total ETF flows). HY funds saw modest outflows in April (-$1.6bn, the largest monthly outflow in ~2 years) before re-bidding in early May. CLO ETFs remain the fastest-growing fixed income product category in 2026. <span class="flag flag-red">&#x1F534; HY</span> <span class="flag flag-red">&#x1F534; CLOs</span> <span class="flag flag-blue">&#x1F535; MACRO</span></p>
-
-  <p><strong>MOVE index at 86.07, +7.77% in the past 24 hours</strong> &#x2014; a significant one-day surge signaling Treasury option implied vol is spiking on the 30yr backup. At 86, we are in the "elevated but not extreme" zone (normal range 55&#x2013;130; extreme above 120). The practical implication: MBS OAS is widening, option-adjusted CLO valuations are under pressure, and IG issuers must price at larger NICs to clear the book. <span class="flag flag-blue">&#x1F535; MACRO</span> <span class="flag flag-red">&#x1F534; MBS</span></p>
-
-  <p><strong>Cross-asset:</strong> <strong>VIX at ~18</strong> &#x2014; equity volatility remains relatively contained, showing a notable divergence from the MOVE at 86. This bond/equity vol divergence is a classic late-cycle signal; history suggests it narrows when either credit spreads widen to meet the rates vol, or the equity market catches down to credit fundamentals. Equities appear to be shrugging off the 30yr at 5.2% &#x2014; that gap tends not to persist. <span class="flag flag-blue">&#x1F535; MACRO</span></p>
+  <p>Record IG issuance at <strong>$721B in Q1</strong> is the dominant technical force — heavy supply requires wider concessions to clear, even with strong institutional demand driven by the 5.22% all-in yield. Any oversubscription miss in today's deals is the first sign the demand bid is softening. <span class="flag fr">🔴 IG</span></p>
+  <p><strong>VIX at 17.01 (+2.5%)</strong> is elevated but not at stress levels — the market is nervous, not panicking, which means the risk-off move is not fully priced. The MOVE index is the key variable to track today; any geopolitical escalation spiking rates vol directly pressures MBS negative convexity and CLO mark-to-market values. <span class="flag fb">🔵 MACRO</span> <span class="flag fr">🔴 MBS</span></p>
 </section>
 
 <section>
-  <h2>9 &#x2014; HISTORICAL LENS</h2>
-  <p class="headline">Bear steepener plus energy shock plus tight credit spreads: this film has played before, and the third act is rarely kind to levered borrowers.</p>
+  <div class="sec-header"><span class="sec-icon">🔬</span><span class="sec-title">Historical Lens &amp; Alpha Idea</span></div>
 
-  <p><strong>Where we are:</strong> The US is navigating a simultaneous fiscal credibility shock (Moody's Aa1, expanding deficit, multi-trillion dollar budget bill), an energy supply shock (Strait of Hormuz at 5% capacity), and a Fed that cannot ease despite growth slowing to 1.9%. Credit spreads are historically tight while Treasury yields are at multi-year highs &#x2014; a compression that is unusual but not unprecedented. The equity market at VIX 18 is complacent relative to bond market volatility at MOVE 86.</p>
+  <p><strong>Where we are:</strong> IG OAS at 77bps (cycle tights), HY at 286bps (well inside norms), EMBI at 153bps, Fed on hold with a fractured 8-4 vote, and now a geopolitical supply shock via Strait of Hormuz. Risk assets are priced for a soft landing while the macro is delivering a curveball.</p>
 
-  <p><strong>Closest parallel: Q2 1994.</strong> The Fed was on hold after an aggressive hiking cycle, the long end was repricing inflation risk sharply (30yr yields broke 8% that year), credit spreads were near their tightest in a decade, and leveraged borrowers with floating-rate debt were beginning to feel the pinch of higher costs. What happened next: the HY default rate began rising 12&#x2013;18 months after the tightest spread levels, the IG market absorbed the supply shock with modest spread widening, and the bear steepener resolved with a parallel shift lower 18&#x2013;24 months later as the energy supply side eventually normalized.</p>
+  <div class="divider"></div>
 
-  <p><strong>Calibration, not prediction:</strong> The 1994 parallel argues for patience on duration (do not fight the steepener), caution on CCC-rated credit (defaults lag rate stress by 1&#x2013;2 years), and selectivity in commodity-linked EM sovereigns (energy exporters like Brazil yes, importers with current account deficits no). The regime break in 2026 would be a confirmed Hormuz reopening &#x2014; that single event would reprice oil, rates, and EM simultaneously.</p>
-</section>
+  <p><strong>Closest parallel — Q3 2019:</strong> Fed on hold after a cutting cycle, IG ~90bps, HY ~350bps, and the Abqaiq facility attack in September 2019 spiked WTI ~15% in a session. Credit spreads widened <strong>10–15bps across IG and HY</strong> before recovering within 3 weeks as the supply disruption proved temporary. The key lesson: geopolitically-driven credit widening tends to be sharp but short unless it triggers a recession. If the Strait of Hormuz remains partially disrupted for 2–4 weeks, expect IG to widen 10–20bps from current levels before stabilizing. This is calibration, not a prediction.</p>
 
-<section>
-  <h2>&#x1F4A1; TODAY'S ALPHA IDEA</h2>
-  <div class="alpha">
+  <div class="divider"></div>
+
+  <div class="alpha-card">
     <div class="alpha-row">
       <span class="alpha-label">Observation</span>
-      <span>CMBS conduit BBB- mezz at <strong>+450bps</strong> vs IG BBB corporate at <strong>+100bps OAS</strong> &#x2014; a <strong>350bp quality-equivalent pickup</strong> near its widest in 3 years, pricing in CRE stress that is structurally concentrated in office, not industrial. <span class="unverified">[~]</span></span>
+      <span>CLO AAA offers 53bps over IG corps at the same rating — driven by indiscriminate CLO selling from AI/software loan overhang despite senior tranche protection being fully intact.</span>
     </div>
     <div class="alpha-row">
       <span class="alpha-label">Evidence</span>
-      <span>(1) Industrial CMBS vacancy is near historic lows &#x2014; "office apocalypse" is bifurcated, not systemic. (2) CMBS BBB- at +450bps prices in ~15% cumulative loss scenarios implying mass office default that current servicer transfer data does not yet support. <span class="unverified">[~]</span> (3) The uneasy ceasefire signals Hormuz eventually reopens &#x2014; when oil falls, CRE debt service coverage ratios improve as tenant operating costs decline, reducing the tail risk currently priced into mezz.</span>
+      <span>CLO AAA ~130bps vs. IG corps at 77bps. $330B of BSL CLO notional in-the-money for refi at 130bps. LSTA WAS 361bps and declining — loan collateral quality improving, not deteriorating.</span>
     </div>
     <div class="alpha-row">
       <span class="alpha-label">The Risk</span>
-      <span>Ceasefire collapses; oil spikes to $120+; corporate tenants accelerate office space shedding; servicer transfers snowball into actual losses exceeding the spread buffer. Also: 30yr at 5.2%+ raises cap rates further, compressing property values even for industrial and limiting refinancing options across the collateral pool.</span>
+      <span>AI/software loan stress spreads beyond current names into broader leveraged loan market; MVOC deterioration accelerates past AA into AAA cushion, forcing manager selling. Low probability but non-zero given concentration in some BSL pools.</span>
     </div>
     <div class="alpha-row">
       <span class="alpha-label">Say It</span>
-      <span>"CMBS mezz BBB- is offering 350bps over comparable IG corporate for a risk concentrated in office &#x2014; a sector we can structurally underweight by selecting industrial-heavy conduit collateral &#x2014; and the 30yr rates selloff is already forcing the spread to compensate for duration; that is a double dip you rarely get in securitized."</span>
+      <span><em>"AAA CLOs are giving us 53bps over IG corps for structurally senior paper with no historical principal loss — the refi wave and the agency backstop in structured credit make this our best incremental spread dollar right now."</em></span>
     </div>
   </div>
 </section>
 
 <section>
-  <h2>&#x1F440; WATCH LIST</h2>
+  <div class="sec-header"><span class="sec-icon">👀</span><span class="sec-title">Today's Watch List</span></div>
 
-  <div class="watch-item">
-    <div class="watch-label">1 &#x2014; Strait of Hormuz Shipping Recovery (Ongoing / Daily Monitoring)</div>
-    <p>Shipping traffic is at <strong>5% of pre-conflict levels</strong> despite the April 7 ceasefire. Any credible milestone &#x2014; IAEA inspectors, tanker convoy clearance, or US-Iran diplomatic progress &#x2014; could trigger an oil selloff of $15&#x2013;20/bbl. <strong>Good outcome for credit:</strong> Oil drops to $80&#x2013;85, rates rally 15&#x2013;20bps, HY energy stress abates, EM oil importers tighten meaningfully. <strong>Bad outcome:</strong> Ceasefire breaks; oil spikes to $120+; the Fed faces a genuine stagflation dilemma and signals a hike. <strong>Sectors affected:</strong> <span class="flag flag-yellow">&#x1F7E1; ENERGY</span> <span class="flag flag-red">&#x1F534; HY</span> <span class="flag flag-red">&#x1F534; EM</span> <span class="flag flag-blue">&#x1F535; MACRO</span></p>
+  <div class="watch-grid">
+    <div class="watch-card">
+      <div class="watch-num">1</div>
+      <div>
+        <div class="wb-title">Strait of Hormuz — Any Official Statement</div>
+        <div class="wb-detail">White House or Iranian statement on naval activity. This is the session's binary event — it simultaneously moves energy credit, EM, and rates vol.</div>
+        <div class="watch-outcomes">
+          <div class="outcome good">✓ De-escalation → WTI reverses, EM recovers, IG holds</div>
+          <div class="outcome bad">✗ Escalation → WTI higher, EM widens, rates vol spikes</div>
+        </div>
+      </div>
+    </div>
+    <div class="watch-card">
+      <div class="watch-num">2</div>
+      <div>
+        <div class="wb-title">IG New Issue Concessions Today</div>
+        <div class="wb-detail">After record Q1 supply, watch whether today's deals price at guidance or require wider concessions. Any miss is the first crack in IG demand.</div>
+        <div class="watch-outcomes">
+          <div class="outcome good">✓ Tight pricing → demand intact, spreads hold</div>
+          <div class="outcome bad">✗ Wide concessions → supply fatigue, spreads drift wider</div>
+        </div>
+      </div>
+    </div>
+    <div class="watch-card">
+      <div class="watch-num">3</div>
+      <div>
+        <div class="wb-title">FOMC Minutes — April 28-29 (This Week)</div>
+        <div class="wb-detail">How the 4 dissenters framed their vote sets the tone for the next rate decision and directly impacts front-end rates and MBS duration expectations.</div>
+        <div class="watch-outcomes">
+          <div class="outcome good">✓ Dovish framing → front end rallies, MBS extension risk falls</div>
+          <div class="outcome bad">✗ Hawkish framing → 2yr yields up, MBS duration extends</div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="watch-item">
-    <div class="watch-label">2 &#x2014; Federal Reserve June FOMC Meeting (June 17&#x2013;18, 2026)</div>
-    <p>The first FOMC decision under Chair Warsh with updated economic projections &#x2014; markets are pricing <strong>zero cuts in 2026</strong>. A hawkish surprise (rate hike signal) would detonate IG and HY spreads; a dovish pivot (signaling eventual cuts) would steepen the curve before tightening spreads. <strong>Good outcome:</strong> "Higher for longer but no hike" message &#x2014; credit spreads absorb it with a 5&#x2013;10bp widening. <strong>Bad outcome:</strong> Warsh signals a hike to anchor inflation expectations; 30yr cracks through 5.5%, IG OAS jumps 20+bps. <strong>Sectors affected:</strong> <span class="flag flag-red">&#x1F534; IG</span> <span class="flag flag-red">&#x1F534; HY</span> <span class="flag flag-red">&#x1F534; MBS</span> <span class="flag flag-red">&#x1F534; CLOs</span> <span class="flag flag-blue">&#x1F535; MACRO</span></p>
-  </div>
-
-  <div class="watch-item">
-    <div class="watch-label">3 &#x2014; Argentina IMF Loan Agreement (This Week / Imminent)</div>
-    <p>Argentina is seeking a new IMF credit facility after the May FX storm; terms are expected imminently. <strong>Good outcome:</strong> IMF program confirmed with credible fiscal targets &#x2014; Argentine sovereign spreads tighten 150&#x2013;200bps, contagion risk to EMBI Global fades, Brazil holds tights. <strong>Bad outcome:</strong> Program collapses or domestic conditionality is rejected &#x2014; Argentine default risk reprices 300+bps, EMBI Global widens 15&#x2013;20bps on contagion. <strong>Sectors affected:</strong> <span class="flag flag-red">&#x1F534; EM</span> <span class="flag flag-blue">&#x1F535; MACRO</span></p>
-  </div>
-
-  <div class="pm-question">
-    &#x2753; <strong>Question to bring to your PM today:</strong> If the ceasefire holds through June and Hormuz reopens even partially, we get a simultaneous rates rally and an energy spread relief &#x2014; which single position benefits most from both at once: long CMBS mezz BBB- (duration plus CRE credit), long EM Brazil hard currency (commodity linkage plus duration), or long HY energy BB (oil price plus spread compression)? Which do we size first, and what is the options hedge for the tail case where the ceasefire breaks?
-  </div>
+  <div class="pm-q">💬 <strong>Question for your PM:</strong> "Given the Strait of Hormuz disruption and WTI recovering to $62, does our IG Energy OW thesis hold at current spread levels — or should we wait for spreads to widen 10–15bps before adding, using the 2019 Abqaiq playbook as the guide? And separately, does CLO AAA at 53bps over IG corps make more sense as our incremental spread dollar than adding IG duration here?"</div>
 </section>
 
 </main>
