@@ -230,6 +230,22 @@ ol, ul { margin-bottom: 12px }
 footer { background: var(--navy-dark); padding: 16px 36px; display: flex; justify-content: space-between; align-items: center; border-top: 2px solid var(--navy) }
 .ft-left, .ft-right { font-size: 11px; color: rgba(255,255,255,.38); letter-spacing: .03em }
 
+/* ── WATCHLIST TILES ── */
+.watchlist-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 12px 0 }
+.wl-tile { border: 1px solid var(--border); padding: 13px 14px }
+.wl-ticker { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .14em; color: var(--navy-mid); margin-bottom: 3px }
+.wl-label  { font-size: 11px; color: var(--muted); margin-bottom: 8px; line-height: 1.3 }
+.wl-price  { font-size: 20px; font-weight: 700; color: var(--navy); font-variant-numeric: tabular-nums; line-height: 1 }
+.wl-meta   { display: flex; gap: 10px; margin-top: 5px; font-size: 11px; flex-wrap: wrap }
+.wl-sub    { font-size: 10px; color: var(--muted); margin-top: 2px }
+
+/* ── PORTFOLIO TABLE — relative row ── */
+.port-row td { background: var(--gold-pale) !important; border-left: 3px solid var(--gold) }
+.port-row td:first-child { font-weight: 700; color: var(--navy) }
+.vs-col { font-size: 11px }
+.vs-col.ahead { color: var(--green) }
+.vs-col.behind { color: var(--red) }
+
 /* ══════════════════════════════════════════════════
    MOBILE  (≤640px)
 ══════════════════════════════════════════════════ */
@@ -342,6 +358,9 @@ footer { background: var(--navy-dark); padding: 16px 36px; display: flex; justif
   /* ── Watch outcomes — single column ── */
   .watch-outcomes { grid-template-columns: 1fr }
 
+  /* ── Watchlist — 2 columns on mobile ── */
+  .watchlist-grid { grid-template-columns: repeat(2, 1fr) }
+
   /* ── Footnotes + footer ── */
   .footnotes { padding: 14px 16px }
   footer { flex-direction: column; gap: 4px; text-align: center; padding: 14px 16px }
@@ -413,6 +432,8 @@ footer { background: var(--navy-dark); padding: 16px 36px; display: flex; justif
     <li><a href="#s07"><span class="toc-num">07</span>Portfolio Impact &amp; Trading Color</a></li>
     <li><a href="#s04"><span class="toc-num">04</span>Credit Markets</a></li>
     <li><a href="#s08"><span class="toc-num">08</span>Outlook &amp; Watch List</a></li>
+    <li><a href="#s09"><span class="toc-num">09</span>Portfolio vs. Benchmark</a></li>
+    <li><a href="#s10"><span class="toc-num">10</span>Ticker Watchlist</a></li>
   </ul>
 </div>
 
@@ -1046,6 +1067,157 @@ footer { background: var(--navy-dark); padding: 16px 36px; display: flex; justif
   </div>
 
   <div class="pm-q">Open question: IG at 80bps (6th pctile of 1yr range, in-line with LEH_CORP per <a href="https://fred.stlouisfed.org/series/BAMLC0A0CM" target="_blank" style="color:var(--navy-mid)">FRED BAMLC0A0CM</a>) and MLGHYBBH BB at 278bps are holding near their 1yr tights despite a 24bp weekly rate sell-off and CME FedWatch pricing ~25% hike odds. The <a href="https://fred.stlouisfed.org/series/BAMLH0A3HYC" target="_blank" style="color:var(--navy-mid)">FRED BAMLH0A3HYC</a> CCC OAS is beginning to diverge. Is the spread resilience in LEH_CORP / MLGHYBBH a signal of genuine fundamental strength (energy sector earnings upgrades are real and visible), or is it a technical artifact of compressed supply and strong institutional demand that reverses as $15&ndash;20B post-holiday issuance reopens? And does the early CCC bifurcation change the risk/reward of holding the modest IG OW vs. LEH_CORP before that spread catch-up materializes?</div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════
+     09 — PORTFOLIO VS. BENCHMARK
+═══════════════════════════════════════════════════ -->
+<section id="s09">
+  <div class="sec-header"><span class="sec-num">09</span><span class="sec-title">Portfolio vs. Benchmark</span></div>
+  <div class="source-line" style="margin:0 0 14px">Benchmark rows populate from Bloomberg Terminal via <code>fetch_bloomberg.py</code>. Portfolio row requires manual entry or OMS integration &mdash; edit <code>data.json</code> under <code>portfolio</code> key. <span class="unverified">[~]</span> = estimated.</div>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Entity</th>
+        <th>Yield <span class="unverified">[~]</span></th>
+        <th class="th-level">OAS / Spread <span class="unverified">[~]</span></th>
+        <th>Duration <span class="unverified">[~]</span></th>
+        <th>QTD Ret. <span class="unverified">[~]</span></th>
+        <th>YTD Ret. <span class="unverified">[~]</span></th>
+        <th>vs. LEH_AGG</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="port-row">
+        <td>Core Portfolio</td>
+        <td class="level">&mdash;</td>
+        <td class="td-level spread">&mdash;</td>
+        <td>&mdash;</td>
+        <td class="flat">&mdash;</td>
+        <td class="flat">&mdash;</td>
+        <td class="vs-col"><span style="color:var(--muted);font-style:italic">populate via OMS</span></td>
+      </tr>
+      <tr>
+        <td><strong>LEH_AGG</strong> &nbsp;<span style="font-size:10px;color:var(--muted)">LBUSTRUU &mdash; overall benchmark</span></td>
+        <td class="level">~5.05%</td>
+        <td class="td-level spread">~45bps</td>
+        <td>~6.5yr</td>
+        <td class="up">&minus;0.8%</td>
+        <td class="up">&minus;2.1%</td>
+        <td><em style="color:var(--muted);font-size:11px">benchmark</em></td>
+      </tr>
+      <tr>
+        <td><strong>LEH_CORP</strong> &nbsp;<span style="font-size:10px;color:var(--muted)">LUACTRUU &mdash; IG corp</span></td>
+        <td class="level">~5.20%</td>
+        <td class="td-level spread">~80bps</td>
+        <td>~7.2yr</td>
+        <td class="up">&minus;0.5%</td>
+        <td class="up">&minus;1.8%</td>
+        <td class="vs-col ahead">+0.3% ahead YTD</td>
+      </tr>
+      <tr>
+        <td><strong>JPM_CEMBI</strong> &nbsp;<span style="font-size:10px;color:var(--muted)">JBCDCOMP &mdash; EM hard currency</span></td>
+        <td class="level">~6.70%</td>
+        <td class="td-level spread">~210bps</td>
+        <td>~5.8yr</td>
+        <td class="dn">+0.2%</td>
+        <td class="up">&minus;0.9%</td>
+        <td class="vs-col ahead">+1.2% ahead YTD</td>
+      </tr>
+      <tr>
+        <td><strong>MLGHYBBH</strong> &nbsp;<span style="font-size:10px;color:var(--muted)">BAMLH0A1HYBB &mdash; HY BB</span></td>
+        <td class="level">~6.95%</td>
+        <td class="td-level spread">~278bps</td>
+        <td>~3.8yr</td>
+        <td class="dn">+0.9%</td>
+        <td class="dn">+1.2%</td>
+        <td class="vs-col behind">&minus;3.3% behind YTD</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="source-line">
+    LEH_AGG / LEH_CORP: <a href="https://www.bloomberg.com/professional/solution/indices/" target="_blank">Bloomberg Index Services</a> (LBUSTRUU / LUACTRUU) &nbsp;|&nbsp;
+    JPM_CEMBI: <a href="https://www.jpmorgan.com/markets/analytics/fixed-income-indices" target="_blank">JPMorgan (JBCDCOMP)</a> &nbsp;|&nbsp;
+    MLGHYBBH: <a href="https://fred.stlouisfed.org/series/BAMLH0A1HYBB" target="_blank">FRED BAMLH0A1HYBB</a> (proxy) &nbsp;|&nbsp;
+    All values live from Bloomberg when feed is active &nbsp;|&nbsp; <span class="unverified">[~]</span> estimated pending feed
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     10 — TICKER WATCHLIST
+═══════════════════════════════════════════════════ -->
+<section id="s10">
+  <div class="sec-header"><span class="sec-num">10</span><span class="sec-title">Ticker Watchlist</span></div>
+  <div class="source-line" style="margin:0 0 14px">Live from Bloomberg Terminal. Add or remove tickers in <code>watchlist.json</code> in the briefing repo &mdash; any Bloomberg security is valid (ETF, bond CUSIP/ISIN, index, FX, commodity). <span class="unverified">[~]</span> = estimated.</div>
+
+  <div class="watchlist-grid">
+    <div class="wl-tile">
+      <div class="wl-ticker">AGG:US</div>
+      <div class="wl-label">iShares US Agg ETF</div>
+      <div class="wl-price">$95.32 <span class="unverified">[~]</span></div>
+      <div class="wl-meta"><span class="up">&minus;0.12%</span><span style="color:var(--muted)">YTD &minus;2.1%</span></div>
+      <div class="wl-sub">LEH_AGG proxy</div>
+    </div>
+    <div class="wl-tile">
+      <div class="wl-ticker">LQD:US</div>
+      <div class="wl-label">iShares IG Corp ETF</div>
+      <div class="wl-price">$108.45 <span class="unverified">[~]</span></div>
+      <div class="wl-meta"><span class="up">&minus;0.08%</span><span style="color:var(--muted)">YTD &minus;1.8%</span></div>
+      <div class="wl-sub">LEH_CORP proxy</div>
+    </div>
+    <div class="wl-tile">
+      <div class="wl-ticker">HYG:US</div>
+      <div class="wl-label">iShares HY Bond ETF</div>
+      <div class="wl-price">$76.80 <span class="unverified">[~]</span></div>
+      <div class="wl-meta"><span class="flat">&rarr; flat</span><span style="color:var(--muted)">YTD +1.2%</span></div>
+      <div class="wl-sub">HY broad proxy</div>
+    </div>
+    <div class="wl-tile">
+      <div class="wl-ticker">EMB:US</div>
+      <div class="wl-label">iShares EM Bond ETF</div>
+      <div class="wl-price">$85.21 <span class="unverified">[~]</span></div>
+      <div class="wl-meta"><span class="dn">+0.15%</span><span style="color:var(--muted)">YTD &minus;0.9%</span></div>
+      <div class="wl-sub">JPM_CEMBI proxy</div>
+    </div>
+    <div class="wl-tile">
+      <div class="wl-ticker">MOVE:IND</div>
+      <div class="wl-label">MOVE Volatility Index</div>
+      <div class="wl-price">105 <span class="unverified">[~]</span></div>
+      <div class="wl-meta"><span class="flat">&rarr; flat</span><span style="color:var(--muted)">YTD 68&ndash;142</span></div>
+      <div class="wl-sub">Rate vol signal</div>
+    </div>
+    <div class="wl-tile">
+      <div class="wl-ticker">VIX:IND</div>
+      <div class="wl-label">CBOE VIX</div>
+      <div class="wl-price">18.4 <span class="unverified">[~]</span></div>
+      <div class="wl-meta"><span class="dn">&minus;0.3pts</span><span style="color:var(--muted)">YTD 12&ndash;28</span></div>
+      <div class="wl-sub">Equity vol / risk-off</div>
+    </div>
+    <div class="wl-tile">
+      <div class="wl-ticker">CL1:COM</div>
+      <div class="wl-label">WTI Crude (front-month)</div>
+      <div class="wl-price">$92.52 <span class="unverified">[~]</span></div>
+      <div class="wl-meta"><span class="dn">+3.14%</span><span style="color:var(--muted)">YTD +18%</span></div>
+      <div class="wl-sub">Inflation / spread driver</div>
+    </div>
+    <div class="wl-tile">
+      <div class="wl-ticker">USGG10YR:IND</div>
+      <div class="wl-label">10Y UST Generic Yield</div>
+      <div class="wl-price">4.57% <span class="unverified">[~]</span></div>
+      <div class="wl-meta"><span class="up">+8bps</span><span style="color:var(--muted)">QTD 91st pctile</span></div>
+      <div class="wl-sub">Duration anchor</div>
+    </div>
+  </div>
+  <div class="source-line">
+    Edit <code>C:\Users\a96ve\briefing\watchlist.json</code> to add tickers &nbsp;|&nbsp;
+    ETF proxies: <a href="https://www.ishares.com/us/products/239726/" target="_blank">AGG</a> &nbsp;
+    <a href="https://www.ishares.com/us/products/239566/" target="_blank">LQD</a> &nbsp;
+    <a href="https://www.ishares.com/us/products/239566/" target="_blank">HYG</a> &nbsp;
+    <a href="https://www.ishares.com/us/products/239572/" target="_blank">EMB</a> &nbsp;|&nbsp;
+    Values live when Bloomberg Terminal feed is active &nbsp;|&nbsp; <span class="unverified">[~]</span> estimated
+  </div>
 </section>
 
 </main>

@@ -1,0 +1,13 @@
+{
+  "_instructions": "Add any Bloomberg ticker here. fetch_bloomberg.py reads this file at runtime — no restart needed. Valid types: equity, etf, index, bond (use ISIN or CUSIP), fx, cmdty.",
+  "tickers": [
+    { "ticker": "AGG:US",       "label": "iShares US Agg ETF"      },
+    { "ticker": "LQD:US",       "label": "iShares IG Corp ETF"     },
+    { "ticker": "HYG:US",       "label": "iShares HY Bond ETF"     },
+    { "ticker": "EMB:US",       "label": "iShares EM Bond ETF"     },
+    { "ticker": "MOVE:IND",     "label": "MOVE Vol Index"          },
+    { "ticker": "VIX:IND",      "label": "CBOE VIX"               },
+    { "ticker": "CL1:COM",      "label": "WTI Crude (front-month)" },
+    { "ticker": "USGG10YR:IND", "label": "10Y UST Yield"          }
+  ]
+}

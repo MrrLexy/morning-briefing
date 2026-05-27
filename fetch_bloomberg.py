@@ -25,10 +25,11 @@ from datetime import datetime
 from pathlib import Path
 
 # ── CONFIG ────────────────────────────────────────────────────────────────────
-REPO_PATH   = Path(r"C:\Users\a96ve\briefing")   # ← adjust to repo path on work machine
-OUTPUT_FILE = REPO_PATH / "data.json"
-BBG_HOST    = "localhost"
-BBG_PORT    = 8194
+REPO_PATH      = Path(r"C:\Users\a96ve\briefing")   # ← adjust to repo path on work machine
+OUTPUT_FILE    = REPO_PATH / "data.json"
+WATCHLIST_FILE = REPO_PATH / "watchlist.json"
+BBG_HOST       = "localhost"
+BBG_PORT       = 8194
 # ─────────────────────────────────────────────────────────────────────────────
 
 SECURITIES = [
@@ -67,6 +68,15 @@ FIELDS = [
     "RETURN_YTD",
     "RETURN_QTD",
 ]
+
+
+def load_watchlist() -> list:
+    """Return watchlist ticker dicts from watchlist.json, or [] if missing."""
+    if not WATCHLIST_FILE.exists():
+        return []
+    with open(WATCHLIST_FILE) as f:
+        cfg = json.load(f)
+    return [t for t in cfg.get("tickers", []) if t.get("ticker")]
 
 
 def bbg_fetch(securities: list, fields: list) -> dict:
@@ -124,7 +134,25 @@ def g(raw: dict, ticker: str, field: str, scale: float = 1.0, digits: int = 2):
     return round(val * scale, digits) if val is not None else None
 
 
-def build_payload(raw: dict) -> dict:
+def build_watchlist_data(raw: dict, watchlist_cfg: list) -> list:
+    """Build watchlist entries with live Bloomberg data."""
+    out = []
+    for item in watchlist_cfg:
+        ticker = item["ticker"]
+        out.append({
+            "ticker":   ticker,
+            "label":    item.get("label", ticker),
+            "px_last":  g(raw, ticker, "PX_LAST",    digits=2),
+            "chg_pct":  g(raw, ticker, "CHG_PCT_1D", digits=2),
+            "yield":    g(raw, ticker, "YLD_YTM_BID", digits=3),
+            "oas":      g(raw, ticker, "OAS_SPREAD_ASK", digits=1),
+            "ytd_ret":  g(raw, ticker, "RETURN_YTD",  digits=2),
+        })
+    return out
+
+
+def build_payload(raw: dict, watchlist_cfg: list = None) -> dict:
+    watchlist = build_watchlist_data(raw, watchlist_cfg or [])
     now = datetime.now()
     return {
         "fetched_at": now.isoformat(timespec="seconds"),
@@ -215,6 +243,8 @@ def build_payload(raw: dict) -> dict:
             "dxy": {"level": g(raw, "DXY:CUR", "PX_LAST", digits=2), "chg_pct": g(raw, "DXY:CUR", "CHG_PCT_1D", digits=2)},
             "wti": {"level": g(raw, "CL1:COM", "PX_LAST", digits=2), "chg_pct": g(raw, "CL1:COM", "CHG_PCT_1D", digits=2)},
         },
+
+        "watchlist": watchlist,
     }
 
 
@@ -241,10 +271,14 @@ if __name__ == "__main__":
     print(f"[{ts}] Starting Bloomberg fetch...")
 
     try:
-        raw     = bbg_fetch(SECURITIES, FIELDS)
-        print(f"  ✓ Received data for {len(raw)} securities")
+        watchlist_cfg = load_watchlist()
+        wl_tickers    = [t["ticker"] for t in watchlist_cfg]
+        all_securities = SECURITIES + [t for t in wl_tickers if t not in SECURITIES]
 
-        payload = build_payload(raw)
+        raw = bbg_fetch(all_securities, FIELDS)
+        print(f"  ✓ Received data for {len(raw)} securities ({len(wl_tickers)} watchlist)")
+
+        payload = build_payload(raw, watchlist_cfg)
         OUTPUT_FILE.write_text(json.dumps(payload, indent=2))
         print(f"  ✓ Wrote {OUTPUT_FILE}")
         print(f"  ✓ Timestamp: {payload['fetched_at']}")
