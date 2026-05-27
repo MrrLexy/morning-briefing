@@ -10,8 +10,10 @@ Requirements:
     pip install blpapi
     Bloomberg Terminal must be running when this script executes.
 
-Windows Task Scheduler setup (run once on work machine):
-    schtasks /create /tn "Bloomberg Briefing Feed" /tr "python C:\\Users\\...\\briefing\\fetch_bloomberg.py" /sc daily /st 06:30 /d MON,TUE,WED,THU,FRI
+How to run (no Task Scheduler needed):
+    Option A — Double-click run_feed.bat on your desktop any time Bloomberg is open.
+    Option B — Drop run_feed.bat into your Windows Startup folder so it fires at login:
+               Win+R → shell:startup → paste run_feed.bat there. No admin required.
 
 Repo path below — adjust if the morning-briefing repo is cloned elsewhere on
 this machine.
