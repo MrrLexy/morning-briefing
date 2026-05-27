@@ -229,6 +229,67 @@ ol, ul { margin-bottom: 12px }
 /* ── FOOTER ── */
 footer { background: var(--navy-dark); padding: 16px 36px; display: flex; justify-content: space-between; align-items: center; border-top: 2px solid var(--navy) }
 .ft-left, .ft-right { font-size: 11px; color: rgba(255,255,255,.38); letter-spacing: .03em }
+
+/* ══════════════════════════════════════════════════
+   MOBILE  (≤640px)
+══════════════════════════════════════════════════ */
+@media (max-width: 640px) {
+  .page { box-shadow: none }
+
+  /* Header — stack vertically, center */
+  header { flex-direction: column; align-items: center; padding: 16px; text-align: center }
+  .hdr-brand { padding: 0; align-items: center }
+  .hdr-meta  { align-items: center; padding: 8px 0 0; border-top: 1px solid rgba(255,255,255,.12); width: 100%; text-align: center }
+  .hdr-time  { font-size: 18px }
+
+  /* Stats ticker — 3 × 2 grid */
+  .stats-ticker { grid-template-columns: repeat(3, 1fr) }
+  .stat-tile    { padding: 10px 6px 8px; border-bottom: 1px solid rgba(255,255,255,.07) }
+  .stat-tile:nth-child(3n)  { border-right: none }
+  .stat-tile:nth-child(n+4) { border-bottom: none }
+  .st-label  { font-size: 8px }
+  .st-value  { font-size: 15px }
+  .st-spread { font-size: 9px }
+
+  /* TOC — single column */
+  .toc-wrap { padding: 14px 16px }
+  .toc-grid { grid-template-columns: 1fr }
+
+  /* Sections — reduced padding; scrollable container for wide tables */
+  section     { padding: 20px 16px; overflow-x: auto }
+  .exec-block { overflow-x: auto }
+
+  /* Tables — natural (max-content) width, scrolls within section */
+  .data-table, .pos-table { width: max-content; min-width: 100% }
+
+  /* Period range — tighter grid */
+  .pr-value { font-size: 15px }
+  .pr-row   { grid-template-columns: 30px 1fr 64px }
+
+  /* Sector calls — single column */
+  .sector-calls { grid-template-columns: 1fr }
+
+  /* CLO stack — drop Spread and Trend columns, keep Rating | bar | Yield */
+  .clo-header { grid-template-columns: 44px 1fr 68px }
+  .clo-header span:nth-child(4), .clo-header span:nth-child(5) { display: none }
+  .clo-row    { grid-template-columns: 44px 1fr 68px }
+  .clo-spread, .clo-chg { display: none }
+
+  /* Alpha card — stack label above content */
+  .alpha-row   { display: block }
+  .alpha-label { width: auto; display: block; padding: 8px 10px 4px }
+  .alpha-row > span:last-child { display: block; padding: 8px 12px 10px }
+
+  /* Rec box header — allow wrapping on narrow screens */
+  .rec-header { flex-wrap: wrap; gap: 4px }
+
+  /* Watch outcomes — single column */
+  .watch-outcomes { grid-template-columns: 1fr }
+
+  /* Footnotes + footer */
+  .footnotes { padding: 14px 16px }
+  footer { flex-direction: column; gap: 4px; text-align: center; padding: 14px 16px }
+}
 </style>
 </head>
 <body>
