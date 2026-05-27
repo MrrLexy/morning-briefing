@@ -236,13 +236,13 @@ footer { background: var(--navy-dark); padding: 16px 36px; display: flex; justif
 @media (max-width: 640px) {
   .page { box-shadow: none }
 
-  /* Header — stack vertically, center */
+  /* ── Header — stack, center ── */
   header { flex-direction: column; align-items: center; padding: 16px; text-align: center }
   .hdr-brand { padding: 0; align-items: center }
   .hdr-meta  { align-items: center; padding: 8px 0 0; border-top: 1px solid rgba(255,255,255,.12); width: 100%; text-align: center }
   .hdr-time  { font-size: 18px }
 
-  /* Stats ticker — 3 × 2 grid */
+  /* ── Stats ticker — 3 × 2 ── */
   .stats-ticker { grid-template-columns: repeat(3, 1fr) }
   .stat-tile    { padding: 10px 6px 8px; border-bottom: 1px solid rgba(255,255,255,.07) }
   .stat-tile:nth-child(3n)  { border-right: none }
@@ -251,42 +251,98 @@ footer { background: var(--navy-dark); padding: 16px 36px; display: flex; justif
   .st-value  { font-size: 15px }
   .st-spread { font-size: 9px }
 
-  /* TOC — single column */
+  /* ── TOC — single column ── */
   .toc-wrap { padding: 14px 16px }
   .toc-grid { grid-template-columns: 1fr }
 
-  /* Sections — reduced padding; scrollable container for wide tables */
-  section     { padding: 20px 16px; overflow-x: auto }
-  .exec-block { overflow-x: auto }
+  /* ── Sections — reduced padding ── */
+  section { padding: 20px 16px }
 
-  /* Tables — natural (max-content) width, scrolls within section */
-  .data-table, .pos-table { width: max-content; min-width: 100% }
+  /* ── DATA TABLES → BULLET-CARD ROWS ──
+     Each <tr> becomes a card: the first <td> renders as a bold
+     block label; remaining <td>s flow as abbreviated inline text
+     separated by · dots.  Headers are hidden — color coding carries context. */
+  .data-table          { display: block; width: 100% }
+  .data-table thead    { display: none }
+  .data-table tbody    { display: block }
+  .data-table tbody tr {
+    display: block;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--border-lt);
+    background: transparent !important;
+  }
+  .data-table tbody tr:last-child { border-bottom: none }
+  .data-table tbody tr:hover td   { background: transparent }
+  /* All value cells: small inline muted text */
+  .data-table td {
+    display: inline;
+    padding: 0;
+    border: none !important;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  /* Row label: bold block heading */
+  .data-table td:first-child {
+    display: block;
+    font-weight: 700;
+    color: var(--text);
+    font-size: 13px;
+    margin-bottom: 3px;
+  }
+  /* · separator before 3rd cell onwards */
+  .data-table td:nth-child(n+3)::before { content: " · "; color: var(--border) }
+  /* Key value styling carried through */
+  .data-table td.level  { color: var(--navy);  font-weight: 700; font-size: 13px }
+  .data-table td.spread { color: var(--text);  font-weight: 600 }
+  .data-table td.num    { color: var(--text);  font-weight: 700 }
+  .data-table td.up     { color: var(--red);   font-weight: 600 }
+  .data-table td.dn     { color: var(--green); font-weight: 600 }
+  .data-table td.flat   { color: var(--muted) }
+  .data-table td.bull   { color: var(--green); font-size: 10px }
+  .data-table td.bear   { color: var(--red);   font-size: 10px }
+  .data-table td.neut   { color: var(--muted); font-size: 10px }
 
-  /* Period range — tighter grid */
+  /* ── POS TABLE → STACKED CARD ── */
+  .pos-table { display: block; width: 100% }
+  .pos-table tr { display: block; padding: 10px 0; border-bottom: 1px solid var(--border-lt) }
+  .pos-table tr:last-child td { border-bottom: none }
+  .pos-table td { display: block; padding: 1px 0; border: none; width: auto !important }
+  .pos-table td:first-child {
+    background: transparent;
+    font-size: 9px;
+    letter-spacing: .1em;
+    color: var(--muted);
+    margin-bottom: 2px;
+    width: auto !important;
+  }
+  .pos-table td.stance   { width: auto !important }
+  .pos-table td.rationale { font-size: 11px }
+
+  /* ── Period range — tighter ── */
   .pr-value { font-size: 15px }
   .pr-row   { grid-template-columns: 30px 1fr 64px }
 
-  /* Sector calls — single column */
+  /* ── Sector calls — single column ── */
   .sector-calls { grid-template-columns: 1fr }
 
-  /* CLO stack — drop Spread and Trend columns, keep Rating | bar | Yield */
+  /* ── CLO stack — Rating | bar | Yield only ── */
   .clo-header { grid-template-columns: 44px 1fr 68px }
   .clo-header span:nth-child(4), .clo-header span:nth-child(5) { display: none }
   .clo-row    { grid-template-columns: 44px 1fr 68px }
   .clo-spread, .clo-chg { display: none }
 
-  /* Alpha card — stack label above content */
+  /* ── Alpha card — stack ── */
   .alpha-row   { display: block }
   .alpha-label { width: auto; display: block; padding: 8px 10px 4px }
   .alpha-row > span:last-child { display: block; padding: 8px 12px 10px }
 
-  /* Rec box header — allow wrapping on narrow screens */
+  /* ── Rec box header — wrap ── */
   .rec-header { flex-wrap: wrap; gap: 4px }
 
-  /* Watch outcomes — single column */
+  /* ── Watch outcomes — single column ── */
   .watch-outcomes { grid-template-columns: 1fr }
 
-  /* Footnotes + footer */
+  /* ── Footnotes + footer ── */
   .footnotes { padding: 14px 16px }
   footer { flex-direction: column; gap: 4px; text-align: center; padding: 14px 16px }
 }
