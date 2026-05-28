@@ -3,1246 +3,901 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Core Bond Team — Market Update | May 26, 2026</title>
+<title>Core Bond Briefing — May 28, 2026</title>
 <style>
-:root {
-  --navy:        #003057;
-  --navy-mid:    #005596;
-  --navy-dark:   #00213d;
-  --gold:        #b9922a;
-  --gold-pale:   #fdf6e3;
-  --gold-border: #dfc97c;
-  --bg:          #ffffff;
-  --bg-alt:      #f4f6f9;
-  --border:      #d6dae4;
-  --border-lt:   #eaedf3;
-  --text:        #1a2235;
-  --body:        #374151;
-  --muted:       #6b7a8f;
-  --green:       #15663d;
-  --green-pale:  #e9f4ee;
-  --red:         #a91a1a;
-  --red-pale:    #fef2f2;
-  --amber:       #b06c0c;
-  --amber-pale:  #fff7ed;
+:root{
+  --bg:#0b0e17;--surface:#131929;--card:#1a2235;--border:#1e2d45;
+  --text:#dde4f0;--muted:#5a6a82;--accent:#3b82f6;
+  --green:#10b981;--green-dim:rgba(16,185,129,.12);
+  --red:#ef4444;--red-dim:rgba(239,68,68,.12);
+  --orange:#f59e0b;--orange-dim:rgba(245,158,11,.12);
+  --blue-dim:rgba(59,130,246,.12)
 }
-* { box-sizing: border-box; margin: 0; padding: 0 }
-body { background: var(--bg-alt); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; font-size: 15px; line-height: 1.65 }
-.page { max-width: 960px; margin: 0 auto; background: var(--bg); box-shadow: 0 1px 40px rgba(0,0,0,.10) }
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:15px;line-height:1.6;max-width:900px;margin:0 auto;padding-bottom:60px}
 
-/* ── HEADER ── */
-header { background: var(--navy); padding: 0 36px; display: flex; align-items: stretch; justify-content: space-between; border-bottom: 3px solid var(--gold) }
-.hdr-brand { display: flex; flex-direction: column; justify-content: center; padding: 22px 0 }
-.hdr-eyebrow { font-size: 9px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); margin-bottom: 5px }
-.hdr-title { font-size: 19px; font-weight: 700; color: #fff; letter-spacing: .02em }
-.hdr-sub { font-size: 11px; color: rgba(255,255,255,.5); margin-top: 4px; letter-spacing: .03em }
-.hdr-meta { display: flex; flex-direction: column; align-items: flex-end; justify-content: center; padding: 22px 0; text-align: right }
-.hdr-time { font-size: 22px; font-weight: 700; color: #fff; line-height: 1; letter-spacing: -.01em }
-.hdr-time-label { font-size: 9px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-top: 5px }
+/* HEADER */
+header{background:var(--surface);border-bottom:1px solid var(--border);padding:14px 16px;position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.hdr-left h1{font-size:15px;font-weight:700;letter-spacing:.02em}
+.hdr-left .hdr-sub{font-size:11px;color:var(--muted);margin-top:4px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.hdr-right{font-size:11px;color:var(--accent);white-space:nowrap}
 
-/* ── STATS TICKER ── */
-.stats-ticker { background: var(--navy-dark); display: grid; grid-template-columns: repeat(6,1fr) }
-.stat-tile { padding: 12px 14px 10px; border-right: 1px solid rgba(255,255,255,.07); text-align: center }
-.stat-tile:last-child { border-right: none }
-.st-label { font-size: 9px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.38); margin-bottom: 4px }
-.st-value { font-size: 19px; font-weight: 700; color: #fff; line-height: 1; letter-spacing: -.01em; font-variant-numeric: tabular-nums }
-.st-spread { font-size: 10px; color: rgba(255,255,255,.45); margin-top: 3px; font-variant-numeric: tabular-nums }
-.st-change { font-size: 11px; font-weight: 600; margin-top: 3px }
-.up   { color: #f87171 }
-.dn   { color: #4ade80 }
-.flat { color: rgba(255,255,255,.3) }
+/* DATA BADGE */
+.data-badge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border-radius:20px}
+.data-badge.live{color:#4ade80;background:rgba(74,222,128,.08);border:1px solid rgba(74,222,128,.2)}
+.data-badge.stale{color:var(--orange);background:var(--orange-dim);border:1px solid rgba(245,158,11,.2)}
 
-/* ── TABLE OF CONTENTS ── */
-.toc-wrap { padding: 20px 36px; background: var(--bg-alt); border-bottom: 1px solid var(--border) }
-.toc-label { font-size: 9px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--navy); margin-bottom: 12px }
-.toc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3px 32px; list-style: none }
-.toc-grid li { font-size: 12px }
-.toc-grid a { color: var(--navy-mid); text-decoration: none }
-.toc-grid a:hover { text-decoration: underline }
-.toc-num { font-weight: 700; margin-right: 6px; color: var(--muted) }
+/* QUICK SNAPSHOT TICKER */
+.stats-ticker{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--border);border-bottom:1px solid var(--border)}
+.stat-tile{background:var(--surface);padding:10px 12px}
+.stat-tile .st-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:3px}
+.stat-tile .st-value{font-size:17px;font-weight:700;color:#fff;line-height:1;font-variant-numeric:tabular-nums}
+.stat-tile .st-change{font-size:11px;margin-top:3px;font-weight:600}
+.up{color:var(--red)}.dn{color:var(--green)}.flat{color:var(--muted)}
 
-/* ── SECTION STRUCTURE ── */
-main { padding: 0 }
-section { padding: 32px 36px; border-bottom: 1px solid var(--border) }
-section:last-child { border-bottom: none }
-.sec-header { display: flex; align-items: center; gap: 14px; margin-bottom: 22px; padding-bottom: 12px; border-bottom: 2px solid var(--navy) }
-.sec-num { font-size: 9px; font-weight: 700; letter-spacing: .16em; color: rgba(255,255,255,.85); background: var(--navy); padding: 3px 9px; flex-shrink: 0 }
-.sec-title { font-size: 13px; font-weight: 700; color: var(--navy); text-transform: uppercase; letter-spacing: .1em }
-.section-sub { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .16em; color: var(--muted); margin: 22px 0 10px; padding-bottom: 7px; border-bottom: 1px solid var(--border) }
+/* SECTIONS */
+section{border-bottom:1px solid var(--border);padding:18px 16px}
+.sec-header{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.sec-icon{font-size:16px}
+.sec-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+p{margin-bottom:10px;font-size:14px}
+p:last-child{margin-bottom:0}
+strong{color:#fff;font-weight:600}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
 
-/* ── TYPOGRAPHY ── */
-p { font-size: 14px; color: var(--body); margin-bottom: 12px; line-height: 1.72 }
-p:last-child { margin-bottom: 0 }
-p strong { color: var(--text); font-weight: 600 }
-ol, ul { margin-bottom: 12px }
-.unverified { color: var(--amber); font-size: 10px; font-style: italic }
+/* DATA TABLES */
+.data-table{width:100%;border-collapse:collapse;margin:10px 0 16px;font-size:13px}
+.data-table th{text-align:left;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);padding:6px 10px;border-bottom:1px solid var(--border)}
+.data-table td{padding:7px 10px;border-bottom:1px solid rgba(30,45,69,.6);color:var(--text)}
+.data-table tr:last-child td{border-bottom:none}
+.data-table td.num{font-weight:700;color:#fff;font-variant-numeric:tabular-nums}
+.data-table td.up{color:var(--red);font-weight:700}
+.data-table td.dn{color:var(--green);font-weight:700}
+.data-table td.flat{color:var(--muted);font-weight:600}
+.data-table td.bull{color:var(--green);font-size:11px;font-weight:700}
+.data-table td.bear{color:var(--red);font-size:11px;font-weight:700}
+.data-table td.neut{color:var(--muted);font-size:11px;font-weight:700}
+.data-table tr:hover td{background:rgba(255,255,255,.02)}
 
-/* ── SOURCE LINE ── */
-.source-line { font-size: 10px; color: var(--muted); margin: -8px 0 18px; padding: 5px 0 0; border-top: 1px solid var(--border-lt); line-height: 1.5 }
-.source-line a { color: var(--navy-mid); text-decoration: none }
-.source-line a:hover { text-decoration: underline }
+/* POSITIONING TABLE */
+.pos-table{width:100%;border-collapse:collapse;margin:8px 0 14px;font-size:13px}
+.pos-table td{padding:8px 12px;border-bottom:1px solid rgba(30,45,69,.6)}
+.pos-table td:first-child{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);width:130px}
+.pos-table td.stance{font-weight:700;color:#fff;width:190px}
+.pos-table td.stance.long{color:var(--red)}
+.pos-table td.stance.short{color:var(--green)}
+.pos-table td.stance.neutral{color:var(--orange)}
+.pos-table td.stance.ow{color:var(--green)}
+.pos-table td.stance.uw{color:var(--red)}
+.pos-table td.rationale{color:var(--muted);font-size:12px}
 
-/* ── DATA TABLE ── */
-.data-table { width: 100%; border-collapse: collapse; margin: 10px 0 4px; font-size: 13px }
-.data-table thead tr { background: var(--navy) }
-.data-table th { text-align: left; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: rgba(255,255,255,.72); padding: 8px 12px }
-.data-table tbody tr { border-bottom: 1px solid var(--border-lt) }
-.data-table tbody tr:nth-child(even) { background: var(--bg-alt) }
-.data-table tbody tr:last-child { border-bottom: none }
-.data-table td { padding: 8px 12px; color: var(--body) }
-.data-table td.num    { font-weight: 700; color: var(--text); font-variant-numeric: tabular-nums }
-.data-table td.level  { font-weight: 700; color: var(--navy); font-variant-numeric: tabular-nums }
-.data-table td.spread { font-weight: 600; color: var(--text); font-variant-numeric: tabular-nums }
-.data-table td.up     { color: var(--red);   font-weight: 600 }
-.data-table td.dn     { color: var(--green); font-weight: 600 }
-.data-table td.flat   { color: var(--muted) }
-.data-table td.bull   { color: var(--green); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em }
-.data-table td.bear   { color: var(--red);   font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em }
-.data-table td.neut   { color: var(--muted); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em }
-.data-table tr:hover td { background: rgba(0,48,87,.03) }
-.data-table th.th-level { border-left: 1px solid rgba(255,255,255,.15) }
-.data-table td.td-level { border-left: 1px solid var(--border-lt) }
-.bm-tag { font-size: 9px; font-weight: 700; color: var(--navy-mid); background: var(--bg-alt); border: 1px solid var(--border); padding: 1px 5px; border-radius: 2px; white-space: nowrap }
+/* EXEC SUMMARY BLOCK */
+.exec-block{background:var(--card);border-radius:8px;padding:14px 16px;margin-bottom:12px}
+.exec-block .eb-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:8px}
+.exec-block p{font-size:13px;margin-bottom:0}
 
-/* ── POSITIONING TABLE ── */
-.pos-table { width: 100%; border-collapse: collapse; margin: 8px 0 4px; font-size: 13px; border: 1px solid var(--border) }
-.pos-table td { padding: 9px 12px; border-bottom: 1px solid var(--border-lt) }
-.pos-table tr:last-child td { border-bottom: none }
-.pos-table td:first-child { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); width: 130px; background: var(--bg-alt) }
-.pos-table td.stance         { font-weight: 700; color: var(--text); width: 190px }
-.pos-table td.stance.long    { color: var(--red) }
-.pos-table td.stance.short   { color: var(--red) }
-.pos-table td.stance.neutral { color: var(--amber) }
-.pos-table td.stance.ow      { color: var(--green) }
-.pos-table td.stance.uw      { color: var(--red) }
-.pos-table td.rationale      { color: var(--muted); font-size: 12px }
+/* FOCUS LIST */
+.focus-list{list-style:none;display:flex;flex-direction:column;gap:6px;margin:8px 0}
+.focus-list li{font-size:13px;padding:8px 12px;background:var(--card);border-radius:6px;border-left:3px solid var(--accent)}
+.focus-list li::before{content:"-> ";color:var(--accent);font-weight:700}
 
-/* ── EXEC BLOCK ── */
-.exec-block { background: var(--bg-alt); border: 1px solid var(--border); border-left: 4px solid var(--navy); padding: 16px 18px; margin-bottom: 14px }
-.exec-block .eb-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .16em; color: var(--navy); margin-bottom: 10px }
-.exec-block p { font-size: 13.5px }
+/* BENCHMARK PANEL */
+.benchmark-panel{background:var(--card);border-radius:8px;padding:14px 16px;margin:10px 0 14px}
+.bp-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:6px}
+.bp-title{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
 
-/* ── FOCUS LIST ── */
-.focus-list { list-style: none; display: flex; flex-direction: column; gap: 7px; margin: 6px 0 0 }
-.focus-list li { font-size: 13px; padding: 10px 12px 10px 15px; background: var(--bg); border: 1px solid var(--border); border-left: 3px solid var(--navy-mid); color: var(--body); line-height: 1.6 }
-.focus-list li strong { color: var(--text) }
+/* PERIOD RANGE BARS — QTD / YTD / 1YR */
+.period-range{margin:12px 0 18px}
+.pr-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+.pr-name{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+.pr-value{font-size:18px;font-weight:700;color:#fff;font-variant-numeric:tabular-nums}
+.pr-rows{display:flex;flex-direction:column;gap:7px}
+.pr-row{display:grid;grid-template-columns:34px 1fr 80px;gap:8px;align-items:center}
+.pr-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+.pr-track{height:6px;background:var(--card);border:1px solid var(--border);position:relative;overflow:visible}
+.pr-fill{height:100%;background:var(--accent);position:relative}
+.pr-fill.tight{background:var(--green)}
+.pr-fill.mid{background:var(--orange)}
+.pr-fill.wide{background:var(--red)}
+.pr-tick{position:absolute;right:-1px;top:-3px;width:2px;height:12px;background:#fff}
+.pr-range{font-size:10px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap;text-align:right}
 
-/* ── PERIOD RANGE  (QTD / YTD / 1YR rows) ── */
-.period-range { margin: 14px 0 4px }
-.pr-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 9px }
-.pr-name   { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--muted) }
-.pr-value  { font-size: 18px; font-weight: 700; color: var(--navy); font-variant-numeric: tabular-nums }
-.pr-rows   { display: flex; flex-direction: column; gap: 6px }
-.pr-row    { display: grid; grid-template-columns: 34px 1fr 76px; gap: 8px; align-items: center }
-.pr-label  { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--muted) }
-.pr-track  { height: 6px; background: var(--bg-alt); border: 1px solid var(--border); position: relative; overflow: visible }
-.pr-fill   { height: 100%; background: var(--navy-mid); position: relative }
-.pr-tick   { position: absolute; right: -1px; top: -3px; width: 2px; height: 12px; background: var(--navy) }
-.pr-range  { font-size: 10px; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; text-align: right }
+/* SECTOR CALLS */
+.sector-calls{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
+.sc-card{border-radius:8px;padding:10px 14px;border:1px solid transparent}
+.sc-card.ow{background:var(--green-dim);border-color:rgba(16,185,129,.25)}
+.sc-card.uw{background:var(--red-dim);border-color:rgba(239,68,68,.25)}
+.sc-card .sc-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px}
+.sc-card.ow .sc-label{color:#6ee7b7}.sc-card.uw .sc-label{color:#fca5a5}
+.sc-card .sc-name{font-size:14px;font-weight:600;color:#fff;margin-bottom:3px}
+.sc-card .sc-why{font-size:12px;color:var(--muted);line-height:1.4}
 
-/* ── SECTOR CARDS ── */
-.sector-calls { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0 }
-.sc-card { padding: 13px 15px; border: 1px solid var(--border); border-left: 4px solid transparent }
-.sc-card.ow { background: var(--green-pale); border-left-color: var(--green) }
-.sc-card.uw { background: var(--red-pale);   border-left-color: var(--red) }
-.sc-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .13em; margin-bottom: 5px }
-.sc-card.ow .sc-label { color: var(--green) }
-.sc-card.uw .sc-label { color: var(--red) }
-.sc-name { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 4px }
-.sc-why  { font-size: 12px; color: var(--muted); line-height: 1.47 }
+/* CLO STACK */
+.clo-stack{display:flex;flex-direction:column;gap:4px;margin:12px 0}
+.clo-row{display:grid;grid-template-columns:48px 1fr 64px 56px;gap:8px;align-items:center}
+.clo-tranche{font-size:11px;font-weight:700;color:var(--muted)}
+.clo-bar-wrap{height:20px;background:var(--card);border-radius:3px;overflow:hidden}
+.clo-bar{height:100%;border-radius:3px}
+.clo-spread{font-size:13px;font-weight:700;color:#fff;text-align:right;font-variant-numeric:tabular-nums}
+.clo-chg{font-size:11px;text-align:right}
+.t-aaa .clo-bar{background:#10b981}.t-aa .clo-bar{background:#34d399}.t-a .clo-bar{background:#6ee7b7}
+.t-bbb .clo-bar{background:#f59e0b}.t-bb .clo-bar{background:#f87171}
 
-/* ── CLO STACK ── */
-.clo-stack  { margin: 12px 0; display: flex; flex-direction: column; gap: 5px }
-.clo-header { display: grid; grid-template-columns: 44px 1fr 80px 80px 52px; gap: 8px; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin-bottom: 4px; padding: 0 2px }
-.clo-header span:nth-child(3), .clo-header span:nth-child(4) { text-align: right }
-.clo-row    { display: grid; grid-template-columns: 44px 1fr 80px 80px 52px; gap: 8px; align-items: center }
-.clo-tranche{ font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--muted) }
-.clo-bar-wrap { height: 18px; background: var(--bg-alt); border: 1px solid var(--border); overflow: hidden }
-.clo-bar    { height: 100% }
-.clo-level  { font-size: 13px; font-weight: 700; color: var(--navy); text-align: right; font-variant-numeric: tabular-nums }
-.clo-spread { font-size: 12px; font-weight: 600; color: var(--muted); text-align: right; font-variant-numeric: tabular-nums }
-.clo-chg    { font-size: 11px; text-align: right }
-.t-aaa .clo-bar { background: #15663d }
-.t-aa  .clo-bar { background: #239659 }
-.t-a   .clo-bar { background: #5abf8a }
-.t-bbb .clo-bar { background: var(--amber) }
-.t-bb  .clo-bar { background: var(--red) }
-
-/* ── TAKE BOX ── */
-.take { background: var(--navy); color: rgba(255,255,255,.88); padding: 13px 16px; font-size: 13px; font-weight: 500; line-height: 1.6; border-left: 4px solid var(--gold); margin-top: 18px }
-.take strong { color: #fff }
-
-/* ── RECOMMENDATION BOX ── */
-.rec-box { border: 1px solid var(--border); margin: 16px 0; overflow: hidden }
-.rec-header { background: var(--navy); padding: 8px 16px; display: flex; justify-content: space-between; align-items: center }
-.rec-badge { font-size: 9px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--gold) }
-.rec-meta  { font-size: 10px; color: rgba(255,255,255,.55) }
-.rec-body  { padding: 13px 16px }
-.rec-action          { font-size: 14px; font-weight: 700; margin-bottom: 6px }
-.rec-action.add      { color: var(--green) }
-.rec-action.reduce   { color: var(--red) }
-.rec-action.hold     { color: var(--amber) }
-.rec-action.avoid    { color: var(--red) }
-.rec-rationale { font-size: 12px; color: var(--body); line-height: 1.58; margin-bottom: 6px }
-.rec-basis     { font-size: 10px; color: var(--muted) }
-.rec-basis a   { color: var(--navy-mid); text-decoration: none }
-.rec-basis a:hover { text-decoration: underline }
-
-/* ── CONFLICT FLAG ── */
-.conflict-flag { background: var(--amber-pale); border: 1px solid #e0c06a; border-left: 4px solid var(--amber); padding: 10px 14px; font-size: 12px; color: #6b3c00; margin: 8px 0 16px; line-height: 1.55 }
-.conflict-flag strong { color: #5a3000 }
-.cf-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .14em; color: var(--amber); margin-bottom: 4px }
-
-/* ── ALPHA CARD ── */
-.alpha-card { border: 1px solid var(--border); margin: 14px 0; overflow: hidden }
-.alpha-row { display: grid; grid-template-columns: 96px 1fr; border-bottom: 1px solid var(--border) }
-.alpha-row:last-child { border-bottom: none }
-.alpha-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: rgba(255,255,255,.75); background: var(--navy); padding: 12px 10px; display: flex; align-items: flex-start; line-height: 1.4 }
-.alpha-row > span:last-child { padding: 11px 14px; font-size: 13px; color: var(--body); line-height: 1.58 }
-
-/* ── WATCH CARDS ── */
-.watch-grid { display: grid; gap: 10px; margin: 12px 0 }
-.watch-card { display: grid; grid-template-columns: 46px 1fr; border: 1px solid var(--border); overflow: hidden }
-.watch-num  { background: var(--navy); color: #fff; font-size: 20px; font-weight: 700; display: flex; align-items: center; justify-content: center; line-height: 1 }
-.watch-body { padding: 12px 14px }
-.wb-title   { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 4px }
-.wb-detail  { font-size: 12px; color: var(--muted); line-height: 1.47 }
-.watch-outcomes { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 9px }
-.outcome { padding: 5px 8px; font-size: 11px; font-weight: 500 }
-.outcome.good { background: var(--green-pale); color: var(--green); border-left: 2px solid var(--green) }
-.outcome.bad  { background: var(--red-pale);   color: var(--red);   border-left: 2px solid var(--red) }
-
-/* ── ANALYSIS BOX ── */
-.analysis-box { background: var(--bg-alt); border: 1px solid var(--border); border-left: 4px solid var(--navy-mid); padding: 14px 16px; font-size: 13.5px; color: var(--body); line-height: 1.68; margin: 14px 0 }
-.analysis-box .ab-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .14em; color: var(--navy-mid); margin-bottom: 8px }
-.pm-q { background: var(--bg-alt); border: 1px solid var(--border); border-left: 4px solid var(--navy-mid); padding: 14px 16px; font-size: 13px; font-style: italic; color: var(--body); line-height: 1.68; margin-top: 16px }
-
-/* ── FOOTNOTES ── */
-.footnotes { padding: 20px 36px; background: var(--bg-alt); border-top: 1px solid var(--border) }
-.fn-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .16em; color: var(--muted); margin-bottom: 10px }
-.fn-list { list-style: none; display: flex; flex-direction: column; gap: 4px }
-.fn-list li { font-size: 11px; color: var(--muted); line-height: 1.5 }
-.fn-list a { color: var(--navy-mid); text-decoration: none }
-.fn-list a:hover { text-decoration: underline }
-.fn-num { font-weight: 700; color: var(--navy); margin-right: 4px }
-
-/* ── FOOTER ── */
-footer { background: var(--navy-dark); padding: 16px 36px; display: flex; justify-content: space-between; align-items: center; border-top: 2px solid var(--navy) }
-.ft-left, .ft-right { font-size: 11px; color: rgba(255,255,255,.38); letter-spacing: .03em }
-
-/* ── WATCHLIST TILES ── */
-.watchlist-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 12px 0 }
-.wl-tile { border: 1px solid var(--border); padding: 13px 14px }
-.wl-ticker { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .14em; color: var(--navy-mid); margin-bottom: 3px }
-.wl-label  { font-size: 11px; color: var(--muted); margin-bottom: 8px; line-height: 1.3 }
-.wl-price  { font-size: 20px; font-weight: 700; color: var(--navy); font-variant-numeric: tabular-nums; line-height: 1 }
-.wl-meta   { display: flex; gap: 10px; margin-top: 5px; font-size: 11px; flex-wrap: wrap }
-.wl-sub    { font-size: 10px; color: var(--muted); margin-top: 2px }
-
-/* ── PORTFOLIO TABLE — relative row ── */
-.port-row td { background: var(--gold-pale) !important; border-left: 3px solid var(--gold) }
-.port-row td:first-child { font-weight: 700; color: var(--navy) }
-.vs-col { font-size: 11px }
-.vs-col.ahead { color: var(--green) }
-.vs-col.behind { color: var(--red) }
-
-/* ══════════════════════════════════════════════════
-   MOBILE  (≤640px)
-══════════════════════════════════════════════════ */
-@media (max-width: 640px) {
-  .page { box-shadow: none }
-
-  /* ── Header — stack, center ── */
-  header { flex-direction: column; align-items: center; padding: 16px; text-align: center }
-  .hdr-brand { padding: 0; align-items: center }
-  .hdr-meta  { align-items: center; padding: 8px 0 0; border-top: 1px solid rgba(255,255,255,.12); width: 100%; text-align: center }
-  .hdr-time  { font-size: 18px }
-
-  /* ── Stats ticker — 3 × 2 ── */
-  .stats-ticker { grid-template-columns: repeat(3, 1fr) }
-  .stat-tile    { padding: 10px 6px 8px; border-bottom: 1px solid rgba(255,255,255,.07) }
-  .stat-tile:nth-child(3n)  { border-right: none }
-  .stat-tile:nth-child(n+4) { border-bottom: none }
-  .st-label  { font-size: 8px }
-  .st-value  { font-size: 15px }
-  .st-spread { font-size: 9px }
-
-  /* ── TOC — single column ── */
-  .toc-wrap { padding: 14px 16px }
-  .toc-grid { grid-template-columns: 1fr }
-
-  /* ── Sections — reduced padding ── */
-  section { padding: 20px 16px }
-
-  /* ── DATA TABLES → BULLET-CARD ROWS ──
-     Each <tr> becomes a card: the first <td> renders as a bold
-     block label; remaining <td>s flow as abbreviated inline text
-     separated by · dots.  Headers are hidden — color coding carries context. */
-  .data-table          { display: block; width: 100% }
-  .data-table thead    { display: none }
-  .data-table tbody    { display: block }
-  .data-table tbody tr {
-    display: block;
-    padding: 9px 0;
-    border-bottom: 1px solid var(--border-lt);
-    background: transparent !important;
-  }
-  .data-table tbody tr:last-child { border-bottom: none }
-  .data-table tbody tr:hover td   { background: transparent }
-  /* All value cells: small inline muted text */
-  .data-table td {
-    display: inline;
-    padding: 0;
-    border: none !important;
-    font-size: 12px;
-    color: var(--muted);
-  }
-  /* Row label: bold block heading */
-  .data-table td:first-child {
-    display: block;
-    font-weight: 700;
-    color: var(--text);
-    font-size: 13px;
-    margin-bottom: 3px;
-  }
-  /* · separator before 3rd cell onwards */
-  .data-table td:nth-child(n+3)::before { content: " · "; color: var(--border) }
-  /* Key value styling carried through */
-  .data-table td.level  { color: var(--navy);  font-weight: 700; font-size: 13px }
-  .data-table td.spread { color: var(--text);  font-weight: 600 }
-  .data-table td.num    { color: var(--text);  font-weight: 700 }
-  .data-table td.up     { color: var(--red);   font-weight: 600 }
-  .data-table td.dn     { color: var(--green); font-weight: 600 }
-  .data-table td.flat   { color: var(--muted) }
-  .data-table td.bull   { color: var(--green); font-size: 10px }
-  .data-table td.bear   { color: var(--red);   font-size: 10px }
-  .data-table td.neut   { color: var(--muted); font-size: 10px }
-
-  /* ── POS TABLE → STACKED CARD ── */
-  .pos-table { display: block; width: 100% }
-  .pos-table tr { display: block; padding: 10px 0; border-bottom: 1px solid var(--border-lt) }
-  .pos-table tr:last-child td { border-bottom: none }
-  .pos-table td { display: block; padding: 1px 0; border: none; width: auto !important }
-  .pos-table td:first-child {
-    background: transparent;
-    font-size: 9px;
-    letter-spacing: .1em;
-    color: var(--muted);
-    margin-bottom: 2px;
-    width: auto !important;
-  }
-  .pos-table td.stance   { width: auto !important }
-  .pos-table td.rationale { font-size: 11px }
-
-  /* ── Period range — tighter ── */
-  .pr-value { font-size: 15px }
-  .pr-row   { grid-template-columns: 30px 1fr 64px }
-
-  /* ── Sector calls — single column ── */
-  .sector-calls { grid-template-columns: 1fr }
-
-  /* ── CLO stack — Rating | bar | Yield only ── */
-  .clo-header { grid-template-columns: 44px 1fr 68px }
-  .clo-header span:nth-child(4), .clo-header span:nth-child(5) { display: none }
-  .clo-row    { grid-template-columns: 44px 1fr 68px }
-  .clo-spread, .clo-chg { display: none }
-
-  /* ── Alpha card — stack ── */
-  .alpha-row   { display: block }
-  .alpha-label { width: auto; display: block; padding: 8px 10px 4px }
-  .alpha-row > span:last-child { display: block; padding: 8px 12px 10px }
-
-  /* ── Rec box header — wrap ── */
-  .rec-header { flex-wrap: wrap; gap: 4px }
-
-  /* ── Watch outcomes — single column ── */
-  .watch-outcomes { grid-template-columns: 1fr }
-
-  /* ── Watchlist — 2 columns on mobile ── */
-  .watchlist-grid { grid-template-columns: repeat(2, 1fr) }
-
-  /* ── Footnotes + footer ── */
-  .footnotes { padding: 14px 16px }
-  footer { flex-direction: column; gap: 4px; text-align: center; padding: 14px 16px }
-}
+/* TAKE / ALPHA / WATCH */
+.take{background:var(--card);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:10px 14px;margin-top:14px;font-size:13px;font-weight:500;color:#cbd5e1}
+.alpha-card{background:var(--card);border-radius:10px;padding:16px;display:grid;gap:10px;margin:8px 0}
+.alpha-row{display:grid;grid-template-columns:90px 1fr;gap:10px;font-size:13px}
+.alpha-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);padding-top:2px}
+.watch-grid{display:grid;gap:8px;margin:8px 0}
+.watch-card{background:var(--card);border-radius:8px;padding:12px 14px;display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start}
+.watch-num{font-size:18px;font-weight:800;color:var(--accent);line-height:1}
+.watch-body .wb-title{font-size:13px;font-weight:600;color:#fff;margin-bottom:4px}
+.watch-body .wb-detail{font-size:12px;color:var(--muted);line-height:1.4}
+.watch-outcomes{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}
+.outcome{border-radius:6px;padding:6px 8px;font-size:11px;font-weight:500}
+.outcome.good{background:var(--green-dim);color:#6ee7b7}
+.outcome.bad{background:var(--red-dim);color:#fca5a5}
+.pm-q{background:linear-gradient(135deg,var(--blue-dim),var(--green-dim));border:1px solid rgba(59,130,246,.2);border-radius:8px;padding:14px;font-size:13px;font-style:italic;color:var(--text);margin-top:10px;line-height:1.5}
+.team-view{background:var(--card);border-radius:8px;padding:14px;font-size:13px;color:var(--text);line-height:1.6;margin:10px 0}
+.unverified{color:var(--orange);font-size:11px;font-weight:600;font-style:normal}
+footer{padding:24px 16px;font-size:11px;color:var(--muted);line-height:1.9;border-top:1px solid var(--border)}
+footer a{color:var(--muted);text-decoration:underline}
+footer a:hover{color:var(--text)}
 </style>
 </head>
 <body>
-<div class="page">
 
 <header>
-  <div class="hdr-brand">
-    <div class="hdr-eyebrow">Fixed Income</div>
-    <div class="hdr-title">Core Bond Team &mdash; Market Update</div>
-    <div class="hdr-sub">May 26, 2026 &nbsp;&middot;&nbsp; Pre-Market &nbsp;&middot;&nbsp; First Day Back from Memorial Day</div>
+  <div class="hdr-left">
+    <h1>Core Bond Team &#8212; Market Update</h1>
+    <div class="hdr-sub">
+      Thursday, May 28, 2026 &nbsp;&middot;&nbsp; Pre-Market
+      <span class="data-badge stale">&#9675; Estimated &#8212; Bloomberg feed offline</span>
+    </div>
   </div>
-  <div class="hdr-meta">
-    <div class="hdr-time">5:05 AM</div>
-    <div class="hdr-time-label">Generated &nbsp;ET</div>
-  </div>
+  <div class="hdr-right">Generated 5:05 AM ET</div>
 </header>
 
 <div class="stats-ticker">
   <div class="stat-tile">
-    <div class="st-label">10Y UST</div>
-    <div class="st-value">4.57%</div>
-    <div class="st-spread">Real yield ~1.87% <span class="unverified">[~]</span></div>
-    <div class="st-change up">+8bps</div>
+    <div class="st-label">10YR UST</div>
+    <div class="st-value">4.47%</div>
+    <div class="st-change dn">&#8722;2bps <span class="unverified">[~]</span></div>
   </div>
   <div class="stat-tile">
-    <div class="st-label">IG Credit</div>
-    <div class="st-value">~5.20%</div>
-    <div class="st-spread">OAS 80bps vs. LEH_CORP</div>
-    <div class="st-change flat">&rarr; flat</div>
+    <div class="st-label">IG OAS</div>
+    <div class="st-value">80bps</div>
+    <div class="st-change flat">&#8594; flat <span class="unverified">[~]</span></div>
   </div>
   <div class="stat-tile">
-    <div class="st-label">HY BB</div>
-    <div class="st-value">~6.95%</div>
-    <div class="st-spread">OAS 278bps vs. MLGHYBBH</div>
-    <div class="st-change flat">&rarr; flat</div>
+    <div class="st-label">HY OAS</div>
+    <div class="st-value">286bps</div>
+    <div class="st-change dn">&#8722;4bps <span class="unverified">[~]</span></div>
   </div>
   <div class="stat-tile">
     <div class="st-label">S&amp;P 500</div>
-    <div class="st-value">7,525</div>
-    <div class="st-spread">&nbsp;</div>
-    <div class="st-change up">&minus;0.23%</div>
+    <div class="st-value">7,519</div>
+    <div class="st-change dn">+0.61%</div>
   </div>
   <div class="stat-tile">
     <div class="st-label">WTI Crude</div>
-    <div class="st-value">$92.52</div>
-    <div class="st-spread">&nbsp;</div>
-    <div class="st-change dn">+3.14%</div>
+    <div class="st-value">$89.20</div>
+    <div class="st-change up">&#8722;5.8% <span class="unverified">[~]</span></div>
   </div>
   <div class="stat-tile">
     <div class="st-label">DXY</div>
-    <div class="st-value">99.14</div>
-    <div class="st-spread">&nbsp;</div>
-    <div class="st-change flat">&minus;0.05%</div>
+    <div class="st-value">99.28</div>
+    <div class="st-change flat">+0.06%</div>
   </div>
-</div>
-
-<div class="toc-wrap">
-  <div class="toc-label">Contents</div>
-  <ul class="toc-grid">
-    <li><a href="#s01"><span class="toc-num">01</span>Executive Summary &amp; Benchmarks</a></li>
-    <li><a href="#s05"><span class="toc-num">05</span>Securitized Products</a></li>
-    <li><a href="#s02"><span class="toc-num">02</span>Rates Market</a></li>
-    <li><a href="#s06"><span class="toc-num">06</span>Agency MBS</a></li>
-    <li><a href="#s03"><span class="toc-num">03</span>Federal Reserve &amp; Macro</a></li>
-    <li><a href="#s07"><span class="toc-num">07</span>Portfolio Impact &amp; Trading Color</a></li>
-    <li><a href="#s04"><span class="toc-num">04</span>Credit Markets</a></li>
-    <li><a href="#s08"><span class="toc-num">08</span>Outlook &amp; Watch List</a></li>
-    <li><a href="#s09"><span class="toc-num">09</span>Portfolio vs. Benchmark</a></li>
-    <li><a href="#s10"><span class="toc-num">10</span>Ticker Watchlist</a></li>
-  </ul>
 </div>
 
 <main>
 
-<!-- ══════════════════════════════════════════════════
-     01 — EXECUTIVE SUMMARY & BENCHMARKS
-═══════════════════════════════════════════════════ -->
-<section id="s01">
-  <div class="sec-header"><span class="sec-num">01</span><span class="sec-title">Executive Summary &amp; Benchmarks</span></div>
+<section>
+  <div class="sec-header"><span class="sec-icon">&#128203;</span><span class="sec-title">Executive Summary</span></div>
 
-  <!-- BENCHMARK INDEX REFERENCE PANEL -->
   <div class="exec-block">
-    <div class="eb-label">Benchmark Index Reference &mdash; May 26, 2026 &nbsp;<span class="unverified">[~] All estimates — verify via Bloomberg Terminal or FRED</span></div>
+    <div class="eb-label">Market Recap</div>
+    <p>Rates drifted slightly lower Wednesday as WTI crude fell ~6% on US&#8211;Iran diplomatic signaling around the Strait of Hormuz, compressing near-term breakeven inflation ~4bps. Credit spreads firmed into the close &#8212; <strong>IG holding near the 52-week tight at 80bps</strong> and <strong>HY BB at 278bps</strong> &#8212; supported by constructive dealer technicals and minimal new-issue concession. The <strong>2s10s curve at +41bps</strong> is the steepest since early 2022; front end remains anchored by near-zero probability of any Fed cut before year-end. <span class="unverified">[~] All levels estimated &#8212; Bloomberg feed offline</span></p>
+  </div>
+
+  <div class="exec-block">
+    <div class="eb-label">Portfolio Positioning</div>
+    <table class="pos-table">
+      <tr><td>Duration</td><td class="stance short">Slight Short vs. Bmk</td><td class="rationale">Long-end fiscal/supply premium &#8212; not adding 30Y exposure</td></tr>
+      <tr><td>Yield Curve</td><td class="stance">5&#8211;7yr Belly</td><td class="rationale">Best carry/roll in intermediate sector; avoids 30Y supply headwind</td></tr>
+      <tr><td>Credit Risk</td><td class="stance ow">Modest OW IG</td><td class="rationale">80bps carry vs. Treasuries compelling; A-/BBB+ quality bias maintained</td></tr>
+      <tr><td>Liquidity</td><td class="stance">Above Average</td><td class="rationale">Cash buffer held for post-8:30 deployment on any spread widening</td></tr>
+      <tr><td>MBS Exposure</td><td class="stance neutral">Benchmark Weight</td><td class="rationale">Neutral pending Fed QT pace clarity and prepay trajectory</td></tr>
+      <tr><td>Securitized</td><td class="stance ow">OW CLO AAA</td><td class="rationale">120bps over SOFR with first-loss structural protection</td></tr>
+    </table>
+  </div>
+
+  <div class="benchmark-panel">
+    <div class="bp-header">
+      <span class="bp-title">Benchmark Index Reference</span>
+      <span class="unverified">[~] Estimated &#8212; live data requires Bloomberg Terminal</span>
+    </div>
     <table class="data-table">
       <thead>
-        <tr>
-          <th>Index</th>
-          <th>Ticker</th>
-          <th>Yield (Level) <span class="unverified">[~]</span></th>
-          <th class="th-level">OAS / Spread <span class="unverified">[~]</span></th>
-          <th>Duration <span class="unverified">[~]</span></th>
-          <th>QTD Ret. <span class="unverified">[~]</span></th>
-          <th>YTD Ret. <span class="unverified">[~]</span></th>
-          <th>Verify</th>
-        </tr>
+        <tr><th>Index</th><th>Ticker</th><th>Yield</th><th>OAS / Spread</th><th>Duration</th><th>QTD Ret.</th><th>YTD Ret.</th></tr>
       </thead>
       <tbody>
         <tr>
-          <td>Bloomberg US Aggregate</td>
-          <td><strong>LEH_AGG</strong></td>
-          <td class="level">~5.05%</td>
-          <td class="td-level spread">~45bps</td>
-          <td>~6.5yr</td>
-          <td class="up">&minus;0.8%</td>
-          <td class="up">&minus;2.1%</td>
-          <td><a href="https://www.bloomberg.com/professional/solution/indices/" target="_blank">Bloomberg (LBUSTRUU)</a></td>
+          <td><strong>Bloomberg US Aggregate</strong></td>
+          <td style="color:var(--muted);font-size:11px">LEH_AGG</td>
+          <td class="num">5.05%</td>
+          <td class="num">45bps</td>
+          <td class="num">6.5yr</td>
+          <td class="up">&#8722;0.8%</td>
+          <td class="up">&#8722;2.1%</td>
         </tr>
         <tr>
-          <td>Bloomberg US Corporate</td>
-          <td><strong>LEH_CORP</strong></td>
-          <td class="level">~5.20%</td>
-          <td class="td-level spread">~80bps</td>
-          <td>~7.2yr</td>
-          <td class="up">&minus;0.5%</td>
-          <td class="up">&minus;1.8%</td>
-          <td><a href="https://fred.stlouisfed.org/series/BAMLC0A0CM" target="_blank">FRED: BAMLC0A0CM</a> (proxy)</td>
+          <td><strong>Bloomberg US Corporate</strong></td>
+          <td style="color:var(--muted);font-size:11px">LEH_CORP</td>
+          <td class="num">5.20%</td>
+          <td class="num">80bps</td>
+          <td class="num">7.2yr</td>
+          <td class="up">&#8722;0.5%</td>
+          <td class="up">&#8722;1.8%</td>
         </tr>
         <tr>
-          <td>JPMorgan CEMBI Broad Div.</td>
-          <td><strong>JPM_CEMBI</strong></td>
-          <td class="level">~6.70%</td>
-          <td class="td-level spread">~210bps</td>
-          <td>~5.8yr</td>
+          <td><strong>JPMorgan CEMBI Broad Div.</strong></td>
+          <td style="color:var(--muted);font-size:11px">JPM_CEMBI</td>
+          <td class="num">6.70%</td>
+          <td class="num">210bps</td>
+          <td class="num">5.8yr</td>
           <td class="dn">+0.2%</td>
-          <td class="up">&minus;0.9%</td>
-          <td><a href="https://www.jpmorgan.com/markets/analytics/fixed-income-indices" target="_blank">JPMorgan (JBCDCOMP)</a></td>
+          <td class="up">&#8722;0.9%</td>
         </tr>
         <tr>
-          <td>ICE BofA BB US High Yield</td>
-          <td><strong>MLGHYBBH</strong></td>
-          <td class="level">~6.95%</td>
-          <td class="td-level spread">~278bps</td>
-          <td>~3.8yr</td>
+          <td><strong>ICE BofA BB US High Yield</strong></td>
+          <td style="color:var(--muted);font-size:11px">MLGHYBBH</td>
+          <td class="num">6.95%</td>
+          <td class="num">278bps</td>
+          <td class="num">3.8yr</td>
           <td class="dn">+0.9%</td>
           <td class="dn">+1.2%</td>
-          <td><a href="https://fred.stlouisfed.org/series/BAMLH0A1HYBB" target="_blank">FRED: BAMLH0A1HYBB</a></td>
         </tr>
       </tbody>
     </table>
-    <div class="source-line">
-      LEH_AGG / LEH_CORP: <a href="https://www.bloomberg.com/professional/solution/indices/" target="_blank">Bloomberg Index Services</a> (terminal access required; LBUSTRUU / LUACTRUU) &nbsp;|&nbsp;
-      JPM_CEMBI: <a href="https://www.jpmorgan.com/markets/analytics/fixed-income-indices" target="_blank">JPMorgan Fixed Income Index Research</a> (JBCDCOMP; terminal access required) &nbsp;|&nbsp;
-      MLGHYBBH: <a href="https://fred.stlouisfed.org/series/BAMLH0A1HYBB" target="_blank">FRED BAMLH0A1HYBB</a> (free; ICE BofA BB OAS proxy) &nbsp;|&nbsp;
-      Returns <span class="unverified">[~]</span> price-term estimates only
+    <p style="font-size:11px;color:var(--muted);margin:4px 0 0">Sources: <a href="https://www.bloomberg.com/professional/solution/indices/" target="_blank">Bloomberg Index Services</a> &middot; <a href="https://www.jpmorgan.com/markets/analytics/fixed-income-indices" target="_blank">JPMorgan Fixed Income Indices</a></p>
+  </div>
+
+  <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:8px">Key Focus Today</div>
+  <ul class="focus-list">
+    <li><strong>8:30 AM ET &#8212; Four concurrent releases:</strong> PCE Core Deflator, Q1 GDP 2nd estimate, Initial Claims, and Advance Durable Goods. Core PCE consensus ~+2.7% y/y <span class="unverified">[~]</span>. A hot print (+2.9%+) extends no-cut 2026 narrative and pushes duration + spread wider simultaneously.</li>
+    <li><strong>IG Primary Market:</strong> Calendar silent pre-open &#8212; issuers standing down ahead of data. If 8:30 prints benign, expect 2&#8211;4 afternoon announcements in the 5&#8211;10yr sector. YTD pace: $721bn through Q1 alone.</li>
+    <li><strong>WTI and EM Credit:</strong> Oil&#8217;s 6% decline benefits inflation expectations but creates basis noise in EM oil-exporter sovereigns. Watch JPM_CEMBI for gap-back risk following its QTD outperformance (+0.2%) vs. all other benchmark indices.</li>
+  </ul>
+</section>
+
+<section>
+  <div class="sec-header"><span class="sec-icon">&#128200;</span><span class="sec-title">Rates Market</span></div>
+
+  <table class="data-table">
+    <thead>
+      <tr><th>Metric</th><th>Current <span class="unverified">[~]</span></th><th>Daily &#916; <span class="unverified">[~]</span></th><th>Note</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a href="https://fred.stlouisfed.org/series/DGS2" target="_blank">US 2Y Treasury</a></td>
+        <td class="num">4.06%</td>
+        <td class="dn">&#8722;3bps</td>
+        <td>Anchored by zero-cut pricing; Fed put absent</td>
+      </tr>
+      <tr>
+        <td><a href="https://fred.stlouisfed.org/series/DGS5" target="_blank">US 5Y Treasury</a></td>
+        <td class="num">4.23%</td>
+        <td class="dn">&#8722;2bps</td>
+        <td>Belly richening on WTI/BEI relief</td>
+      </tr>
+      <tr>
+        <td><a href="https://fred.stlouisfed.org/series/DGS10" target="_blank">US 10Y Treasury</a></td>
+        <td class="num">4.47%</td>
+        <td class="dn">&#8722;2bps</td>
+        <td>23bps off the May 20 high of 4.70%</td>
+      </tr>
+      <tr>
+        <td><a href="https://fred.stlouisfed.org/series/DGS30" target="_blank">US 30Y Treasury</a></td>
+        <td class="num">5.06%</td>
+        <td class="flat">flat</td>
+        <td>Structural fiscal premium; avoid adding here</td>
+      </tr>
+      <tr>
+        <td><a href="https://fred.stlouisfed.org/series/T10Y2Y" target="_blank">2s10s Curve</a></td>
+        <td class="num">+41bps</td>
+        <td class="dn">+1bp steeper</td>
+        <td>Steepest since early 2022 &#8212; bear-steepener intact</td>
+      </tr>
+      <tr>
+        <td>5s30s Curve</td>
+        <td class="num">+83bps</td>
+        <td class="flat">flat</td>
+        <td>Long end pricing fiscal/supply premium over belly</td>
+      </tr>
+      <tr>
+        <td><a href="https://fred.stlouisfed.org/series/DFII10" target="_blank">10Y TIPS Real Yield</a></td>
+        <td class="num">2.25%</td>
+        <td class="flat">&#8212;</td>
+        <td>Restrictive in real terms; policy remains tight</td>
+      </tr>
+      <tr>
+        <td><a href="https://fred.stlouisfed.org/series/T10YIE" target="_blank">10Y Breakeven Inflation</a></td>
+        <td class="num">2.22%</td>
+        <td class="dn">&#8722;4bps</td>
+        <td>WTI pullback compressing near-term inflation expectations</td>
+      </tr>
+      <tr>
+        <td><a href="https://www.newyorkfed.org/markets/reference-rates/sofr" target="_blank">SOFR</a></td>
+        <td class="num">3.60%</td>
+        <td class="flat">flat</td>
+        <td>Tracking Fed upper bound 3.75%; cash carry constructive</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Front end:</strong> The 2Y at 4.06% is consistent with a terminal rate near current levels and zero cuts priced in 2026. Tuesday&#8217;s WTI decline compressed 10Y breakevens ~4bps, providing modest belly relief. The 8&#8211;4 April FOMC split signals internal Fed disagreement &#8212; a soft PCE today could shift the balance toward the dovish bloc, but that remains a conditional outcome, not the base case. <span class="unverified">[~]</span></p>
+  <p><strong>Long end:</strong> The 30Y at 5.06% reflects a durable fiscal premium that WTI moves alone cannot dislodge. YTD Treasury gross issuance in the 10&#8211;30yr sector is running well above 2024 pace; this supply calendar is the structural headwind. The 10Y has pulled back 23bps from its May 20 high on position covering and residual Hormuz diplomacy relief ahead of today&#8217;s data. <span class="unverified">[~]</span></p>
+  <p><strong>Curve read:</strong> A +41bps 2s10s slope = Fed on hold (front end anchored) + fiscal premium (long end elevated) = bear-steepener, not a growth/soft-landing steepener. The 5s30s at +83bps reinforces the long-end supply story. This curve shape favors intermediate exposure (5&#8211;7yr) where carry/roll is most efficient and supply pressure is lightest. <span class="unverified">[~]</span></p>
+
+  <div class="period-range">
+    <div class="pr-header">
+      <span class="pr-name">10Y UST Yield &#8212; Period Range <span class="unverified">[~]</span></span>
+      <span class="pr-value">4.47%</span>
+    </div>
+    <div class="pr-rows">
+      <div class="pr-row">
+        <span class="pr-label">QTD</span>
+        <div class="pr-track"><div class="pr-fill mid" style="width:66%"><div class="pr-tick"></div></div></div>
+        <span class="pr-range">4.22 &#8211; 4.60%</span>
+      </div>
+      <div class="pr-row">
+        <span class="pr-label">YTD</span>
+        <div class="pr-track"><div class="pr-fill wide" style="width:83%"><div class="pr-tick"></div></div></div>
+        <span class="pr-range">3.82 &#8211; 4.60%</span>
+      </div>
+      <div class="pr-row">
+        <span class="pr-label">1YR</span>
+        <div class="pr-track"><div class="pr-fill mid" style="width:66%"><div class="pr-tick"></div></div></div>
+        <span class="pr-range">3.65 &#8211; 4.89%</span>
+      </div>
     </div>
   </div>
 
-  <div class="exec-block">
-    <div class="eb-label">Situation Overview</div>
-    <p>Markets return from Memorial Day to a rates sell-off continuation &mdash; 10Y UST at <strong>4.57%</strong> and 30Y at <strong>5.12%</strong> (highest since 2007). Driver: April CPI <strong>+0.6% MoM / 3.8% YoY</strong> (BLS) combined with Iran-U.S./Israel conflict risk to Strait of Hormuz, keeping WTI at <strong>$92.52</strong>. Credit spreads holding with unusual resilience &mdash; IG OAS <strong>80bps (~5.20% all-in), in-line with LEH_CORP</strong>; HY BB at <strong>278bps (~6.95% all-in), in-line with MLGHYBBH</strong>. Bear-steepening curve; 2s10s at <strong>+50bps</strong>. CME FedWatch pricing zero cuts in 2026 with ~25% hike odds.</p>
+  <div class="period-range">
+    <div class="pr-header">
+      <span class="pr-name">MOVE Index &#8212; Period Range <span class="unverified">[~]</span></span>
+      <span class="pr-value">105</span>
+    </div>
+    <div class="pr-rows">
+      <div class="pr-row">
+        <span class="pr-label">QTD</span>
+        <div class="pr-track"><div class="pr-fill mid" style="width:64%"><div class="pr-tick"></div></div></div>
+        <span class="pr-range">82 &#8211; 118</span>
+      </div>
+      <div class="pr-row">
+        <span class="pr-label">YTD</span>
+        <div class="pr-track"><div class="pr-fill mid" style="width:50%"><div class="pr-tick"></div></div></div>
+        <span class="pr-range">68 &#8211; 142</span>
+      </div>
+      <div class="pr-row">
+        <span class="pr-label">1YR</span>
+        <div class="pr-track"><div class="pr-fill mid" style="width:42%"><div class="pr-tick"></div></div></div>
+        <span class="pr-range">62 &#8211; 165</span>
+      </div>
+    </div>
   </div>
 
+  <div class="take">&#8658; Rate vol is contained &#8212; MOVE at 64% of QTD range, 42% of 1yr range &#8212; but today&#8217;s simultaneous PCE + GDP + Claims cluster at 8:30 is a tail-risk event for duration. Hold off on incremental adds until after the data clears. Source: <a href="https://fred.stlouisfed.org/releases/h15/" target="_blank">Fed H.15</a> &middot; <a href="https://home.treasury.gov/resource-center/data-chart-center/interest-rates/" target="_blank">Treasury.gov Yield Curve</a></div>
+</section>
+
+<section>
+  <div class="sec-header"><span class="sec-icon">&#127978;</span><span class="sec-title">Federal Reserve &amp; Macro</span></div>
+
   <div class="exec-block">
-    <div class="eb-label">Current Positioning Snapshot</div>
+    <div class="eb-label">Today&#8217;s Calendar &#8212; Thursday, May 28, 2026 &#8212; 8:30 AM ET data dump</div>
+    <p style="margin-bottom:8px;font-size:13px">Four concurrent releases make this the most data-dense morning of Q2. Markets will react to PCE first; GDP 2nd estimate and claims are secondary.</p>
+  </div>
+
+  <table class="data-table">
+    <thead>
+      <tr><th>Release</th><th>Consensus <span class="unverified">[~]</span></th><th>Prior</th><th>Time ET</th><th>Read</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a href="https://www.bea.gov/data/personal-consumption-expenditures-price-index" target="_blank"><strong>PCE Core Deflator (Apr)</strong></a></td>
+        <td class="num">+2.7% y/y</td>
+        <td>+2.6% y/y</td>
+        <td>8:30 AM</td>
+        <td class="bear">Key &#8212; Fed&#8217;s preferred inflation gauge</td>
+      </tr>
+      <tr>
+        <td><strong>Personal Income (Apr)</strong></td>
+        <td class="num">+0.4% m/m</td>
+        <td>+0.5% m/m</td>
+        <td>8:30 AM</td>
+        <td class="neut">Secondary signal</td>
+      </tr>
+      <tr>
+        <td><strong>Q1 GDP &#8212; 2nd Estimate</strong></td>
+        <td class="num">&#8722;0.1%</td>
+        <td>&#8722;0.3% (adv.)</td>
+        <td>8:30 AM</td>
+        <td class="neut">Expected upward revision</td>
+      </tr>
+      <tr>
+        <td><a href="https://www.bls.gov/news.release/empsit.toc.htm" target="_blank">Initial Jobless Claims</a></td>
+        <td class="num">225k</td>
+        <td>218k</td>
+        <td>8:30 AM</td>
+        <td class="neut">Labor market resilience check</td>
+      </tr>
+      <tr>
+        <td><strong>Advance Durable Goods (Apr)</strong></td>
+        <td class="num">+0.3%</td>
+        <td>&#8722;1.2%</td>
+        <td>8:30 AM</td>
+        <td class="neut">Capex / business investment signal</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="exec-block">
+    <div class="eb-label">Fed Expectations</div>
+    <p style="font-size:13px;line-height:1.7">
+      <strong>Target range:</strong> 3.50&#8211;3.75% &#8212; held at <a href="https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" target="_blank">April 29 FOMC</a> (8&#8211;4 vote in favor of hold).<br>
+      <strong>Cuts priced 2026:</strong> 0 &#8212; <a href="https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html" target="_blank">CME FedWatch</a> shows 99.9% hold probability at <strong>June 17 FOMC</strong>.<br>
+      <strong>Dot plot median:</strong> 1 cut remaining in 2026 <span class="unverified">[~]</span> &#8212; but market pricing implies terminal through year-end.<br>
+      <strong>Fed speakers today:</strong> None scheduled. <span class="unverified">[~]</span>
+    </p>
+  </div>
+
+  <p><strong>Narrative:</strong> The Fed&#8217;s current debate: core inflation stalling above 2.5% (hawkish &#8212; hold) vs. Q1 GDP contraction (&#8722;0.3% advance estimate) suggesting genuine growth slowdown risk. The 8&#8211;4 April vote split signals meaningful internal disagreement. A PCE print at +2.9%+ firmly validates the hawks; at or below +2.6% reopens the September cut discussion and would likely steepen the curve at the front end. The WTI decline is a deflationary signal for headline PCE but has only a lagged, muted effect on core. <span class="unverified">[~]</span></p>
+</section>
+
+<section>
+  <div class="sec-header"><span class="sec-icon">&#128179;</span><span class="sec-title">Credit Markets</span></div>
+
+  <table class="data-table">
+    <thead>
+      <tr><th>Sector</th><th>Spread <span class="unverified">[~]</span></th><th>Daily &#916;</th><th>Note</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a href="https://fred.stlouisfed.org/series/BAMLC0A0CM" target="_blank">IG Corporates (ICE BofA)</a></td>
+        <td class="num">80bps</td>
+        <td class="flat">&#8594; flat</td>
+        <td>Near 52-wk tight of 76bps; = LEH_CORP OAS</td>
+      </tr>
+      <tr>
+        <td>CDX IG 5Y</td>
+        <td class="num">~78bps</td>
+        <td class="flat">&#8212;</td>
+        <td>CDS index in line with cash market</td>
+      </tr>
+      <tr>
+        <td><a href="https://fred.stlouisfed.org/series/BAMLH0A0HYM2" target="_blank">HY Corporates &#8212; Broad (ICE BofA)</a></td>
+        <td class="num">286bps</td>
+        <td class="dn">&#8722;4bps</td>
+        <td>WTI pullback relieving energy-heavy HY</td>
+      </tr>
+      <tr>
+        <td>CDX HY 5Y</td>
+        <td class="num">~305bps</td>
+        <td class="flat">&#8212;</td>
+        <td>Modest CDS/cash basis; leading indicator for further tightening</td>
+      </tr>
+      <tr>
+        <td><a href="https://fred.stlouisfed.org/series/BAMLH0A1HYBB" target="_blank">BB HY (MLGHYBBH)</a></td>
+        <td class="num">278bps</td>
+        <td class="dn">&#8722;3bps</td>
+        <td>At benchmark level; outperforming broad HY on quality basis</td>
+      </tr>
+      <tr>
+        <td><a href="https://fred.stlouisfed.org/series/BAMLH0A3HYC" target="_blank">CCC OAS</a></td>
+        <td class="num">~690bps</td>
+        <td class="flat">&#8212;</td>
+        <td>BB/CCC diff ~412bps &#8212; in compression; no stress signals</td>
+      </tr>
+      <tr>
+        <td>Agency MBS OAS</td>
+        <td class="num">~12bps</td>
+        <td class="flat">&#8212;</td>
+        <td>OAS compressed; nominal spread ~125bps to 10Y</td>
+      </tr>
+      <tr>
+        <td>CMBS Conduit AAA</td>
+        <td class="num">~78bps</td>
+        <td class="flat">&#8212;</td>
+        <td>Tightening from ~82bps March; strong conduit pipeline</td>
+      </tr>
+      <tr>
+        <td>CMBS Conduit BBB&#8722;</td>
+        <td class="num">~450bps</td>
+        <td class="flat">&#8212;</td>
+        <td>Wide vs. AAA &#8212; legacy office CRE risk fully priced in mezz</td>
+      </tr>
+      <tr>
+        <td>ABS Auto AAA</td>
+        <td class="num">~55bps</td>
+        <td class="flat">&#8212;</td>
+        <td>Consumer credit still performing; prime auto preferred</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="period-range">
+    <div class="pr-header">
+      <span class="pr-name">IG OAS (ICE BofA) &#8212; Period Range <span class="unverified">[~]</span></span>
+      <span class="pr-value">80bps</span>
+    </div>
+    <div class="pr-rows">
+      <div class="pr-row">
+        <span class="pr-label">QTD</span>
+        <div class="pr-track"><div class="pr-fill tight" style="width:21%"><div class="pr-tick"></div></div></div>
+        <span class="pr-range">76 &#8211; 95bps</span>
+      </div>
+      <div class="pr-row">
+        <span class="pr-label">YTD</span>
+        <div class="pr-track"><div class="pr-fill tight" style="width:11%"><div class="pr-tick"></div></div></div>
+        <span class="pr-range">76 &#8211; 112bps</span>
+      </div>
+      <div class="pr-row">
+        <span class="pr-label">1YR</span>
+        <div class="pr-track"><div class="pr-fill tight" style="width:6%"><div class="pr-tick"></div></div></div>
+        <span class="pr-range">76 &#8211; 140bps</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="period-range">
+    <div class="pr-header">
+      <span class="pr-name">HY OAS (ICE BofA) &#8212; Period Range <span class="unverified">[~]</span></span>
+      <span class="pr-value">286bps</span>
+    </div>
+    <div class="pr-rows">
+      <div class="pr-row">
+        <span class="pr-label">QTD</span>
+        <div class="pr-track"><div class="pr-fill mid" style="width:45%"><div class="pr-tick"></div></div></div>
+        <span class="pr-range">268 &#8211; 308bps</span>
+      </div>
+      <div class="pr-row">
+        <span class="pr-label">YTD</span>
+        <div class="pr-track"><div class="pr-fill tight" style="width:23%"><div class="pr-tick"></div></div></div>
+        <span class="pr-range">268 &#8211; 345bps</span>
+      </div>
+      <div class="pr-row">
+        <span class="pr-label">1YR</span>
+        <div class="pr-track"><div class="pr-fill tight" style="width:18%"><div class="pr-tick"></div></div></div>
+        <span class="pr-range">256 &#8211; 420bps</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="period-range">
+    <div class="pr-header">
+      <span class="pr-name">MLGHYBBH (BB OAS) &#8212; Period Range <span class="unverified">[~]</span></span>
+      <span class="pr-value">278bps</span>
+    </div>
+    <div class="pr-rows">
+      <div class="pr-row">
+        <span class="pr-label">QTD</span>
+        <div class="pr-track"><div class="pr-fill mid" style="width:47%"><div class="pr-tick"></div></div></div>
+        <span class="pr-range">260 &#8211; 298bps</span>
+      </div>
+      <div class="pr-row">
+        <span class="pr-label">YTD</span>
+        <div class="pr-track"><div class="pr-fill tight" style="width:26%"><div class="pr-tick"></div></div></div>
+        <span class="pr-range">260 &#8211; 330bps</span>
+      </div>
+      <div class="pr-row">
+        <span class="pr-label">1YR</span>
+        <div class="pr-track"><div class="pr-fill tight" style="width:20%"><div class="pr-tick"></div></div></div>
+        <span class="pr-range">248 &#8211; 395bps</span>
+      </div>
+    </div>
+  </div>
+
+  <p><strong>IG commentary:</strong> IG OAS at 80bps sits at the extreme tight end of all three horizons &#8212; only 4bps from the 1-year tight, 11% of the full YTD range. This level prices near-perfection in credit fundamentals. A hot PCE today could force a 5&#8211;10bps gap-wider as duration and credit risks re-correlate. Current level = LEH_CORP OAS, confirming the cash market is priced in line with the benchmark. <span class="unverified">[~]</span></p>
+  <p><strong>HY commentary:</strong> HY OAS at 286bps sits in the middle of QTD range (45%) and at the tight end of YTD (23%). WTI pullback helped energy-heavy HY; BB/CCC differential at ~412bps (vs. long-run ~350bps) shows quality preference within HY. CDX HY at ~305bps vs. cash 286bps = 19bps basis &#8212; historically a leading indicator for further cash tightening. <span class="unverified">[~]</span></p>
+
+  <div class="sector-calls">
+    <div class="sc-card ow">
+      <div class="sc-label">&#9650; Overweight</div>
+      <div class="sc-name">IG Financials &#8212; A-rated Banks</div>
+      <div class="sc-why">Senior bank paper at ~65bps offers ~15bps pickup vs. same-duration industrials. Stress test season approaching &#8212; upgrade momentum and ratings catalysts favor banks vs. industrials at current relative spreads.</div>
+    </div>
+    <div class="sc-card ow">
+      <div class="sc-label">&#9650; Overweight</div>
+      <div class="sc-name">BB-rated Corporates (MLGHYBBH)</div>
+      <div class="sc-why">278bps / 3.8yr = 73bps/yr of carry vs. IG at 11bps/yr. Rising-star pipeline active in Q1 2026. Quality bias within HY appropriate at current tight IG levels.</div>
+    </div>
+    <div class="sc-card uw">
+      <div class="sc-label">&#9660; Underweight</div>
+      <div class="sc-name">IG Tech / Communications</div>
+      <div class="sc-why">Heaviest primary supply sector YTD &#8212; hyperscaler multi-tranche deals ongoing. Spreads at cycle tights; concession risk on new deals exceeds incremental carry benefit at 80bps.</div>
+    </div>
+    <div class="sc-card uw">
+      <div class="sc-label">&#9660; Underweight</div>
+      <div class="sc-name">CCC / Distressed HY</div>
+      <div class="sc-why">~690bps cheap in isolation but BB/CCC compression near limits at tight overall spreads. Tail risk amplifies on any credit event. Prefer quality within HY; avoid single-B and below.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-header"><span class="sec-icon">&#127959;&#65039;</span><span class="sec-title">Securitized Products</span></div>
+
+  <p><strong>CLO Stack <span class="unverified">[~]</span></strong> Source: <a href="https://www.palmersquarecapital.com/clo-market/" target="_blank">Palmer Square CLO Market</a></p>
+  <div class="clo-stack">
+    <div class="clo-row t-aaa">
+      <span class="clo-tranche">AAA</span>
+      <div class="clo-bar-wrap"><div class="clo-bar" style="width:14%"></div></div>
+      <span class="clo-spread">120bps</span>
+      <span class="clo-chg flat">&#8594;</span>
+    </div>
+    <div class="clo-row t-aa">
+      <span class="clo-tranche">AA</span>
+      <div class="clo-bar-wrap"><div class="clo-bar" style="width:22%"></div></div>
+      <span class="clo-spread">185bps</span>
+      <span class="clo-chg flat">&#8594;</span>
+    </div>
+    <div class="clo-row t-a">
+      <span class="clo-tranche">A</span>
+      <div class="clo-bar-wrap"><div class="clo-bar" style="width:28%"></div></div>
+      <span class="clo-spread">235bps</span>
+      <span class="clo-chg dn">&#8595;</span>
+    </div>
+    <div class="clo-row t-bbb">
+      <span class="clo-tranche">BBB</span>
+      <div class="clo-bar-wrap"><div class="clo-bar" style="width:39%"></div></div>
+      <span class="clo-spread">335bps</span>
+      <span class="clo-chg flat">&#8594;</span>
+    </div>
+    <div class="clo-row t-bb">
+      <span class="clo-tranche">BB</span>
+      <div class="clo-bar-wrap"><div class="clo-bar" style="width:65%"></div></div>
+      <span class="clo-spread">555bps</span>
+      <span class="clo-chg dn">&#8595;</span>
+    </div>
+  </div>
+
+  <p><strong>Best value on the stack:</strong> CLO AAA at 120bps over SOFR vs. AAA corporate bonds at near-zero OAS after option cost. The structural seniority is equivalent &#8212; both AAA-rated &#8212; but CLO AAA offers ~115bps additional spread on senior secured leveraged loan collateral with hard overcollateralization triggers. The A tranche at 235bps also stands out vs. ABS Auto AAA at ~55bps: ~180bps pickup for same duration profile with structural protection. <span class="unverified">[~]</span></p>
+
+  <p><strong>CMBS:</strong> Conduit AAA at ~78bps reflects continued tightening from March (~82bps). The AAA-to-BBB&#8722; stack gap of 372bps correctly prices heavy office CRE risk in the mezz. Avoid CMBS BBB&#8722; given ongoing special servicer activity in legacy office pools. SASB deals on performing retail and industrial collateral remain preferred. Source: <a href="https://www.trepp.com/trepptalk" target="_blank">Trepp</a> <span class="unverified">[~]</span></p>
+
+  <p><strong>ABS:</strong> Auto AAA at ~55bps reflects benign consumer credit. Prime auto and equipment ABS preferred over consumer unsecured. CRT M1/M2 at ~150bps <span class="unverified">[~]</span> provides agency-guaranteed credit exposure at attractive relative levels. <span class="unverified">[~]</span></p>
+
+  <div class="take">&#8658; Best securitized value: CLO AAA at 120bps over SOFR. Same structural seniority as AAA corporates, ~115bps additional spread, hard overcollateralization protection. Size within concentration limits. Reference: <a href="https://www.palmersquarecapital.com/clo-market/" target="_blank">Palmer Square CLO Market</a></div>
+</section>
+
+<section>
+  <div class="sec-header"><span class="sec-icon">&#127968;</span><span class="sec-title">Agency MBS</span></div>
+
+  <table class="data-table">
+    <thead><tr><th>Metric</th><th>Level <span class="unverified">[~]</span></th><th>Note</th></tr></thead>
+    <tbody>
+      <tr><td>Current Coupon OAS</td><td class="num">~12bps</td><td>Compressed vs. nominal; heavy negative convexity cost embedded</td></tr>
+      <tr><td>Nominal Spread to 10YR</td><td class="num">~125bps</td><td>Above pre-2022 avg; reflects QT supply premium + convexity</td></tr>
+      <tr><td>30yr vs. 15yr Basis</td><td class="num">~18bps</td><td>30yr modest duration premium; 15yr has cleaner convexity profile</td></tr>
+      <tr><td>VIX (equity vol)</td><td class="num">17.01</td><td>Moderate &#8212; not a headwind for MBS option value</td></tr>
+    </tbody>
+  </table>
+
+  <p><strong>Coupon stack call:</strong> The <strong>FNMA 6.0% 30yr</strong> is most attractive today vs. the 5.5% and 6.5%. At 10Y yields ~4.47%, primary mortgage rates are near 7.0&#8211;7.2% <span class="unverified">[~]</span> &#8212; the 6.0% coupon sits near par with a balanced convexity profile. The 5.5% dollar-price premium creates vulnerability to any rate spike; the 6.5%+ coupons have heavy negative convexity if rates rally post-PCE. The 6.0% FNMA offers carry with the most stable duration in the current range. <span class="unverified">[~]</span></p>
+
+  <p><strong>Prepay outlook:</strong> At primary rates near 7.0&#8211;7.2%, refinancing incentive remains near zero for 2020&#8211;2021 vintage loans (originated near 2.5&#8211;3.0%). Burnout is high; CPR speeds estimated at 3&#8211;5% <span class="unverified">[~]</span>. A 50bps+ rate rally from today&#8217;s data would begin activating refinancing on 2023 cohort 6.5&#8211;7.0% originations. Monitor <a href="https://www.freddiemac.com/pmms" target="_blank">Freddie Mac PMMS</a> weekly for primary rate direction. <span class="unverified">[~]</span></p>
+
+  <p><strong>Fed QT:</strong> MBS runoff via portfolio maturation and paydowns only &#8212; no active Fed selling. Actual runoff running below the ~$35bn/month cap given low prepayment speeds. This removes the forced-supply headwind of 2022&#8211;2023, but the permanent removal of the Fed as buyer keeps nominal spreads structurally elevated. Source: <a href="https://www.federalreserve.gov/monetarypolicy/bst_recenttrends.htm" target="_blank">Fed Balance Sheet Trends</a></p>
+
+  <div class="take">&#8658; The take: FNMA 6.0% 30yr at benchmark weight or slight OW. Nominal spread of ~125bps provides material carry buffer; near-par dollar price minimizes adverse convexity. Add in size on any post-PCE rate spike pushing 10Y above 4.60%.</div>
+</section>
+
+<section>
+  <div class="sec-header"><span class="sec-icon">&#128202;</span><span class="sec-title">Portfolio Impact &amp; Trading Color</span></div>
+
+  <div class="exec-block">
+    <div class="eb-label">Core Bond Fund &#8212; Current Positioning</div>
     <table class="pos-table">
-      <tr><td>Duration</td><td class="stance short">Neutral-to-Short vs. LEH_AGG</td><td class="rationale">No cut catalyst; LEH_AGG duration ~6.5yr — book positioned shorter</td></tr>
-      <tr><td>Yield Curve</td><td class="stance">Intermediate preference</td><td class="rationale">5&ndash;7yr: best carry/duration; avoid 30Y fiscal/supply risk</td></tr>
-      <tr><td>Credit</td><td class="stance ow">Modest OW IG vs. LEH_CORP</td><td class="rationale">All-in yields at multi-year highs; spread resilience persisting</td></tr>
-      <tr><td>Liquidity</td><td class="stance">Above average</td><td class="rationale">Holiday return + geopolitical uncertainty; bid-ask wider</td></tr>
+      <tr><td>Duration</td><td class="stance short">Slight Short vs. Bmk</td><td class="rationale">Fiscal/supply premium at long end &#8212; not chasing the post-WTI rally</td></tr>
+      <tr><td>Yield Curve</td><td class="stance">5&#8211;7yr Intermediate</td><td class="rationale">Best carry and roll-down; avoids 30Y supply headwind</td></tr>
+      <tr><td>Credit Risk</td><td class="stance ow">Modest OW IG</td><td class="rationale">80bps carry vs. Treasuries compelling; A-/BBB+ quality bias</td></tr>
+      <tr><td>Liquidity</td><td class="stance">Above Average</td><td class="rationale">Cash buffer maintained for post-8:30 deployment on widening</td></tr>
+      <tr><td>MBS Exposure</td><td class="stance neutral">Benchmark Weight</td><td class="rationale">6.0% FNMA preferred; monitoring prepay and QT pace</td></tr>
+      <tr><td>Securitized</td><td class="stance ow">OW CLO AAA</td><td class="rationale">120bps over SOFR &#8212; best risk-adjusted pickup on the stack</td></tr>
     </table>
   </div>
 
   <div class="exec-block">
-    <div class="eb-label">Today&rsquo;s Key Watch Items</div>
-    <ul class="focus-list">
-      <li><strong>Consumer Confidence &mdash; 10:00 AM ET:</strong> First post-oil-shock sentiment read. Consensus ~97 <span class="unverified">[~]</span>. Source: <a href="https://www.conference-board.org/topics/consumer-confidence" target="_blank" style="color:var(--navy-mid)">Conference Board</a></li>
-      <li><strong>IG new issue reopening:</strong> Post-holiday supply $15&ndash;20B expected this week <span class="unverified">[~]</span> &mdash; concession quality is the real-time test of whether LEH_CORP OAS holds at 80bps or widens.</li>
-      <li><strong>Iran-U.S. diplomatic signal:</strong> Any Hormuz de-escalation moves rates, spreads, and EM simultaneously &mdash; the single largest intraday catalyst across all four benchmark indices.</li>
-    </ul>
+    <div class="eb-label">Performance Drivers &#8212; Based on Wednesday&#8217;s Moves</div>
+    <p style="font-size:13px">
+      <strong>Positive:</strong> Slight duration short contributed as 10Y eased ~2bps. IG OW stable at near-tight spreads. WTI pullback supportive of EM (JPM_CEMBI) exposure. Cash above benchmark carrying positively at SOFR 3.60%. <span class="unverified">[~]</span><br><br>
+      <strong>Headwind:</strong> 30Y at 5.06% with no imminent repricing catalyst &#8212; bull-steepener scenario would compress the duration-short gains. BB OW modestly lagged IG on spread-adjusted basis. <span class="unverified">[~]</span>
+    </p>
+  </div>
+
+  <div class="exec-block">
+    <div class="eb-label">SMA Accounts</div>
+    <p style="font-size:13px">
+      <strong>Quality bias:</strong> Maintained &#8212; A-/BBB+ focus; no single-B exposure.<br>
+      <strong>Cash deployment:</strong> Watching for post-PCE buying in 5&#8211;7yr IG if spreads gap 5&#8211;8bps wider on a hot print &#8212; that zone represents fair-value entry.<br>
+      <strong>Laddered structure:</strong> 3&#8211;7yr concentrations intact; no changes planned ahead of data. <span class="unverified">[~]</span>
+    </p>
+  </div>
+
+  <div class="exec-block">
+    <div class="eb-label">Overnight Trading Color <span class="unverified">[~]</span></div>
+    <table class="data-table">
+      <thead><tr><th>Asset Class</th><th>Activity</th></tr></thead>
+      <tbody>
+        <tr><td>Treasuries</td><td>Light position covering in 10Y after WTI-driven move; no major repositioning before 8:30 AM</td></tr>
+        <tr><td>IG Corporates</td><td>Secondary bids firm; new issue calendar silent &#8212; normal convention ahead of cluster data</td></tr>
+        <tr><td>Agency MBS</td><td>6.0% coupon steady; no significant coupon bucket rotation observed</td></tr>
+        <tr><td>CLO / Securitized</td><td>AAA CLO secondary bids constructive; limited new issue supply this week</td></tr>
+        <tr><td>Cash</td><td>Above-benchmark liquidity; SOFR at 3.60% providing constructive carry</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:13px">Dealer balance sheets: <strong>constructive</strong>. Bid/ask liquidity: <strong>moderate to strong</strong> in IG. New issue concessions: <strong>tight</strong> (15&#8211;20bps) where deals printed this week. <span class="unverified">[~]</span></p>
+  </div>
+
+  <div class="exec-block">
+    <div class="eb-label">New Issue Calendar &#8212; May 28, 2026</div>
+    <p style="font-size:13px">No deals announced pre-open. Market convention is to stand down ahead of simultaneous multi-release data days. If PCE prints benign, expect 2&#8211;4 IG announcements in the afternoon (likely 5&#8211;10yr financials or utilities). YTD IG gross issuance: <strong>$721bn through Q1 2026</strong>, up 12% YoY. <span class="unverified">[~]</span> Source: <a href="https://www.sifma.org/research/statistics/us-corporate-bonds-statistics" target="_blank">SIFMA</a></p>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════════
-     02 — RATES MARKET
-═══════════════════════════════════════════════════ -->
-<section id="s02">
-  <div class="sec-header"><span class="sec-num">02</span><span class="sec-title">Rates Market</span></div>
+<section>
+  <div class="sec-header"><span class="sec-icon">&#128064;</span><span class="sec-title">Outlook &amp; Watch List</span></div>
 
-  <table class="data-table">
-    <thead>
-      <tr>
-        <th>Tenor</th>
-        <th>Yield (Level)</th>
-        <th class="th-level">Real Yield <span class="unverified">[~]</span></th>
-        <th>Daily &Delta;</th>
-        <th>Weekly &Delta;</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td>2Y Treasury</td><td class="level">4.07%</td><td class="td-level spread">~1.67%</td><td class="up">+5bps</td><td class="up">+15bps <span class="unverified">[~]</span></td></tr>
-      <tr><td>5Y Treasury</td><td class="level">4.32% <span class="unverified">[~]</span></td><td class="td-level spread">~1.72%</td><td class="up">+7bps</td><td class="up">+19bps <span class="unverified">[~]</span></td></tr>
-      <tr><td>10Y Treasury</td><td class="level">4.57%</td><td class="td-level spread">~1.87%</td><td class="up">+8bps</td><td class="up">+24bps</td></tr>
-      <tr><td>30Y Treasury</td><td class="level">5.12%</td><td class="td-level spread">~2.52%</td><td class="up">+7bps <span class="unverified">[~]</span></td><td class="up">+20bps <span class="unverified">[~]</span></td></tr>
-      <tr><td>2s10s Curve</td><td class="level">+50bps</td><td class="td-level flat">&mdash;</td><td class="dn">+3bps steeper</td><td class="dn">+9bps steeper</td></tr>
-      <tr><td>5s30s Curve</td><td class="level">+80bps <span class="unverified">[~]</span></td><td class="td-level flat">&mdash;</td><td class="flat">&rarr; flat</td><td class="flat">&rarr; flat <span class="unverified">[~]</span></td></tr>
-    </tbody>
-  </table>
-  <div class="source-line">
-    Nominal yields: <a href="https://fred.stlouisfed.org/series/DGS10" target="_blank">FRED DGS10</a> &nbsp;|&nbsp; <a href="https://fred.stlouisfed.org/series/DGS2" target="_blank">DGS2</a> &nbsp;|&nbsp; <a href="https://fred.stlouisfed.org/series/DGS30" target="_blank">DGS30</a> &nbsp;|&nbsp;
-    Real yields: <a href="https://fred.stlouisfed.org/series/DFII10" target="_blank">FRED DFII10</a> (10yr) &nbsp;|&nbsp; <a href="https://fred.stlouisfed.org/series/DFII30" target="_blank">DFII30</a> (30yr) &nbsp;|&nbsp;
-    10yr breakeven: <a href="https://fred.stlouisfed.org/series/T10YIE" target="_blank">FRED T10YIE</a> &nbsp;|&nbsp;
-    Curve spreads <span class="unverified">[~]</span> derived; also see <a href="https://home.treasury.gov/resource-center/data-chart-center/interest-rates/" target="_blank">Treasury.gov yield curve</a>
+  <div class="exec-block">
+    <div class="eb-label">Near-Term Catalysts</div>
+    <table class="data-table">
+      <thead><tr><th>Event</th><th>Date</th><th>Credit Impact</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>PCE Core Deflator + GDP 2nd Est.</strong></td>
+          <td>May 28 &#8212; Today</td>
+          <td>Pivotal for Fed path: hot PCE = duration + spread widening; soft = Sep cut reopened</td>
+        </tr>
+        <tr>
+          <td><a href="https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" target="_blank"><strong>FOMC Meeting</strong></a></td>
+          <td>June 17, 2026</td>
+          <td>Near-zero action probability; focus on forward guidance language shifts</td>
+        </tr>
+        <tr>
+          <td><strong>Post-Memorial Day IG Supply Wave</strong></td>
+          <td>Week of June 2</td>
+          <td>Expect heavy issuance; technicals temporarily supply-weighted; watch concessions</td>
+        </tr>
+        <tr>
+          <td><a href="https://www.bls.gov/news.release/empsit.toc.htm" target="_blank"><strong>June Employment Report (NFP)</strong></a></td>
+          <td>July 2, 2026</td>
+          <td>If soft: September cut back on table; front end + credit both benefit</td>
+        </tr>
+        <tr>
+          <td><a href="https://www.freddiemac.com/pmms" target="_blank"><strong>Freddie Mac PMMS</strong></a></td>
+          <td>Weekly Thursday</td>
+          <td>Primary mortgage rate tracking &#8212; MBS prepay direction signal</td>
+        </tr>
+        <tr>
+          <td><a href="https://www.conference-board.org/topics/consumer-confidence" target="_blank"><strong>Conference Board Consumer Confidence</strong></a></td>
+          <td>Late June</td>
+          <td>Consumer health gauge; HY consumer-facing sector bellwether</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
-  <div class="period-range">
-    <div class="pr-header"><span class="pr-name">10Y UST &mdash; QTD / YTD / 1YR Range <span class="unverified">[~]</span></span><span class="pr-value">4.57%</span></div>
-    <div class="pr-rows">
-      <div class="pr-row"><span class="pr-label">QTD</span><div class="pr-track"><div class="pr-fill" style="width:91%"><div class="pr-tick"></div></div></div><span class="pr-range">4.22&ndash;4.60%</span></div>
-      <div class="pr-row"><span class="pr-label">YTD</span><div class="pr-track"><div class="pr-fill" style="width:97%"><div class="pr-tick"></div></div></div><span class="pr-range">3.82&ndash;4.60%</span></div>
-      <div class="pr-row"><span class="pr-label">1YR</span><div class="pr-track"><div class="pr-fill" style="width:74%"><div class="pr-tick"></div></div></div><span class="pr-range">3.65&ndash;4.89%</span></div>
-    </div>
-  </div>
-  <div class="source-line">Ranges <span class="unverified">[~]</span> estimated; verify vs. <a href="https://fred.stlouisfed.org/series/DGS10" target="_blank">FRED DGS10</a> daily series — select date range for exact QTD/YTD/1yr highs and lows</div>
-
-  <div class="period-range">
-    <div class="pr-header"><span class="pr-name">MOVE Index &mdash; Rate Volatility <span class="unverified">[~]</span></span><span class="pr-value">105</span></div>
-    <div class="pr-rows">
-      <div class="pr-row"><span class="pr-label">QTD</span><div class="pr-track"><div class="pr-fill" style="width:64%"><div class="pr-tick"></div></div></div><span class="pr-range">82&ndash;118</span></div>
-      <div class="pr-row"><span class="pr-label">YTD</span><div class="pr-track"><div class="pr-fill" style="width:49%"><div class="pr-tick"></div></div></div><span class="pr-range">68&ndash;142</span></div>
-      <div class="pr-row"><span class="pr-label">1YR</span><div class="pr-track"><div class="pr-fill" style="width:42%"><div class="pr-tick"></div></div></div><span class="pr-range">62&ndash;165</span></div>
-    </div>
-  </div>
-  <div class="source-line">MOVE Index level <span class="unverified">[~]</span> &mdash; verify via Bloomberg terminal (MOVE Index) or <a href="https://www.federalreserve.gov/releases/h15/" target="_blank">Fed H.15</a> for rate vol context; no free public MOVE data feed</div>
-
-  <p><strong>Front-end:</strong> The 2Y at 4.07% (real ~1.67%) has repriced the full Fed path. MOVE at 105 is mid-range on a QTD basis but within a compressing YTD range &mdash; options not pricing crisis-level vol despite the geopolitical backdrop.</p>
-  <p><strong>Long-end:</strong> The 30Y at 5.12% (real ~2.52%) is at its YTD high &mdash; 91st percentile of the QTD range, 97th percentile YTD. Not just an inflation repricing; this is a fiscal risk premium expansion. The LEH_AGG at ~6.5yr duration is taking meaningful mark-to-market pain on this move.</p>
-  <p><strong>Curve:</strong> 2s10s bear steepener at +50bps. Classic stagflation shape &mdash; Fed stuck short (rate anchored by CPI), long-end selling on growth/fiscal risk. This structure is historically unstable without either recession or a policy pivot.</p>
-
-  <div class="rec-box">
-    <div class="rec-header">
-      <span class="rec-badge">Rates Recommendation</span>
-      <span class="rec-meta">Conviction: High &nbsp;|&nbsp; Horizon: Until June 10 CPI</span>
-    </div>
-    <div class="rec-body">
-      <div class="rec-action reduce">Maintain Short Duration vs. LEH_AGG &mdash; Do Not Add 10Y+ Exposure</div>
-      <div class="rec-rationale">10Y at 4.57% is 91st percentile of its QTD range — no technical support for a rally absent a fundamental catalyst. CME FedWatch pricing 0 cuts through year-end with ~25% hike probability. April CPI 3.8% vs. 3.5% consensus. LEH_AGG duration ~6.5yr — being shorter is the right posture. Review trigger: May CPI June 10.</div>
-      <div class="rec-basis">Data: <a href="https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html" target="_blank">CME FedWatch</a> &nbsp;|&nbsp; <a href="https://www.bls.gov/cpi/" target="_blank">BLS CPI</a> &nbsp;|&nbsp; <a href="https://fred.stlouisfed.org/series/DGS10" target="_blank">FRED DGS10</a></div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════════════
-     03 — FEDERAL RESERVE & MACRO
-═══════════════════════════════════════════════════ -->
-<section id="s03">
-  <div class="sec-header"><span class="sec-num">03</span><span class="sec-title">Federal Reserve &amp; Macro</span></div>
-
-  <p class="section-sub">Today&rsquo;s Data Calendar</p>
-  <table class="data-table">
-    <thead><tr><th>Release</th><th>Consensus <span class="unverified">[~]</span></th><th>Prior</th><th>Time ET</th></tr></thead>
-    <tbody>
-      <tr><td>Conference Board Consumer Confidence</td><td class="num">97.0</td><td class="num">98.5</td><td>10:00 AM</td></tr>
-      <tr><td>Richmond Fed Manufacturing Index</td><td class="num">&minus;2</td><td class="num">&minus;4</td><td>10:00 AM</td></tr>
-      <tr><td>Dallas Fed Services Activity</td><td class="num">&mdash;</td><td class="num">&minus;1.2</td><td>10:30 AM</td></tr>
-    </tbody>
-  </table>
-  <div class="source-line">
-    <a href="https://www.conference-board.org/topics/consumer-confidence" target="_blank">Conference Board</a> &nbsp;|&nbsp;
-    <a href="https://www.richmondfed.org/research/regional_economy/surveys_of_business_conditions/manufacturing" target="_blank">Richmond Fed Manufacturing Survey</a> &nbsp;|&nbsp;
-    <a href="https://www.dallasfed.org/research/surveys/dfw/services" target="_blank">Dallas Fed Services Survey</a> &nbsp;|&nbsp;
-    Consensus <span class="unverified">[~]</span> — verify against Bloomberg consensus
-  </div>
-
-  <p class="section-sub">Recent Key Releases</p>
-  <table class="data-table">
-    <thead><tr><th>Release</th><th>Actual</th><th>Consensus</th><th>Prior</th><th>Read</th></tr></thead>
-    <tbody>
-      <tr><td>April CPI (MoM)</td><td class="num">+0.6%</td><td class="num">+0.3%</td><td class="num">+0.2%</td><td class="bear">Bearish</td></tr>
-      <tr><td>April CPI (YoY)</td><td class="num">3.8%</td><td class="num">3.5%</td><td class="num">3.4%</td><td class="bear">Bearish</td></tr>
-      <tr><td>Core PCE (YoY)</td><td class="num">3.2%</td><td class="num">3.0%</td><td class="num">3.1%</td><td class="bear">Bearish</td></tr>
-      <tr><td>April Payrolls</td><td class="num">+182K</td><td class="num">+175K</td><td class="num">+198K</td><td class="neut">Neutral</td></tr>
-      <tr><td>Unemployment Rate</td><td class="num">4.3%</td><td class="num">4.3%</td><td class="num">4.2%</td><td class="neut">Neutral</td></tr>
-    </tbody>
-  </table>
-  <div class="source-line">
-    <a href="https://www.bls.gov/cpi/" target="_blank">BLS CPI</a> &nbsp;|&nbsp;
-    <a href="https://www.bea.gov/data/personal-consumption-expenditures-price-index" target="_blank">BEA PCE Price Index</a> &nbsp;|&nbsp;
-    <a href="https://www.bls.gov/news.release/empsit.toc.htm" target="_blank">BLS Employment Situation</a>
-  </div>
-
-  <p class="section-sub">Fed Policy Expectations</p>
-  <table class="data-table">
-    <thead><tr><th>Indicator</th><th>Current / Status</th></tr></thead>
-    <tbody>
-      <tr><td>Fed Funds Target Rate</td><td class="num">3.50&ndash;3.75%</td></tr>
-      <tr><td>2026 Cuts Priced (CME FedWatch)</td><td class="bear">0 cuts &mdash; hike odds ~25% <span class="unverified">[~]</span></td></tr>
-      <tr><td>Market-Implied Terminal Rate</td><td class="num">3.75&ndash;4.00% <span class="unverified">[~]</span></td></tr>
-      <tr><td>Next FOMC (w/ dot plot + SEP)</td><td>June 16&ndash;17, 2026</td></tr>
-      <tr><td>Next Critical Inflation Data</td><td>May CPI &mdash; June 10</td></tr>
-      <tr><td>Fed Speakers Today</td><td>None scheduled <span class="unverified">[~]</span> &mdash; pre-meeting blackout</td></tr>
-    </tbody>
-  </table>
-  <div class="source-line">
-    Rate probabilities: <a href="https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html" target="_blank">CME FedWatch Tool</a> &nbsp;|&nbsp;
-    FOMC dates: <a href="https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" target="_blank">Federal Reserve FOMC Calendar</a> &nbsp;|&nbsp;
-    Fed H.15 rate data: <a href="https://www.federalreserve.gov/releases/h15/" target="_blank">federalreserve.gov/releases/h15</a> &nbsp;|&nbsp;
-    Hike probability <span class="unverified">[~]</span> &mdash; verify at CME FedWatch for exact current reading
-  </div>
-
-  <p>The April FOMC held at 3.50&ndash;3.75% citing above-target inflation and a solid labor market. A supply-driven oil shock does not respond to rate hikes the way demand inflation does &mdash; but the Fed cannot cut with CPI at 3.8%. The June 16&ndash;17 FOMC with updated dot plot is the next regime-change event. If the median dot holds at 3.75% or moves higher, expect another leg up in the 2Y and 10Y and further duration pain for the LEH_AGG.</p>
-</section>
-
-<!-- ══════════════════════════════════════════════════
-     04 — CREDIT MARKETS
-═══════════════════════════════════════════════════ -->
-<section id="s04">
-  <div class="sec-header"><span class="sec-num">04</span><span class="sec-title">Credit Markets</span></div>
-
-  <table class="data-table">
-    <thead>
-      <tr>
-        <th>Sector</th>
-        <th>All-In Yield (Level) <span class="unverified">[~]</span></th>
-        <th class="th-level">OAS (Spread)</th>
-        <th>vs. Benchmark <span class="unverified">[~]</span></th>
-        <th>Daily &Delta;</th>
-        <th>Note</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>IG OAS (ICE BofA)</td>
-        <td class="level">~5.20%</td>
-        <td class="td-level spread">80bps</td>
-        <td><span class="bm-tag">LEH_CORP</span> in-line (~80bps)</td>
-        <td class="flat">&rarr; flat</td>
-        <td>Historically tight; ~6th pctile of 1yr range</td>
-      </tr>
-      <tr>
-        <td>CDX IG 5Y (synthetic)</td>
-        <td class="level">~5.08% <span class="unverified">[~]</span></td>
-        <td class="td-level spread">58bps <span class="unverified">[~]</span></td>
-        <td>&mdash;</td>
-        <td class="flat">&rarr; flat</td>
-        <td>Cash/CDS basis positive; real-time IG pulse</td>
-      </tr>
-      <tr>
-        <td>HY OAS (ICE BofA)</td>
-        <td class="level">~7.14%</td>
-        <td class="td-level spread">286bps</td>
-        <td><span class="bm-tag">MLGHYBBH</span> BB 278bps</td>
-        <td class="flat">&rarr; flat</td>
-        <td>Broad HY slightly wider than BB index</td>
-      </tr>
-      <tr>
-        <td>HY BB OAS</td>
-        <td class="level">~6.95% <span class="unverified">[~]</span></td>
-        <td class="td-level spread">278bps</td>
-        <td><span class="bm-tag">MLGHYBBH</span> in-line</td>
-        <td class="flat">&rarr; flat</td>
-        <td>Quality HY holding well</td>
-      </tr>
-      <tr>
-        <td>HY CCC OAS</td>
-        <td class="level">~14.46% <span class="unverified">[~]</span></td>
-        <td class="td-level spread">939bps</td>
-        <td><span class="bm-tag">MLGHYBBH</span> +661bps over BB</td>
-        <td class="up">+12bps <span class="unverified">[~]</span></td>
-        <td>Beginning to widen; refi wall risk</td>
-      </tr>
-      <tr>
-        <td>EMBI Global Sovereign</td>
-        <td class="level">~6.10% <span class="unverified">[~]</span></td>
-        <td class="td-level spread">153bps vs. UST</td>
-        <td><span class="bm-tag">JPM_CEMBI</span> corp ~210bps</td>
-        <td class="flat">&rarr; flat</td>
-        <td>Sovereign tighter than CEMBI corp; ~6.90% all-in <span class="unverified">[~]</span></td>
-      </tr>
-    </tbody>
-  </table>
-  <div class="source-line">
-    ICE BofA IG OAS: <a href="https://fred.stlouisfed.org/series/BAMLC0A0CM" target="_blank">FRED BAMLC0A0CM</a> &nbsp;|&nbsp;
-    HY OAS: <a href="https://fred.stlouisfed.org/series/BAMLH0A0HYM2" target="_blank">FRED BAMLH0A0HYM2</a> &nbsp;|&nbsp;
-    BB OAS (MLGHYBBH proxy): <a href="https://fred.stlouisfed.org/series/BAMLH0A1HYBB" target="_blank">FRED BAMLH0A1HYBB</a> &nbsp;|&nbsp;
-    CCC OAS: <a href="https://fred.stlouisfed.org/series/BAMLH0A3HYC" target="_blank">FRED BAMLH0A3HYC</a> &nbsp;|&nbsp;
-    LEH_CORP / MLGHYBBH / JPM_CEMBI: Bloomberg Terminal / JPMorgan (no free equivalent) &nbsp;|&nbsp;
-    All-in yields <span class="unverified">[~]</span> estimated (OAS + duration-matched Treasury)
-  </div>
-
-  <!-- IG OAS period range -->
-  <div class="period-range">
-    <div class="pr-header">
-      <span class="pr-name">IG OAS vs. <strong>LEH_CORP</strong> (~80bps) <span class="unverified">[~]</span></span>
-      <span class="pr-value">80 bps</span>
-    </div>
-    <div class="pr-rows">
-      <div class="pr-row"><span class="pr-label">QTD</span><div class="pr-track"><div class="pr-fill" style="width:21%"><div class="pr-tick"></div></div></div><span class="pr-range">76&ndash;95bps</span></div>
-      <div class="pr-row"><span class="pr-label">YTD</span><div class="pr-track"><div class="pr-fill" style="width:11%"><div class="pr-tick"></div></div></div><span class="pr-range">76&ndash;112bps</span></div>
-      <div class="pr-row"><span class="pr-label">1YR</span><div class="pr-track"><div class="pr-fill" style="width:6%"><div class="pr-tick"></div></div></div><span class="pr-range">76&ndash;140bps</span></div>
-    </div>
-  </div>
-  <div class="source-line">Ranges <span class="unverified">[~]</span> estimated; verify vs. <a href="https://fred.stlouisfed.org/series/BAMLC0A0CM" target="_blank">FRED BAMLC0A0CM</a> — select date range for exact period highs/lows. LEH_CORP level from Bloomberg Terminal.</div>
-
-  <!-- HY / MLGHYBBH period range -->
-  <div class="period-range">
-    <div class="pr-header">
-      <span class="pr-name">HY BB OAS vs. <strong>MLGHYBBH</strong> (~278bps) <span class="unverified">[~]</span></span>
-      <span class="pr-value">278 bps</span>
-    </div>
-    <div class="pr-rows">
-      <div class="pr-row"><span class="pr-label">QTD</span><div class="pr-track"><div class="pr-fill" style="width:47%"><div class="pr-tick"></div></div></div><span class="pr-range">260&ndash;298bps</span></div>
-      <div class="pr-row"><span class="pr-label">YTD</span><div class="pr-track"><div class="pr-fill" style="width:26%"><div class="pr-tick"></div></div></div><span class="pr-range">260&ndash;330bps</span></div>
-      <div class="pr-row"><span class="pr-label">1YR</span><div class="pr-track"><div class="pr-fill" style="width:20%"><div class="pr-tick"></div></div></div><span class="pr-range">248&ndash;395bps</span></div>
-    </div>
-  </div>
-  <div class="source-line">Ranges <span class="unverified">[~]</span> estimated; verify vs. <a href="https://fred.stlouisfed.org/series/BAMLH0A1HYBB" target="_blank">FRED BAMLH0A1HYBB</a> (MLGHYBBH proxy). MLGHYBBH level from Bloomberg Terminal.</div>
-
-  <p><strong>Key divergence:</strong> IG at 80bps (6th pctile of 1yr range, in-line with LEH_CORP) is pricing near-perfection while rates price inflation and fiscal risk. Post-holiday supply $15&ndash;20B will test demand absorption at these tight levels. CCC at 939bps is beginning to widen while BB remains stable &mdash; quality deterioration is starting at the low end of the credit spectrum.</p>
-
-  <p class="section-sub">Sector Views</p>
-  <div class="sector-calls">
-    <div class="sc-card ow">
-      <div class="sc-label">Overweight vs. LEH_CORP</div>
-      <div class="sc-name">IG Energy &mdash; Integrated Majors</div>
-      <div class="sc-why">WTI at $92 (<a href="https://www.eia.gov/dnav/pet/pet_pri_fut_s1_d.htm" target="_blank" style="color:var(--green)">EIA</a>) driving earnings upgrades; spread compression vs. IG Tech at similar duration represents relative value within LEH_CORP.</div>
-    </div>
-    <div class="sc-card uw">
-      <div class="sc-label">Underweight vs. LEH_CORP</div>
-      <div class="sc-name">IG Tech / Communications</div>
-      <div class="sc-why">Heaviest LEH_CORP supply sector; spreads near perfection &mdash; first to cheapen under supply or risk-off pressure.</div>
-    </div>
-    <div class="sc-card ow">
-      <div class="sc-label">Overweight vs. MLGHYBBH</div>
-      <div class="sc-name">BB Healthcare</div>
-      <div class="sc-why">~325bps = +47bps over MLGHYBBH BB index (278bps); defensive sector, minimal oil sensitivity. Verify MLGHYBBH level via <a href="https://fred.stlouisfed.org/series/BAMLH0A1HYBB" target="_blank" style="color:var(--green)">FRED BAMLH0A1HYBB</a>.</div>
-    </div>
-    <div class="sc-card uw">
-      <div class="sc-label">Underweight vs. MLGHYBBH</div>
-      <div class="sc-name">CCC Broadly</div>
-      <div class="sc-why">939bps vs. MLGHYBBH BB at 278bps &mdash; 661bps risk premium; CCC OAS starting to widen per <a href="https://fred.stlouisfed.org/series/BAMLH0A3HYC" target="_blank" style="color:var(--red)">FRED BAMLH0A3HYC</a>. 2026&ndash;2027 refi wall existential.</div>
-    </div>
-  </div>
-
-  <div class="rec-box">
-    <div class="rec-header">
-      <span class="rec-badge">Credit Recommendation</span>
-      <span class="rec-meta">Conviction: Medium &nbsp;|&nbsp; Horizon: 4&ndash;8 Weeks</span>
-    </div>
-    <div class="rec-body">
-      <div class="rec-action hold">Hold IG OW vs. LEH_CORP &mdash; Deploy New Capital Into New Issue Concessions Only</div>
-      <div class="rec-rationale">IG at 80bps (6th pctile of 1yr range vs. LEH_CORP at ~80bps) offers compelling carry but no spread tightening room. Post-holiday supply will test demand absorption. Recommended: wait for first IG new issues with 5&ndash;10bps concession vs. secondary; do not add at flat secondary. Reduce CCC immediately &mdash; widening trend started per FRED BAMLH0A3HYC and is asymmetric to the downside.</div>
-      <div class="rec-basis">Data: <a href="https://fred.stlouisfed.org/series/BAMLC0A0CM" target="_blank">FRED BAMLC0A0CM</a> (IG) &nbsp;|&nbsp; <a href="https://fred.stlouisfed.org/series/BAMLH0A3HYC" target="_blank">FRED BAMLH0A3HYC</a> (CCC) &nbsp;|&nbsp; LEH_CORP level: Bloomberg Terminal</div>
-    </div>
-  </div>
-
-  <div class="conflict-flag">
-    <div class="cf-label">Positioning Check &mdash; CCC Exposure</div>
-    If the book holds CCC-rated HY: CCC OAS at 939bps is widening (+12bps overnight <span class="unverified">[~]</span>) per <a href="https://fred.stlouisfed.org/series/BAMLH0A3HYC" target="_blank" style="color:#5a3000">FRED BAMLH0A3HYC</a> while MLGHYBBH BB is flat. Quality bifurcation is beginning. <strong>Recommended: reduce or exit CCC; redeploy into BB Healthcare which offers 47bps over MLGHYBBH index for lower fundamental risk.</strong>
-  </div>
-
-  <p class="section-sub">Emerging Markets &mdash; USD Hard Currency vs. JPM_CEMBI</p>
-  <p>Iran-U.S./Israel conflict has bifurcated EM. EMBI sovereign at 153bps vs. UST vs. <strong>JPM_CEMBI corporate at ~210bps</strong> <span class="unverified">[~]</span> &mdash; the 57bps sovereign-to-corporate gap reflects the IG quality of sovereign issuers vs. EM corporate credit risk. Gulf quasi-sovereigns within JPM_CEMBI are under direct event risk from the conflict.</p>
-  <div class="sector-calls">
-    <div class="sc-card ow">
-      <div class="sc-label">Overweight vs. JPM_CEMBI</div>
-      <div class="sc-name">Brazil / Mexico Sovereign (USD HC)</div>
-      <div class="sc-why">Both trade inside CEMBI corporate average (~210bps); improving fiscal trajectories and commodity revenue tailwinds from elevated oil. Tightest-spread names within the benchmark.</div>
-    </div>
-    <div class="sc-card uw">
-      <div class="sc-label">Underweight vs. JPM_CEMBI</div>
-      <div class="sc-name">Gulf Quasi-Sovereigns (KSA / UAE)</div>
-      <div class="sc-why">Within JPM_CEMBI, Gulf names are concentrated in energy infrastructure directly exposed to the conflict. Spread buffer inadequate for geopolitical proximity risk. Verify current spreads via <a href="https://www.jpmorgan.com/markets/analytics/fixed-income-indices" target="_blank" style="color:var(--red)">JPMorgan EMBI Monitor</a>.</div>
-    </div>
-  </div>
-
-  <div class="conflict-flag">
-    <div class="cf-label">Positioning Check &mdash; Gulf Quasi-Sovereigns</div>
-    If the book carries KSA or UAE quasi-sovereign positions (within JPM_CEMBI): geopolitical risk premium not fully priced. <strong>Reduce to underweight vs. JPM_CEMBI index weight until Strait of Hormuz risk resolves.</strong> JPM_CEMBI index weights: verify via <a href="https://www.jpmorgan.com/markets/analytics/fixed-income-indices" target="_blank" style="color:#5a3000">JPMorgan Fixed Income Index Research</a> (terminal access required).
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════════════
-     05 — SECURITIZED PRODUCTS
-═══════════════════════════════════════════════════ -->
-<section id="s05">
-  <div class="sec-header"><span class="sec-num">05</span><span class="sec-title">Securitized Products</span></div>
-
-  <p class="section-sub">CLO Stack &mdash; Broadly Syndicated (Floating Rate; vs. SOFR)</p>
-  <div class="clo-header">
-    <span>Rating</span>
-    <span>Relative Width</span>
-    <span>All-In Yield <span class="unverified">[~]</span></span>
-    <span>Spread (SOFR+)</span>
-    <span>Trend</span>
-  </div>
-  <div class="clo-stack">
-    <div class="clo-row t-aaa"><span class="clo-tranche">AAA</span><div class="clo-bar-wrap"><div class="clo-bar" style="width:15%"></div></div><span class="clo-level">~4.85%</span><span class="clo-spread">+130bps</span><span class="clo-chg flat">&rarr;</span></div>
-    <div class="clo-row t-aa"><span class="clo-tranche">AA</span><div class="clo-bar-wrap"><div class="clo-bar" style="width:21%"></div></div><span class="clo-level">~5.33%</span><span class="clo-spread">+178bps</span><span class="clo-chg flat">&rarr;</span></div>
-    <div class="clo-row t-a"><span class="clo-tranche">A</span><div class="clo-bar-wrap"><div class="clo-bar" style="width:27%"></div></div><span class="clo-level">~5.85%</span><span class="clo-spread">+230bps</span><span class="clo-chg flat">&rarr;</span></div>
-    <div class="clo-row t-bbb"><span class="clo-tranche">BBB</span><div class="clo-bar-wrap"><div class="clo-bar" style="width:38%"></div></div><span class="clo-level">~6.75%</span><span class="clo-spread">+320bps</span><span class="clo-chg up">&uarr;</span></div>
-    <div class="clo-row t-bb"><span class="clo-tranche">BB</span><div class="clo-bar-wrap"><div class="clo-bar" style="width:85%"></div></div><span class="clo-level">~11.30%</span><span class="clo-spread">+725bps</span><span class="clo-chg up">&uarr;</span></div>
-  </div>
-  <div class="source-line">
-    CLO spreads <span class="unverified">[~]</span> &mdash; verify vs. <a href="https://www.palmersquarecapital.com/clo-market/" target="_blank">Palmer Square CLO Index</a> &nbsp;|&nbsp;
-    All-in yields estimated: SOFR ~3.55% (implied by Fed target 3.50&ndash;3.75%) + spread; SOFR: <a href="https://www.newyorkfed.org/markets/reference-rates/sofr" target="_blank">NY Fed SOFR</a> &nbsp;|&nbsp;
-    CLOs are floating-rate &mdash; all-in yield rises if SOFR rises (hike scenario is favorable for CLO income)
-  </div>
-
-  <p><strong>vs. LEH_CORP comparison:</strong> CLO AAA at +130bps vs. SOFR (~4.85% all-in) vs. LEH_CORP IG at ~5.20% fixed-rate. CLO AAA is <em>floating</em> and benefits from any Fed hike; LEH_CORP IG is fixed-rate and loses. On a risk-adjusted basis, CLO AAA offers a compelling alternative to IG corporates in a higher-for-longer regime.</p>
-
-  <div class="rec-box">
-    <div class="rec-header">
-      <span class="rec-badge">Securitized Recommendation</span>
-      <span class="rec-meta">Conviction: High (AAA/AA) &nbsp;|&nbsp; Horizon: 3&ndash;6 Months</span>
-    </div>
-    <div class="rec-body">
-      <div class="rec-action add">Add CLO AAA / AA &mdash; Floating Rate Advantage Over LEH_CORP in Higher-for-Longer Regime</div>
-      <div class="rec-rationale">CLO AAA at +130bps SOFR (~4.85% all-in) vs. LEH_CORP at ~5.20% fixed — a 35bps yield disadvantage today that flips positive with any Fed hike. Floating structure is a natural hedge vs. the rates risk embedded in LEH_CORP and LEH_AGG. Zero historical principal loss in broadly syndicated CLO AAA. BBB/BB widening is a warning on leveraged loan quality — stay senior stack only.</div>
-      <div class="rec-basis">Data: <a href="https://www.palmersquarecapital.com/clo-market/" target="_blank">Palmer Square CLO Index</a> &nbsp;|&nbsp; <a href="https://www.newyorkfed.org/markets/reference-rates/sofr" target="_blank">NY Fed SOFR</a> &nbsp;|&nbsp; LEH_CORP: Bloomberg Terminal</div>
-    </div>
-  </div>
-
-  <p class="section-sub">CMBS / CRT / ABS</p>
-  <table class="data-table">
-    <thead><tr><th>Product</th><th>All-In Yield <span class="unverified">[~]</span></th><th class="th-level">Spread</th><th>Note</th></tr></thead>
-    <tbody>
-      <tr><td>CMBS Conduit AAA</td><td class="level">~5.35%</td><td class="td-level spread">78bps vs. UST</td><td>Stable; industrial/multifamily pools preferred; avoid office</td></tr>
-      <tr><td>CMBS Conduit AA</td><td class="level">~6.02%</td><td class="td-level spread">145bps vs. UST</td><td>Selective &mdash; property type screening required</td></tr>
-      <tr><td>CMBS Conduit BBB&minus;</td><td class="level">~10.07%</td><td class="td-level spread">450bps vs. UST</td><td>Office overhang; servicer transfers ongoing &mdash; avoid mezz broadly</td></tr>
-      <tr><td>CRT M1/M2 <span class="unverified">[~]</span></td><td class="level">~6.42% / ~7.67%</td><td class="td-level spread">185 / 310bps</td><td>Low delinquency; home price stability supportive</td></tr>
-      <tr><td>ABS Auto AA</td><td class="level">~5.42%</td><td class="td-level spread">85bps vs. UST</td><td>Prime consumer metrics stable; used car prices stabilizing</td></tr>
-    </tbody>
-  </table>
-  <div class="source-line">
-    CMBS spreads: <a href="https://www.trepp.com/trepptalk" target="_blank">Trepp Research</a> &nbsp;|&nbsp;
-    ABS spreads <span class="unverified">[~]</span> via Bloomberg; all-in yields estimated at spread + 10Y UST (4.57%)
-  </div>
-
-  <div class="conflict-flag">
-    <div class="cf-label">Positioning Check &mdash; Office CMBS Mezz</div>
-    If the book holds CMBS conduit mezz (BBB&minus; through BB) with office property exposure: 450bps does not adequately compensate for servicer-transfer risk and workout timelines. <strong>Verify current servicer transfer count via <a href="https://www.trepp.com/trepptalk" target="_blank" style="color:#5a3000">Trepp</a> before maintaining positions.</strong>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════════════
-     06 — AGENCY MBS
-═══════════════════════════════════════════════════ -->
-<section id="s06">
-  <div class="sec-header"><span class="sec-num">06</span><span class="sec-title">Agency MBS</span></div>
-
-  <table class="data-table">
-    <thead><tr><th>Metric</th><th>Level (Current)</th><th class="th-level">Spread Context</th><th>Daily &Delta;</th></tr></thead>
-    <tbody>
-      <tr><td>30Y Agency Current Coupon Yield</td><td class="level">~6.0&ndash;6.25% <span class="unverified">[~]</span></td><td class="td-level spread">OAS ~22bps</td><td class="flat">&rarr;</td></tr>
-      <tr><td>Nominal Spread to 10Y UST</td><td class="level">4.57% + 148bps</td><td class="td-level spread">148bps nominal</td><td class="up">+5bps <span class="unverified">[~]</span></td></tr>
-      <tr><td>30Y Avg Mortgage Rate (PMMS)</td><td class="level">~6.25% <span class="unverified">[~]</span></td><td class="td-level spread">+268bps vs. 10Y <span class="unverified">[~]</span></td><td class="up">+10bps <span class="unverified">[~]</span></td></tr>
-      <tr><td>30yr vs. 15yr Basis</td><td class="level">+28bps <span class="unverified">[~]</span></td><td class="td-level flat">&mdash;</td><td class="flat">&rarr;</td></tr>
-    </tbody>
-  </table>
-  <div class="source-line">
-    Mortgage rates: <a href="https://www.freddiemac.com/pmms" target="_blank">Freddie Mac Primary Mortgage Market Survey (PMMS)</a> &nbsp;|&nbsp;
-    Fed MBS balance/runoff: <a href="https://www.federalreserve.gov/monetarypolicy/bst_recenttrends.htm" target="_blank">Federal Reserve Balance Sheet Trends</a> &nbsp;|&nbsp;
-    Agency MBS OAS <span class="unverified">[~]</span> via Bloomberg / ICE BofA Mortgage Index
-  </div>
-
-  <p><strong>Coupon stack:</strong> <strong>6.0&ndash;6.5 coupon FNMA/GNMA 30yr</strong> is most attractive. With PMMS at ~6.25%, the refinancing option for 6.0-coupon borrowers is at-the-money. The 24bp weekly rate spike killed the refi incentive, removing extension risk and stabilizing cash flows. The <strong>5.0&ndash;5.5 coupon bucket</strong> carries full extension risk: those borrowers are locked 100&ndash;125bps below market rates. Duration grows with every rate move higher. Agency MBS sits outside LEH_CORP but within LEH_AGG; the coupon selection materially affects LEH_AGG tracking.</p>
-  <p><strong>Fed QT:</strong> ~$2.7T MBS portfolio running off at ~$15&ndash;17B/month <span class="unverified">[~]</span> is a structural supply headwind that keeps OAS compressed vs. historical average of ~30&ndash;40bps. See <a href="https://www.federalreserve.gov/monetarypolicy/bst_recenttrends.htm" target="_blank" style="color:var(--navy-mid)">Fed balance sheet</a> for current pace.</p>
-
-  <div class="rec-box">
-    <div class="rec-header">
-      <span class="rec-badge">Agency MBS Recommendation</span>
-      <span class="rec-meta">Conviction: High &nbsp;|&nbsp; Horizon: 1&ndash;3 Months</span>
-    </div>
-    <div class="rec-body">
-      <div class="rec-action add">Prefer 6.0&ndash;6.5 Coupon 30yr FNMA/GNMA &mdash; Avoid 5.0&ndash;5.5 to Manage LEH_AGG Tracking Error</div>
-      <div class="rec-rationale">Rate spike stabilized 6.0&ndash;6.5 cash flows by eliminating the refi option. 148bps nominal spread to 10Y is the best risk-adjusted carry in Agency paper. The 5.0&ndash;5.5 bucket extends aggressively in the current rate regime and adds unwanted duration versus the LEH_AGG benchmark. Mortgage rate data: Freddie Mac PMMS updated weekly (Thursdays).</div>
-      <div class="rec-basis">Data: <a href="https://www.freddiemac.com/pmms" target="_blank">Freddie Mac PMMS</a> &nbsp;|&nbsp; <a href="https://www.federalreserve.gov/monetarypolicy/bst_recenttrends.htm" target="_blank">Fed Balance Sheet</a></div>
-    </div>
-  </div>
-
-  <div class="conflict-flag">
-    <div class="cf-label">Positioning Check &mdash; MBS Coupon Stack</div>
-    If the book holds significant 5.0&ndash;5.5 coupon MBS at or near the LEH_AGG benchmark weight (~27.5% of index): each 10bp rate increase adds approximately 0.5&ndash;0.8 years of effective duration. With the 10Y at 4.57% QTD high (91st pctile), this creates compounding duration drag vs. LEH_AGG. <strong>Recommended: roll to 6.0&ndash;6.5 coupon on maturity events and new deployment; do not add to 5.0&ndash;5.5 in secondary.</strong>
-  </div>
-
-  <div class="take">The take: <strong>6.0&ndash;6.5 coupon 30yr FNMA/GNMA</strong> &mdash; rate spike eliminated the refi option and stabilized cash flows. 148bps nominal spread to 10Y is compelling carry vs. equivalent LEH_CORP IG duration risk. Evaluate alongside CLO AAA/AA (floating rate) for the same capital allocation.</div>
-</section>
-
-<!-- ══════════════════════════════════════════════════
-     07 — PORTFOLIO IMPACT & TRADING COLOR
-═══════════════════════════════════════════════════ -->
-<section id="s07">
-  <div class="sec-header"><span class="sec-num">07</span><span class="sec-title">Portfolio Impact &amp; Trading Color</span></div>
-
-  <p class="section-sub">Current Positioning vs. Benchmark &amp; Data-Driven Recommendations</p>
-  <table class="data-table">
-    <thead>
-      <tr>
-        <th>Position</th>
-        <th>Current Stance</th>
-        <th class="th-level">Benchmark</th>
-        <th>Data Recommendation</th>
-        <th>Conflict?</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td>Duration</td><td>Neutral-to-Short</td><td class="td-level">LEH_AGG ~6.5yr</td><td>Maintain Short &mdash; no change</td><td class="bull">None</td></tr>
-      <tr><td>MBS 6.0&ndash;6.5</td><td class="dn">Modest OW</td><td class="td-level">LEH_AGG ~27.5%</td><td>Add / Maintain &mdash; rate spike favorable</td><td class="bull">None</td></tr>
-      <tr><td>MBS 5.0&ndash;5.5</td><td>At/near benchmark</td><td class="td-level">LEH_AGG index weight</td><td>Reduce &mdash; extension risk in current rate regime</td><td class="bear">Conflict &uarr;</td></tr>
-      <tr><td>CLO AAA/AA</td><td class="dn">OW</td><td class="td-level">N/A (LEH_AGG ex-index)</td><td>Add &mdash; floating rate advantage, highest conviction</td><td class="bull">None</td></tr>
-      <tr><td>IG Energy OW</td><td class="dn">OW vs. LEH_CORP</td><td class="td-level">LEH_CORP sector weight</td><td>Maintain &mdash; WTI supportive per EIA</td><td class="bull">None</td></tr>
-      <tr><td>IG Tech/Comms</td><td>UW vs. LEH_CORP</td><td class="td-level">LEH_CORP sector weight</td><td>Maintain UW &mdash; supply risk</td><td class="bull">None</td></tr>
-      <tr><td>CCC HY</td><td>Unspecified</td><td class="td-level">MLGHYBBH ex-index</td><td>Avoid / Reduce &mdash; CCC widening per FRED</td><td class="bear">Check &uarr;</td></tr>
-      <tr><td>Gulf Quasi-Sov EM</td><td>Unspecified</td><td class="td-level">JPM_CEMBI weight</td><td>UW vs. CEMBI &mdash; geopolitical risk</td><td class="bear">Check &uarr;</td></tr>
-    </tbody>
-  </table>
-  <div class="source-line">Benchmark weights <span class="unverified">[~]</span>: LEH_AGG from <a href="https://www.bloomberg.com/professional/solution/indices/" target="_blank">Bloomberg Terminal</a> &nbsp;|&nbsp; LEH_CORP from Bloomberg &nbsp;|&nbsp; MLGHYBBH / <a href="https://fred.stlouisfed.org/series/BAMLH0A1HYBB" target="_blank">FRED BAMLH0A1HYBB</a> &nbsp;|&nbsp; JPM_CEMBI from <a href="https://www.jpmorgan.com/markets/analytics/fixed-income-indices" target="_blank">JPMorgan</a></div>
-
-  <p class="section-sub">Overnight Trading Color</p>
-  <table class="data-table">
-    <thead><tr><th>Asset Class</th><th>Activity / Color</th></tr></thead>
-    <tbody>
-      <tr><td>Treasuries</td><td>Neutral duration maintained; 10Y futures indicate slight weakness at open &mdash; monitoring for direction signal. 10Y at 91st pctile of QTD range <span class="unverified">[~]</span></td></tr>
-      <tr><td>IG Corporates</td><td>Post-holiday supply calendar awaited; energy sector secondary demand overnight; concession quality will determine if LEH_CORP OAS holds at 80bps</td></tr>
-      <tr><td>Agency MBS</td><td>6.0&ndash;6.5 preferred; 5.0&ndash;5.5 avoided given extension risk vs. LEH_AGG duration target</td></tr>
-      <tr><td>Securitized</td><td>CLO AAA/AA stable; no new CMBS SASB deals announced; ABS auto pipeline light</td></tr>
-      <tr><td>Cash</td><td>Above-average liquidity; ready to deploy into IG new issue concessions at 5&ndash;10bps over secondary</td></tr>
-    </tbody>
-  </table>
-</section>
-
-<!-- ══════════════════════════════════════════════════
-     08 — OUTLOOK & WATCH LIST
-═══════════════════════════════════════════════════ -->
-<section id="s08">
-  <div class="sec-header"><span class="sec-num">08</span><span class="sec-title">Outlook &amp; Watch List</span></div>
-
-  <p class="section-sub">Near-Term Catalysts</p>
-  <table class="data-table">
-    <thead><tr><th>Event</th><th>Date</th><th>Credit Relevance</th></tr></thead>
-    <tbody>
-      <tr><td>Consumer Confidence (Conference Board)</td><td>Today, 10 AM</td><td>Weak = rate relief, LEH_AGG mark-to-market positive; strong = hike odds rise, LEH_AGG/LEH_CORP total return negative</td></tr>
-      <tr><td>May CPI Release</td><td>June 10</td><td>Most critical: &le;3.3% = cut path reopens, LEH_AGG rallies; &ge;3.8% = hike priced, all indices reprice lower</td></tr>
-      <tr><td>FOMC Meeting + Dot Plot</td><td>June 16&ndash;17</td><td>Hike dot or hold at 3.75% = 2Y and 10Y react sharply; benchmark index total returns impacted</td></tr>
-      <tr><td>Iran-U.S. Diplomatic Developments</td><td>Ongoing</td><td>De-escalation = oil &minus;$10+, rates &minus;20&ndash;30bps, LEH_AGG/LEH_CORP total return positive, JPM_CEMBI tightens, MLGHYBBH tightens</td></tr>
-      <tr><td>Treasury Refunding Announcement</td><td>Late July</td><td>30Y supply increase = term premium widens, LEH_AGG duration risk increases</td></tr>
-    </tbody>
-  </table>
-  <div class="source-line">
-    <a href="https://www.conference-board.org/topics/consumer-confidence" target="_blank">Conference Board</a> &nbsp;|&nbsp;
-    <a href="https://www.bls.gov/schedule/news_release/cpi.htm" target="_blank">BLS CPI Release Schedule</a> &nbsp;|&nbsp;
-    <a href="https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" target="_blank">Fed FOMC Calendar</a> &nbsp;|&nbsp;
-    <a href="https://home.treasury.gov/resource-center/data-chart-center/interest-rates/" target="_blank">Treasury.gov</a>
-  </div>
-
-  <p class="section-sub">Key Risks &amp; Benchmark Impact</p>
-  <ol style="padding-left:20px;font-size:14px;line-height:2.3;color:var(--body)">
-    <li><strong>Oil-driven inflation persistence &mdash;</strong> WTI above $90 sustaining into Q3 (<a href="https://www.eia.gov/dnav/pet/pet_pri_fut_s1_d.htm" target="_blank" style="color:var(--navy-mid)">EIA</a>) pushes core PCE to 3.5%+, forcing a Fed hike. LEH_AGG and LEH_CORP total return negative; MLGHYBBH and JPM_CEMBI spreads widen 15&ndash;25bps to catch up.</li>
-    <li><strong>30Y supply / fiscal risk premium &mdash;</strong> 30Y at 5.12% (97th pctile YTD <span class="unverified">[~]</span>). Any fiscal deterioration adds another leg; LEH_AGG duration pain asymmetric to the upside. (<a href="https://fred.stlouisfed.org/series/DGS30" target="_blank" style="color:var(--navy-mid)">FRED DGS30</a>)</li>
-    <li><strong>Credit spread catch-up &mdash;</strong> IG at 80bps (6th pctile 1yr range via <a href="https://fred.stlouisfed.org/series/BAMLC0A0CM" target="_blank" style="color:var(--navy-mid)">FRED BAMLC0A0CM</a>) and MLGHYBBH at 278bps are historically tight for a no-cut environment. Divergence from rates resolves quickly via new issue concession pressure.</li>
-  </ol>
-
-  <p class="section-sub">Data-Driven Analysis</p>
-  <div class="analysis-box">
-    <div class="ab-label">Based on publicly available data &mdash; not assumed team consensus</div>
-    The 30Y Treasury at 5.12% offers the highest nominal yield since 2007 per <a href="https://fred.stlouisfed.org/series/DGS30" target="_blank" style="color:var(--navy-mid)">FRED DGS30</a>. With 10yr breakeven inflation at ~2.4% (<a href="https://fred.stlouisfed.org/series/T10YIE" target="_blank" style="color:var(--navy-mid)">FRED T10YIE</a>), the 30yr real yield of ~2.52% (<a href="https://fred.stlouisfed.org/series/DFII30" target="_blank" style="color:var(--navy-mid)">FRED DFII30</a>) is historically associated with subsequent bond market rallies once the oil/inflation impulse fades (typically 2&ndash;3 quarter lag per BLS CPI historical data). Near-term asymmetry: further fiscal deterioration could push 30Y to 5.50%+ before mean-reversion. This analysis is calibration, not prediction. Accounts with LEH_AGG duration mandate may find 30Y entry compelling on a 12&ndash;18 month horizon.
-  </div>
-
-  <div class="alpha-card">
-    <div class="alpha-row"><span class="alpha-label">Observation</span><span>30Y at 5.12% is 97th pctile of its YTD range <span class="unverified">[~]</span> and at its highest since 2007 per <a href="https://fred.stlouisfed.org/series/DGS30" target="_blank" style="color:var(--navy-mid)">FRED DGS30</a>. Real yield ~2.52% per <a href="https://fred.stlouisfed.org/series/DFII30" target="_blank" style="color:var(--navy-mid)">FRED DFII30</a>.</span></div>
-    <div class="alpha-row"><span class="alpha-label">Evidence</span><span>(1) FRED DFII30 real yields above 2.0% have historically preceded bond market rallies once inflation fades; (2) <a href="https://www.bls.gov/cpi/" target="_blank" style="color:var(--navy-mid)">BLS CPI</a>: oil shocks reduce consumer spending within 2&ndash;3 quarters &mdash; disinflationary lag; (3) Fed at 3.75% real rate is already restrictive per <a href="https://www.federalreserve.gov/releases/h15/" target="_blank" style="color:var(--navy-mid)">Fed H.15</a></span></div>
-    <div class="alpha-row"><span class="alpha-label">Risk</span><span>Fiscal deterioration is structural. If the terminal rate re-rates above 4.0%, the 30Y pushes to 5.50%+ and the entry thesis fails on near-term mark-to-market. LEH_AGG accounts face severe duration pain before the thesis plays out. Verify fiscal trajectory at <a href="https://fiscaldata.treasury.gov/" target="_blank" style="color:var(--navy-mid)">Treasury Fiscal Data</a>.</span></div>
-    <div class="alpha-row"><span class="alpha-label">Say it</span><span>&ldquo;The 30Y at 5.12% is the best nominal yield in 18 years. The question isn&rsquo;t whether it&rsquo;s cheap &mdash; it is, per FRED DGS30 history. The question is whether your LEH_AGG mandate allows you to survive the drawdown if fiscal risk pushes it to 5.50% first.&rdquo;</span></div>
-  </div>
-
-  <div class="watch-grid">
-    <div class="watch-card">
-      <div class="watch-num">1</div>
-      <div class="watch-body">
-        <div class="wb-title">Consumer Confidence &mdash; 10:00 AM ET</div>
-        <div class="wb-detail">Consensus ~97 <span class="unverified">[~]</span>. Source: <a href="https://www.conference-board.org/topics/consumer-confidence" target="_blank" style="color:var(--navy-mid)">Conference Board</a>. Oil-shock sentiment will drive rates and LEH_AGG total return direction.</div>
-        <div class="watch-outcomes">
-          <div class="outcome good">Weak (&lt;95) &rarr; rates rally, LEH_AGG mark positive, 10Y toward 4.45%</div>
-          <div class="outcome bad">Strong (&gt;100) &rarr; hike odds rise, LEH_AGG/LEH_CORP total return negative</div>
+  <div class="exec-block">
+    <div class="eb-label">Risks to Monitor</div>
+    <div class="watch-grid">
+      <div class="watch-card">
+        <div class="watch-num">1</div>
+        <div class="watch-body">
+          <div class="wb-title">PCE Hot Print &#8212; Spread Re-Pricing Risk</div>
+          <div class="wb-detail">Core PCE at +2.9%+ pushes front-end rates 8&#8211;12bps higher and forces credit spreads to re-correlate with rates. IG at 80bps leaves minimal cushion before the carry trade inverts. <span class="unverified">[~]</span></div>
+          <div class="watch-outcomes">
+            <div class="outcome good">&#10003; In-line/soft (2.7% or below) &#8594; rates stable, IG unchanged to tighter</div>
+            <div class="outcome bad">&#10007; Hot (2.9%+) &#8594; duration + spread sell-off; hold cash for entry</div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="watch-card">
-      <div class="watch-num">2</div>
-      <div class="watch-body">
-        <div class="wb-title">IG New Issue Reopening &mdash; All Day</div>
-        <div class="wb-detail">Post-holiday pipeline $15&ndash;20B est. Concession quality is the real-time read on whether LEH_CORP OAS holds at 80bps or widens. Watch the first 2&ndash;3 deals for concession vs. April norm of 2&ndash;3bps.</div>
-        <div class="watch-outcomes">
-          <div class="outcome good">Concession &le;5bps &rarr; LEH_CORP OAS holds, demand robust</div>
-          <div class="outcome bad">Concession &ge;10bps &rarr; LEH_CORP OAS begins widening leg</div>
+      <div class="watch-card">
+        <div class="watch-num">2</div>
+        <div class="watch-body">
+          <div class="wb-title">Middle East Escalation &#8212; WTI Reversal</div>
+          <div class="wb-detail">WTI decline driven by US&#8211;Iran Hormuz signaling; any breakdown reverses the move, re-inflates breakevens, adds EM credit stress. JPM_CEMBI oil-exporter OAS most vulnerable. <span class="unverified">[~]</span></div>
+          <div class="watch-outcomes">
+            <div class="outcome good">&#10003; Diplomacy holds &#8594; lower energy inflation premium, CEMBI stable</div>
+            <div class="outcome bad">&#10007; Escalation &#8594; WTI +$5&#8211;10, BEI +8&#8211;12bps, EM OAS +15&#8211;20bps</div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="watch-card">
-      <div class="watch-num">3</div>
-      <div class="watch-body">
-        <div class="wb-title">Iran-U.S. Diplomatic Signal &mdash; Ongoing</div>
-        <div class="wb-detail">Strait of Hormuz status is the single catalyst that simultaneously moves rates, oil, LEH_AGG, JPM_CEMBI, and MLGHYBBH. WTI data: <a href="https://www.eia.gov/dnav/pet/pet_pri_fut_s1_d.htm" target="_blank" style="color:var(--navy-mid)">EIA petroleum futures</a>.</div>
-        <div class="watch-outcomes">
-          <div class="outcome good">De-escalation &rarr; WTI &minus;$10+, rates &minus;20bps, all four indices positive</div>
-          <div class="outcome bad">Escalation &rarr; WTI +$10, inflation reignites, hike probability surges</div>
+      <div class="watch-card">
+        <div class="watch-num">3</div>
+        <div class="watch-body">
+          <div class="wb-title">Post-Holiday IG Supply Avalanche</div>
+          <div class="wb-detail">Memorial Day typically precedes heavy supply. Three+ concurrent hyperscaler multi-tranche IG deals could push secondary spreads 5&#8211;8bps wider in Tech/Comms &#8212; our UW sector. <span class="unverified">[~]</span></div>
+          <div class="watch-outcomes">
+            <div class="outcome good">&#10003; Staggered deals &#8594; absorbed cleanly at tight concessions</div>
+            <div class="outcome bad">&#10007; Concurrent block deals &#8594; temporary 5&#8211;10bps concession spike in IG</div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="pm-q">Open question: IG at 80bps (6th pctile of 1yr range, in-line with LEH_CORP per <a href="https://fred.stlouisfed.org/series/BAMLC0A0CM" target="_blank" style="color:var(--navy-mid)">FRED BAMLC0A0CM</a>) and MLGHYBBH BB at 278bps are holding near their 1yr tights despite a 24bp weekly rate sell-off and CME FedWatch pricing ~25% hike odds. The <a href="https://fred.stlouisfed.org/series/BAMLH0A3HYC" target="_blank" style="color:var(--navy-mid)">FRED BAMLH0A3HYC</a> CCC OAS is beginning to diverge. Is the spread resilience in LEH_CORP / MLGHYBBH a signal of genuine fundamental strength (energy sector earnings upgrades are real and visible), or is it a technical artifact of compressed supply and strong institutional demand that reverses as $15&ndash;20B post-holiday issuance reopens? And does the early CCC bifurcation change the risk/reward of holding the modest IG OW vs. LEH_CORP before that spread catch-up materializes?</div>
-</section>
-
-
-<!-- ══════════════════════════════════════════════════
-     09 — PORTFOLIO VS. BENCHMARK
-═══════════════════════════════════════════════════ -->
-<section id="s09">
-  <div class="sec-header"><span class="sec-num">09</span><span class="sec-title">Portfolio vs. Benchmark</span></div>
-  <div class="source-line" style="margin:0 0 14px">Benchmark rows populate from Bloomberg Terminal via <code>fetch_bloomberg.py</code>. Portfolio row requires manual entry or OMS integration &mdash; edit <code>data.json</code> under <code>portfolio</code> key. <span class="unverified">[~]</span> = estimated.</div>
-
-  <table class="data-table">
-    <thead>
-      <tr>
-        <th>Entity</th>
-        <th>Yield <span class="unverified">[~]</span></th>
-        <th class="th-level">OAS / Spread <span class="unverified">[~]</span></th>
-        <th>Duration <span class="unverified">[~]</span></th>
-        <th>QTD Ret. <span class="unverified">[~]</span></th>
-        <th>YTD Ret. <span class="unverified">[~]</span></th>
-        <th>vs. LEH_AGG</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr class="port-row">
-        <td>Core Portfolio</td>
-        <td class="level">&mdash;</td>
-        <td class="td-level spread">&mdash;</td>
-        <td>&mdash;</td>
-        <td class="flat">&mdash;</td>
-        <td class="flat">&mdash;</td>
-        <td class="vs-col"><span style="color:var(--muted);font-style:italic">populate via OMS</span></td>
-      </tr>
-      <tr>
-        <td><strong>LEH_AGG</strong> &nbsp;<span style="font-size:10px;color:var(--muted)">LBUSTRUU &mdash; overall benchmark</span></td>
-        <td class="level">~5.05%</td>
-        <td class="td-level spread">~45bps</td>
-        <td>~6.5yr</td>
-        <td class="up">&minus;0.8%</td>
-        <td class="up">&minus;2.1%</td>
-        <td><em style="color:var(--muted);font-size:11px">benchmark</em></td>
-      </tr>
-      <tr>
-        <td><strong>LEH_CORP</strong> &nbsp;<span style="font-size:10px;color:var(--muted)">LUACTRUU &mdash; IG corp</span></td>
-        <td class="level">~5.20%</td>
-        <td class="td-level spread">~80bps</td>
-        <td>~7.2yr</td>
-        <td class="up">&minus;0.5%</td>
-        <td class="up">&minus;1.8%</td>
-        <td class="vs-col ahead">+0.3% ahead YTD</td>
-      </tr>
-      <tr>
-        <td><strong>JPM_CEMBI</strong> &nbsp;<span style="font-size:10px;color:var(--muted)">JBCDCOMP &mdash; EM hard currency</span></td>
-        <td class="level">~6.70%</td>
-        <td class="td-level spread">~210bps</td>
-        <td>~5.8yr</td>
-        <td class="dn">+0.2%</td>
-        <td class="up">&minus;0.9%</td>
-        <td class="vs-col ahead">+1.2% ahead YTD</td>
-      </tr>
-      <tr>
-        <td><strong>MLGHYBBH</strong> &nbsp;<span style="font-size:10px;color:var(--muted)">BAMLH0A1HYBB &mdash; HY BB</span></td>
-        <td class="level">~6.95%</td>
-        <td class="td-level spread">~278bps</td>
-        <td>~3.8yr</td>
-        <td class="dn">+0.9%</td>
-        <td class="dn">+1.2%</td>
-        <td class="vs-col behind">&minus;3.3% behind YTD</td>
-      </tr>
-    </tbody>
-  </table>
-  <div class="source-line">
-    LEH_AGG / LEH_CORP: <a href="https://www.bloomberg.com/professional/solution/indices/" target="_blank">Bloomberg Index Services</a> (LBUSTRUU / LUACTRUU) &nbsp;|&nbsp;
-    JPM_CEMBI: <a href="https://www.jpmorgan.com/markets/analytics/fixed-income-indices" target="_blank">JPMorgan (JBCDCOMP)</a> &nbsp;|&nbsp;
-    MLGHYBBH: <a href="https://fred.stlouisfed.org/series/BAMLH0A1HYBB" target="_blank">FRED BAMLH0A1HYBB</a> (proxy) &nbsp;|&nbsp;
-    All values live from Bloomberg when feed is active &nbsp;|&nbsp; <span class="unverified">[~]</span> estimated pending feed
+  <div class="exec-block">
+    <div class="eb-label">Team View</div>
+    <div class="team-view">We remain in the <strong>high-quality carry camp</strong> &#8212; the rate cycle is on pause and credit fundamentals are sound, but both duration and credit are near full valuation. IG OAS at 80bps requires disciplined issue selection to avoid being the last buyer at the tight. Our preference is intermediate IG (5&#8211;7yr) with a financials overweight, CLO AAA for spread pickup with structural protection, and a slight duration short at the long end where fiscal supply is the durable headwind. <strong>Benign PCE today extends the constructive backdrop; a hot print forces a full portfolio review.</strong> <span class="unverified">[~]</span></div>
   </div>
-</section>
 
-<!-- ══════════════════════════════════════════════════
-     10 — TICKER WATCHLIST
-═══════════════════════════════════════════════════ -->
-<section id="s10">
-  <div class="sec-header"><span class="sec-num">10</span><span class="sec-title">Ticker Watchlist</span></div>
-  <div class="source-line" style="margin:0 0 14px">Live from Bloomberg Terminal. Add or remove tickers in <code>watchlist.json</code> in the briefing repo &mdash; any Bloomberg security is valid (ETF, bond CUSIP/ISIN, index, FX, commodity). <span class="unverified">[~]</span> = estimated.</div>
+  <div class="exec-block">
+    <div class="eb-label">Historical Parallel</div>
+    <p style="font-size:13px">Closest analog: <strong>Q2 2018</strong> &#8212; Fed on hold after a hiking cycle, IG spreads near 100bps (fair value), curve in late-cycle flattening ahead of steepening reversal. In that environment, IG carry outperformed duration plays by ~120bps over six months. Key difference today: the 30Y fiscal premium at 5.06% was not a structural constraint in 2018 &#8212; the long-end supply dynamic makes this cycle more challenging for duration adds, reinforcing the intermediate preference. <span class="unverified">[~]</span></p>
+  </div>
 
-  <div class="watchlist-grid">
-    <div class="wl-tile">
-      <div class="wl-ticker">AGG:US</div>
-      <div class="wl-label">iShares US Agg ETF</div>
-      <div class="wl-price">$95.32 <span class="unverified">[~]</span></div>
-      <div class="wl-meta"><span class="up">&minus;0.12%</span><span style="color:var(--muted)">YTD &minus;2.1%</span></div>
-      <div class="wl-sub">LEH_AGG proxy</div>
-    </div>
-    <div class="wl-tile">
-      <div class="wl-ticker">LQD:US</div>
-      <div class="wl-label">iShares IG Corp ETF</div>
-      <div class="wl-price">$108.45 <span class="unverified">[~]</span></div>
-      <div class="wl-meta"><span class="up">&minus;0.08%</span><span style="color:var(--muted)">YTD &minus;1.8%</span></div>
-      <div class="wl-sub">LEH_CORP proxy</div>
-    </div>
-    <div class="wl-tile">
-      <div class="wl-ticker">HYG:US</div>
-      <div class="wl-label">iShares HY Bond ETF</div>
-      <div class="wl-price">$76.80 <span class="unverified">[~]</span></div>
-      <div class="wl-meta"><span class="flat">&rarr; flat</span><span style="color:var(--muted)">YTD +1.2%</span></div>
-      <div class="wl-sub">HY broad proxy</div>
-    </div>
-    <div class="wl-tile">
-      <div class="wl-ticker">EMB:US</div>
-      <div class="wl-label">iShares EM Bond ETF</div>
-      <div class="wl-price">$85.21 <span class="unverified">[~]</span></div>
-      <div class="wl-meta"><span class="dn">+0.15%</span><span style="color:var(--muted)">YTD &minus;0.9%</span></div>
-      <div class="wl-sub">JPM_CEMBI proxy</div>
-    </div>
-    <div class="wl-tile">
-      <div class="wl-ticker">MOVE:IND</div>
-      <div class="wl-label">MOVE Volatility Index</div>
-      <div class="wl-price">105 <span class="unverified">[~]</span></div>
-      <div class="wl-meta"><span class="flat">&rarr; flat</span><span style="color:var(--muted)">YTD 68&ndash;142</span></div>
-      <div class="wl-sub">Rate vol signal</div>
-    </div>
-    <div class="wl-tile">
-      <div class="wl-ticker">VIX:IND</div>
-      <div class="wl-label">CBOE VIX</div>
-      <div class="wl-price">18.4 <span class="unverified">[~]</span></div>
-      <div class="wl-meta"><span class="dn">&minus;0.3pts</span><span style="color:var(--muted)">YTD 12&ndash;28</span></div>
-      <div class="wl-sub">Equity vol / risk-off</div>
-    </div>
-    <div class="wl-tile">
-      <div class="wl-ticker">CL1:COM</div>
-      <div class="wl-label">WTI Crude (front-month)</div>
-      <div class="wl-price">$92.52 <span class="unverified">[~]</span></div>
-      <div class="wl-meta"><span class="dn">+3.14%</span><span style="color:var(--muted)">YTD +18%</span></div>
-      <div class="wl-sub">Inflation / spread driver</div>
-    </div>
-    <div class="wl-tile">
-      <div class="wl-ticker">USGG10YR:IND</div>
-      <div class="wl-label">10Y UST Generic Yield</div>
-      <div class="wl-price">4.57% <span class="unverified">[~]</span></div>
-      <div class="wl-meta"><span class="up">+8bps</span><span style="color:var(--muted)">QTD 91st pctile</span></div>
-      <div class="wl-sub">Duration anchor</div>
+  <div class="exec-block">
+    <div class="eb-label">Alpha Idea</div>
+    <div class="alpha-card">
+      <div class="alpha-row">
+        <span class="alpha-label">Observation</span>
+        <span>BB HY at 278bps / 3.8yr = <strong>73bps/yr of carry</strong>. IG at 80bps / 7.2yr = 11bps/yr. BB/IG carry-per-duration ratio of 6.6&#215; is historically elevated &#8212; implying BB is pricing a default-severity premium that current fundamentals do not support. <span class="unverified">[~]</span></span>
+      </div>
+      <div class="alpha-row">
+        <span class="alpha-label">Evidence</span>
+        <span>(1) BB/IG spread ratio: 278/80 = 3.5&#215; vs. long-run avg ~2.8&#8211;3.0&#215;. (2) MLGHYBBH YTD +1.2% vs. LEH_CORP &#8722;1.8% = 3.0% outperformance on ~half the duration. (3) BB upgrade pipeline active in Q1 2026 with rising-star candidates in Energy and Consumer Staples. <span class="unverified">[~]</span></span>
+      </div>
+      <div class="alpha-row">
+        <span class="alpha-label">Risk</span>
+        <span>Hot PCE today forces duration + credit re-correlation &#8212; carry advantage can invert quickly if spreads gap wider simultaneously. BB is less liquid than IG in a risk-off move; bid/ask widens materially when dealers pull.</span>
+      </div>
+      <div class="alpha-row">
+        <span class="alpha-label">Say it</span>
+        <span>&#8220;We&#8217;re getting paid 6&#215; as much per year of duration in BB vs. IG right now. That ratio only makes sense if you believe defaults are about to spike materially. We don&#8217;t &#8212; so size the BB allocation within the HY bucket.&#8221;</span>
+      </div>
     </div>
   </div>
-  <div class="source-line">
-    Edit <code>C:\Users\a96ve\briefing\watchlist.json</code> to add tickers &nbsp;|&nbsp;
-    ETF proxies: <a href="https://www.ishares.com/us/products/239726/" target="_blank">AGG</a> &nbsp;
-    <a href="https://www.ishares.com/us/products/239566/" target="_blank">LQD</a> &nbsp;
-    <a href="https://www.ishares.com/us/products/239566/" target="_blank">HYG</a> &nbsp;
-    <a href="https://www.ishares.com/us/products/239572/" target="_blank">EMB</a> &nbsp;|&nbsp;
-    Values live when Bloomberg Terminal feed is active &nbsp;|&nbsp; <span class="unverified">[~]</span> estimated
-  </div>
+
+  <div class="pm-q">Question for the PM / Desk Strategist: If PCE prints hot today at +2.9% and the 10Y spikes to 4.65%, does the curve bull-flatten (front end reprices harder &#8212; 2Y +12bps, 10Y +8bps) or bear-steepen (long end leads &#8212; 10Y +12bps, 2Y +8bps)? Our duration-short is concentrated in the belly (5yr) &#8212; a bear-steepener compresses the short-end gains and leaves the long end under pressure regardless. Should we hedge some belly-short with a token 30Y long before 8:30 to reduce P&amp;L asymmetry? The 30Y fiscal premium argues against it structurally, but tactically a bull-flatten after soft PCE could be painful on the 5yr position.</div>
 </section>
 
 </main>
 
-<div class="footnotes">
-  <div class="fn-label">Source Methodology &amp; Verification</div>
-  <ul class="fn-list">
-    <li><span class="fn-num">Treasury Yields:</span> <a href="https://fred.stlouisfed.org/series/DGS10" target="_blank">FRED DGS10</a> (10yr) &nbsp;|&nbsp; <a href="https://fred.stlouisfed.org/series/DGS2" target="_blank">DGS2</a> (2yr) &nbsp;|&nbsp; <a href="https://fred.stlouisfed.org/series/DGS30" target="_blank">DGS30</a> (30yr) &nbsp;|&nbsp; <a href="https://home.treasury.gov/resource-center/data-chart-center/interest-rates/" target="_blank">Treasury.gov yield curve</a></li>
-    <li><span class="fn-num">Real Yields / Breakevens:</span> <a href="https://fred.stlouisfed.org/series/DFII10" target="_blank">FRED DFII10</a> (10yr TIPS) &nbsp;|&nbsp; <a href="https://fred.stlouisfed.org/series/DFII30" target="_blank">DFII30</a> (30yr TIPS) &nbsp;|&nbsp; <a href="https://fred.stlouisfed.org/series/T10YIE" target="_blank">T10YIE</a> (10yr breakeven)</li>
-    <li><span class="fn-num">Credit Spreads:</span> <a href="https://fred.stlouisfed.org/series/BAMLC0A0CM" target="_blank">FRED BAMLC0A0CM</a> (IG OAS) &nbsp;|&nbsp; <a href="https://fred.stlouisfed.org/series/BAMLH0A0HYM2" target="_blank">BAMLH0A0HYM2</a> (HY OAS) &nbsp;|&nbsp; <a href="https://fred.stlouisfed.org/series/BAMLH0A1HYBB" target="_blank">BAMLH0A1HYBB</a> (BB / MLGHYBBH proxy) &nbsp;|&nbsp; <a href="https://fred.stlouisfed.org/series/BAMLH0A3HYC" target="_blank">BAMLH0A3HYC</a> (CCC OAS)</li>
-    <li><span class="fn-num">Benchmarks (terminal access):</span> LEH_AGG (LBUSTRUU) &amp; LEH_CORP (LUACTRUU): <a href="https://www.bloomberg.com/professional/solution/indices/" target="_blank">Bloomberg Index Services</a> &nbsp;|&nbsp; JPM_CEMBI (JBCDCOMP): <a href="https://www.jpmorgan.com/markets/analytics/fixed-income-indices" target="_blank">JPMorgan Fixed Income Index Research</a> &nbsp;|&nbsp; MLGHYBBH: <a href="https://fred.stlouisfed.org/series/BAMLH0A1HYBB" target="_blank">FRED BAMLH0A1HYBB</a> (proxy)</li>
-    <li><span class="fn-num">Fed / Macro:</span> <a href="https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html" target="_blank">CME FedWatch</a> &nbsp;|&nbsp; <a href="https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" target="_blank">FOMC Calendar</a> &nbsp;|&nbsp; <a href="https://www.federalreserve.gov/releases/h15/" target="_blank">Fed H.15</a> &nbsp;|&nbsp; <a href="https://www.bls.gov/cpi/" target="_blank">BLS CPI</a> &nbsp;|&nbsp; <a href="https://www.bea.gov/data/personal-consumption-expenditures-price-index" target="_blank">BEA PCE</a> &nbsp;|&nbsp; <a href="https://www.bls.gov/news.release/empsit.toc.htm" target="_blank">BLS Employment</a></li>
-    <li><span class="fn-num">Agency MBS:</span> <a href="https://www.freddiemac.com/pmms" target="_blank">Freddie Mac PMMS</a> (weekly Thursdays) &nbsp;|&nbsp; <a href="https://www.federalreserve.gov/monetarypolicy/bst_recenttrends.htm" target="_blank">Fed Balance Sheet Trends</a> &nbsp;|&nbsp; <a href="https://www.newyorkfed.org/markets/reference-rates/sofr" target="_blank">NY Fed SOFR</a></li>
-    <li><span class="fn-num">CLO / Securitized:</span> <a href="https://www.palmersquarecapital.com/clo-market/" target="_blank">Palmer Square CLO Index</a> &nbsp;|&nbsp; <a href="https://www.trepp.com/trepptalk" target="_blank">Trepp CMBS Research</a></li>
-    <li><span class="fn-num">Commodities:</span> <a href="https://www.eia.gov/dnav/pet/pet_pri_fut_s1_d.htm" target="_blank">EIA WTI Petroleum Futures</a></li>
-    <li><span class="fn-num">[~] notation:</span> Values marked <span class="unverified">[~]</span> are estimates derived from context, not directly fetched. Always verify at the primary source linked before acting on them. Period range bars (QTD/YTD/1YR) are <span class="unverified">[~]</span> estimated — verify period highs/lows by selecting date ranges directly in the FRED series chart.</li>
-    <li><span class="fn-num">MOVE Index:</span> Available via Bloomberg Terminal (ticker: MOVE) — no free public equivalent data feed.</li>
-  </ul>
-</div>
-
 <footer>
-  <div class="ft-left">Core Bond Team &nbsp;&middot;&nbsp; Automated Morning Briefing</div>
-  <div class="ft-right">May 26, 2026 &nbsp;&middot;&nbsp; Sources listed in footnotes &nbsp;&middot;&nbsp; Internal use only</div>
+  <strong>Data sources &#8212; public, free access, no login required:</strong><br>
+  <a href="https://fred.stlouisfed.org/series/DGS2" target="_blank">2Y UST (FRED)</a> &middot;
+  <a href="https://fred.stlouisfed.org/series/DGS5" target="_blank">5Y UST (FRED)</a> &middot;
+  <a href="https://fred.stlouisfed.org/series/DGS10" target="_blank">10Y UST (FRED)</a> &middot;
+  <a href="https://fred.stlouisfed.org/series/DGS30" target="_blank">30Y UST (FRED)</a> &middot;
+  <a href="https://home.treasury.gov/resource-center/data-chart-center/interest-rates/" target="_blank">Treasury Yield Curve</a> &middot;
+  <a href="https://fred.stlouisfed.org/series/DFII10" target="_blank">10Y TIPS (FRED)</a> &middot;
+  <a href="https://fred.stlouisfed.org/series/T10YIE" target="_blank">10Y Breakeven (FRED)</a> &middot;
+  <a href="https://fred.stlouisfed.org/series/T10Y2Y" target="_blank">2s10s Spread (FRED)</a> &middot;
+  <a href="https://fred.stlouisfed.org/series/BAMLC0A0CM" target="_blank">IG OAS (FRED)</a> &middot;
+  <a href="https://fred.stlouisfed.org/series/BAMLH0A0HYM2" target="_blank">HY OAS (FRED)</a> &middot;
+  <a href="https://fred.stlouisfed.org/series/BAMLH0A1HYBB" target="_blank">BB OAS (FRED)</a> &middot;
+  <a href="https://fred.stlouisfed.org/series/BAMLH0A3HYC" target="_blank">CCC OAS (FRED)</a> &middot;
+  <a href="https://www.bea.gov/data/personal-consumption-expenditures-price-index" target="_blank">BEA PCE</a> &middot;
+  <a href="https://www.bls.gov/news.release/empsit.toc.htm" target="_blank">BLS Employment</a> &middot;
+  <a href="https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html" target="_blank">CME FedWatch</a> &middot;
+  <a href="https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" target="_blank">FOMC Calendar</a> &middot;
+  <a href="https://www.federalreserve.gov/releases/h15/" target="_blank">Fed H.15 Interest Rates</a> &middot;
+  <a href="https://www.federalreserve.gov/monetarypolicy/bst_recenttrends.htm" target="_blank">Fed Balance Sheet Trends</a> &middot;
+  <a href="https://www.freddiemac.com/pmms" target="_blank">Freddie Mac PMMS</a> &middot;
+  <a href="https://www.newyorkfed.org/markets/reference-rates/sofr" target="_blank">NY Fed SOFR</a> &middot;
+  <a href="https://www.eia.gov/dnav/pet/pet_pri_fut_s1_d.htm" target="_blank">EIA WTI Crude</a> &middot;
+  <a href="https://www.trepp.com/trepptalk" target="_blank">Trepp CLO/CMBS</a> &middot;
+  <a href="https://www.palmersquarecapital.com/clo-market/" target="_blank">Palmer Square CLO</a> &middot;
+  <a href="https://www.conference-board.org/topics/consumer-confidence" target="_blank">Conference Board</a> &middot;
+  <a href="https://www.bloomberg.com/professional/solution/indices/" target="_blank">Bloomberg Index Services</a> &middot;
+  <a href="https://www.jpmorgan.com/markets/analytics/fixed-income-indices" target="_blank">JPMorgan Indices</a> &middot;
+  <a href="https://www.sifma.org/research/statistics/us-corporate-bonds-statistics" target="_blank">SIFMA Corporate Bond Stats</a><br><br>
+  <span class="unverified">[~] All market data estimated from public sources &#8212; Bloomberg Terminal offline. Benchmark index levels (LEH_AGG, LEH_CORP, JPM_CEMBI, MLGHYBBH) and CLO stack require live Bloomberg Terminal for verified values.</span><br><br>
+  Core Bond Team &middot; Payden &amp; Rygel &middot; Morning Briefing &middot; <a href="https://mrrlexy.github.io/morning-briefing/" target="_blank">https://mrrlexy.github.io/morning-briefing/</a>
 </footer>
 
-</div>
 </body>
 </html>
