@@ -21,7 +21,6 @@ this machine.
 
 import blpapi
 import json
-import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -250,24 +249,6 @@ def build_payload(raw: dict, watchlist_cfg: list = None) -> dict:
     }
 
 
-def git_push(timestamp: str):
-    label = datetime.fromisoformat(timestamp).strftime("%Y-%m-%d %H:%M")
-    cmds = [
-        ["git", "-C", str(REPO_PATH), "pull",   "origin", "main", "--rebase"],
-        ["git", "-C", str(REPO_PATH), "add",    "data.json"],
-        ["git", "-C", str(REPO_PATH), "commit", "-m", f"data: Bloomberg fetch {label}"],
-        ["git", "-C", str(REPO_PATH), "push",   "origin", "main"],
-    ]
-    for cmd in cmds:
-        r = subprocess.run(cmd, capture_output=True, text=True)
-        if r.returncode != 0:
-            if "nothing to commit" in (r.stdout + r.stderr):
-                print("  (no changes to commit)")
-                return
-            raise RuntimeError(f"Git failed: {' '.join(cmd[2:])}\n{r.stderr.strip()}")
-        print(f"  ✓ {' '.join(cmd[2:])}")
-
-
 if __name__ == "__main__":
     ts = datetime.now().strftime("%H:%M:%S")
     print(f"[{ts}] Starting Bloomberg fetch...")
@@ -284,8 +265,6 @@ if __name__ == "__main__":
         OUTPUT_FILE.write_text(json.dumps(payload, indent=2))
         print(f"  ✓ Wrote {OUTPUT_FILE}")
         print(f"  ✓ Timestamp: {payload['fetched_at']}")
-
-        git_push(payload["fetched_at"])
         print(f"[{datetime.now():%H:%M:%S}] Done.")
 
     except Exception as exc:

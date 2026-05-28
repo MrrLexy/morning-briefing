@@ -1,3 +1,7 @@
 .server_url
 __pycache__/
 *.py[cod]
+
+# Bloomberg market data — local only, never committed
+# See DATA_POLICY.md
+data.json
