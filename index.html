@@ -153,39 +153,39 @@ footer a:hover{color:var(--text)}
     <h1>Core Bond Team &#8212; Market Update</h1>
     <div class="hdr-sub">
       Thursday, May 28, 2026 &nbsp;&middot;&nbsp; Pre-Market
-      <span class="data-badge stale">&#9675; Estimated &#8212; Bloomberg feed offline</span>
+      <span id="data-badge" class="data-badge stale">&#9675; Estimated &#8212; Bloomberg feed offline</span>
     </div>
   </div>
   <div class="hdr-right">Generated 5:05 AM ET</div>
 </header>
 
 <div class="stats-ticker">
-  <div class="stat-tile">
+  <div id="tile-us10y" class="stat-tile">
     <div class="st-label">10YR UST</div>
     <div class="st-value">4.47%</div>
     <div class="st-change dn">&#8722;2bps <span class="unverified">[~]</span></div>
   </div>
-  <div class="stat-tile">
+  <div id="tile-ig-oas" class="stat-tile">
     <div class="st-label">IG OAS</div>
     <div class="st-value">80bps</div>
     <div class="st-change flat">&#8594; flat <span class="unverified">[~]</span></div>
   </div>
-  <div class="stat-tile">
+  <div id="tile-hy-oas" class="stat-tile">
     <div class="st-label">HY OAS</div>
     <div class="st-value">286bps</div>
     <div class="st-change dn">&#8722;4bps <span class="unverified">[~]</span></div>
   </div>
-  <div class="stat-tile">
+  <div id="tile-spx" class="stat-tile">
     <div class="st-label">S&amp;P 500</div>
     <div class="st-value">7,519</div>
     <div class="st-change dn">+0.61%</div>
   </div>
-  <div class="stat-tile">
+  <div id="tile-wti" class="stat-tile">
     <div class="st-label">WTI Crude</div>
     <div class="st-value">$89.20</div>
     <div class="st-change up">&#8722;5.8% <span class="unverified">[~]</span></div>
   </div>
-  <div class="stat-tile">
+  <div id="tile-dxy" class="stat-tile">
     <div class="st-label">DXY</div>
     <div class="st-value">99.28</div>
     <div class="st-change flat">+0.06%</div>
@@ -899,5 +899,60 @@ footer a:hover{color:var(--text)}
   Core Bond Team &middot; Payden &amp; Rygel &middot; Morning Briefing &middot; <a href="https://mrrlexy.github.io/morning-briefing/" target="_blank">https://mrrlexy.github.io/morning-briefing/</a>
 </footer>
 
+<script>
+(async () => {
+  try {
+    const d     = await fetch('/data.json').then(r => r.json());
+    const today = new Date().toLocaleDateString('en-CA'); // YYYY-MM-DD in local time
+    if (d.data_date !== today) return;
+
+    const r = d.rates || {}, c = d.credit || {}, m = d.market || {};
+
+    function fmt(val, decimals, unit, prefix) {
+      const abs = Math.abs(val).toFixed(decimals);
+      return (prefix || '') + (val > 0 ? '+' : val < 0 ? '−' : '') + abs + (unit || '');
+    }
+
+    // polarity: 1 = up is bad (rates/spreads), -1 = up is good (equity/wti)
+    function tile(id, value, display, chgVal, unit, decimals, polarity) {
+      if (value == null) return;
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.querySelector('.st-value').textContent = display;
+      const chgEl = el.querySelector('.st-change');
+      if (chgVal == null) return;
+      chgEl.textContent = fmt(chgVal, decimals, unit);
+      const badDir = polarity === 1 ? chgVal > 0 : chgVal < 0;
+      chgEl.className = 'st-change ' + (chgVal === 0 ? 'flat' : badDir ? 'up' : 'dn');
+    }
+
+    const us10y = r.us10y?.yield_pct;
+    tile('tile-us10y', us10y, us10y?.toFixed(2) + '%', r.us10y?.chg_1d_bps, 'bps', 0, 1);
+
+    const igOas = c.ig_oas?.spread_bps;
+    tile('tile-ig-oas', igOas, Math.round(igOas) + 'bps', c.ig_oas?.chg_1d_bps, 'bps', 0, 1);
+
+    const hyOas = c.hy_oas?.spread_bps;
+    tile('tile-hy-oas', hyOas, Math.round(hyOas) + 'bps', c.hy_oas?.chg_1d_bps, 'bps', 0, 1);
+
+    const spx = m.spx?.level;
+    tile('tile-spx', spx, Math.round(spx)?.toLocaleString(), m.spx?.chg_pct, '%', 2, -1);
+
+    const wti = m.wti?.level;
+    tile('tile-wti', wti, '$' + wti?.toFixed(2), m.wti?.chg_pct, '%', 2, -1);
+
+    const dxy = m.dxy?.level;
+    tile('tile-dxy', dxy, dxy?.toFixed(2), m.dxy?.chg_pct, '%', 2, 1);
+
+    const badge = document.getElementById('data-badge');
+    if (badge) {
+      badge.className = 'data-badge live';
+      badge.innerHTML = '&#9679; Live &#8212; Bloomberg';
+    }
+  } catch (err) {
+    console.warn('[briefing] Live data load failed:', err.message);
+  }
+})();
+</script>
 </body>
 </html>

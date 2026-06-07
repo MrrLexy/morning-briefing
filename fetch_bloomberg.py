@@ -26,7 +26,7 @@ from datetime import datetime
 from pathlib import Path
 
 # ── CONFIG ────────────────────────────────────────────────────────────────────
-REPO_PATH      = Path(r"C:\Users\a96ve\briefing")   # ← adjust to repo path on work machine
+REPO_PATH      = Path(r"C:\Users\a96ve\Documents\Claude\Projects\briefing")   # ← adjust to repo path on work machine
 OUTPUT_FILE    = REPO_PATH / "data.json"
 WATCHLIST_FILE = REPO_PATH / "watchlist.json"
 BBG_HOST       = "localhost"
