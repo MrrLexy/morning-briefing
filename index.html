@@ -67,6 +67,11 @@ header {
 }
 .hdr-title { font-size: 19px; font-weight: 700; color: #fff; letter-spacing: .02em }
 .hdr-sub   { font-size: 11px; color: rgba(255,255,255,.5); margin-top: 4px; letter-spacing: .03em }
+.back-link {
+  display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: rgba(255,255,255,.4); text-decoration: none; margin-bottom: 6px;
+}
+.back-link:hover { color: var(--gold) }
 .hdr-meta  {
   display: flex; flex-direction: column;
   align-items: flex-end; justify-content: center;
@@ -341,8 +346,10 @@ footer {
 <div class="page">
 
 <!-- ── HEADER ──────────────────────────────────────────────────── -->
+<!-- Keep .back-link (points to The Brain hub) when regenerating this file. -->
 <header>
   <div class="hdr-brand">
+    <a class="back-link" href="https://mrrlexy.github.io/The-Brain/">&larr; The Brain</a>
     <div class="hdr-eyebrow">Fixed Income Desk</div>
     <div class="hdr-title">Market Update</div>
     <div class="hdr-sub">
