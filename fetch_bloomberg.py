@@ -19,7 +19,6 @@ Repo path below — adjust if the morning-briefing repo is cloned elsewhere on
 this machine.
 """
 
-import blpapi
 import json
 import sys
 from datetime import datetime
@@ -81,6 +80,7 @@ def load_watchlist() -> list:
 
 
 def bbg_fetch(securities: list, fields: list) -> dict:
+    import blpapi  # imported here so this module can be reused without blpapi installed
     opts = blpapi.SessionOptions()
     opts.setServerHost(BBG_HOST)
     opts.setServerPort(BBG_PORT)

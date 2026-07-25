@@ -5,3 +5,5 @@ __pycache__/
 # Bloomberg market data — local only, never committed
 # See DATA_POLICY.md
 data.json
+*.csv
+manual_export*
