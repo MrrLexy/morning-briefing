@@ -14,11 +14,43 @@ published to GitHub Pages.
 
 ## Getting data in
 
-Three paths. All write the **same** `data.json` schema, so nothing downstream
+Four paths. All write the **same** `data.json` schema, so nothing downstream
 cares which one was used. Each stamps a different `source` value so you can tell
 after the fact.
 
-### A. Local Bloomberg Terminal
+**Start with path A** unless you have a local Terminal with `blpapi` installed.
+
+### A. Excel template — recommended
+
+Works on any machine with the Bloomberg Excel add-in. No Python, no `blpapi`.
+
+1. **Download the template once** and keep it:
+   [`bbg_template.xlsx`](bbg_template.xlsx) — a grid of `=BDP()` formulas
+   covering all 24 securities.
+2. Each morning, open it in Excel with the add-in loaded and let the formulas
+   resolve. `#N/A` in a cell is expected where a field doesn't apply to that
+   security.
+3. **File → Save As → CSV**, under a new name. Saving as CSV converts the
+   formulas to plain values automatically — that *is* the "save as values" step.
+4. Convert it, either way:
+   - **Browser:** <https://mrrlexy.github.io/morning-briefing/import/> — runs
+     entirely client-side, gives you `data.json` as a download. Nothing is
+     uploaded; see the privacy note on that page.
+   - **Command line:** `python import_bbg_paste.py yourfile.csv`
+5. Drop the resulting `data.json` into this folder.
+
+→ `"source": "Bloomberg (Excel template)"` (browser) /
+`"Bloomberg (manual paste)"` (CLI)
+
+Regenerate the template after changing `SECURITIES` or `watchlist.json`:
+
+```bash
+python make_bbg_template.py
+```
+
+That keeps the template's tickers from drifting from the code's source of truth.
+
+### B. Local Bloomberg Terminal
 
 ```bash
 python fetch_bloomberg.py     # or double-click run_feed.bat
@@ -29,7 +61,7 @@ Needs `pip install blpapi` and the Terminal running on the same machine
 
 → `"source": "Bloomberg Terminal"`
 
-### B. BBG Anywhere / web terminal — paste a grid
+### C. BBG Anywhere / web terminal — paste a grid
 
 No Terminal API, no Excel add-in required.
 
@@ -58,7 +90,7 @@ dropped**.
 
 → `"source": "Bloomberg (manual paste)"`
 
-### C. A CSV you've already normalized
+### D. A CSV you've already normalized
 
 ```bash
 python import_manual_export.py export.csv
@@ -123,5 +155,14 @@ that way.
   SDK installed. Don't move that import back to the top of the file.
 - **Stale data is silent.** Check `fetched_at` in `data.json` before trusting
   any number on the page.
-- `*.csv` and `manual_export*` are gitignored so downloaded exports can't be
-  committed by accident.
+- **The payload schema is implemented twice.** `build_payload()` in
+  `fetch_bloomberg.py` (Python) and `buildPayload()` in `import/index.html`
+  (JavaScript) must produce identical output. If you change the schema, change
+  both. They were verified byte-identical on the same input when the browser
+  converter was added.
+- **`bbg_template.xlsx` is committed on purpose** — it holds only `=BDP()`
+  formulas, no values, so it isn't Bloomberg data. Anything you save *after*
+  refreshing it does contain values: save under a new name (`*.xlsx` other than
+  the template is gitignored) and don't overwrite the template itself.
+- `*.csv`, `manual_export*`, and non-template `*.xlsx` are gitignored so
+  downloaded exports can't be committed by accident.

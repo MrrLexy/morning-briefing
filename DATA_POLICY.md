@@ -20,8 +20,16 @@ This repository contains an automated fixed income morning briefing:
 `data.json` is listed in `.gitignore` and is excluded from all git operations.
 
 The fetch script (`fetch_bloomberg.py`) writes `data.json` to the local machine only.
-No Bloomberg data values leave the licensed workstation. The published `index.html`
-contains rendered text (a finished document) — not a raw data export.
+No Bloomberg data values leave the licensed workstation.
+
+The browser converter at `import/` is deliberately built to preserve this: it has no
+server component and makes no network requests. The file you select is read and
+converted by JavaScript inside your own tab, and the result is handed back as a
+local download. Nothing is transmitted anywhere. The published page contains the
+conversion logic only, never data.
+
+The published `index.html` contains rendered text (a finished document) — not a raw
+data export.
 
 ### Why this matters
 
@@ -39,6 +47,10 @@ policy keeps all raw Bloomberg values on the licensed workstation at all times.
 | `index.html` | Rendered briefing HTML | Yes — published to GitHub Pages |
 | `fetch_bloomberg.py` | Fetch logic (no data) | Yes |
 | `watchlist.json` | Ticker labels only (no data values) | Yes |
+| `bbg_template.xlsx` | `=BDP()` formulas only — no values | Yes |
+| `import/index.html` | Client-side converter (no data, no network) | Yes — published |
+| `*.xlsx` (refreshed) | Bloomberg data values | **No — gitignored** |
+| `*.csv` (exports) | Bloomberg data values | **No — gitignored** |
 | `run_feed.bat` | Local runner script | Yes |
 | `DATA_POLICY.md` | This document | Yes |
 | `data.json` | Bloomberg data values | **No — gitignored** |

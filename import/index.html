@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bloomberg Data Converter &mdash; Morning Briefing</title>
+<style>
+:root {
+  --navy:#003057; --navy-mid:#005596; --gold:#b9922a; --gold-pale:#fdf6e3;
+  --gold-border:#dfc97c; --bg:#fff; --bg-alt:#f4f6f9; --border:#d6dae4;
+  --text:#1a2235; --body:#374151; --muted:#6b7a8f;
+  --green:#15663d; --green-pale:#e9f4ee; --red:#a91a1a; --red-pale:#fef2f2;
+}
+* { box-sizing:border-box; margin:0; padding:0 }
+body {
+  background:var(--bg-alt); color:var(--text); font-size:15px; line-height:1.65;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',Arial,sans-serif;
+}
+.page { max-width:820px; margin:0 auto; background:var(--bg); box-shadow:0 1px 40px rgba(0,0,0,.10); min-height:100vh }
+header { background:var(--navy); padding:22px 36px; border-bottom:3px solid var(--gold) }
+.back-link {
+  display:inline-block; font-size:9px; font-weight:700; letter-spacing:.14em;
+  text-transform:uppercase; color:rgba(255,255,255,.4); text-decoration:none; margin-bottom:6px;
+}
+.back-link:hover, .back-link:focus { color:var(--gold) }
+.hdr-eyebrow { font-size:9px; font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:var(--gold); margin-bottom:5px }
+.hdr-title { font-size:19px; font-weight:700; color:#fff; letter-spacing:.02em }
+.hdr-sub { font-size:11px; color:rgba(255,255,255,.5); margin-top:4px }
+main { padding:28px 36px 44px }
+
+.privacy {
+  background:var(--green-pale); border-left:3px solid var(--green);
+  padding:12px 16px; margin-bottom:24px; font-size:13px; color:var(--body);
+}
+.privacy strong { color:var(--green) }
+
+.sec-label {
+  font-size:10px; font-weight:700; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--muted); margin:26px 0 10px; padding-bottom:6px; border-bottom:1px solid var(--border);
+}
+ol.steps { margin:0 0 4px 20px; font-size:14px; color:var(--body) }
+ol.steps li { margin-bottom:7px }
+code {
+  background:var(--bg-alt); border:1px solid var(--border); border-radius:3px;
+  padding:1px 5px; font-size:12.5px; font-family:Consolas,'SF Mono',Menlo,monospace;
+}
+a { color:var(--navy-mid) }
+a:focus-visible, button:focus-visible, input:focus-visible { outline:2px solid var(--gold); outline-offset:2px }
+
+.btn {
+  display:inline-block; background:var(--navy); color:#fff; border:none; border-radius:4px;
+  padding:11px 20px; font-size:14px; font-weight:600; cursor:pointer; text-decoration:none;
+  font-family:inherit;
+}
+.btn:hover { background:var(--navy-mid) }
+.btn:disabled { background:var(--muted); cursor:default }
+.btn.gold { background:var(--gold); color:#2a1f00 }
+.btn.gold:hover { background:#d0a733 }
+
+.drop {
+  border:2px dashed var(--border); border-radius:6px; padding:30px 20px; text-align:center;
+  background:var(--bg-alt); transition:border-color .15s, background .15s; cursor:pointer;
+}
+.drop.over { border-color:var(--gold); background:var(--gold-pale) }
+.drop p { font-size:13px; color:var(--muted); margin-top:8px }
+
+#result { margin-top:22px }
+.panel { border:1px solid var(--border); border-radius:6px; padding:16px 18px; font-size:13px }
+.panel.ok { background:var(--green-pale); border-color:#b8dcc6 }
+.panel.err { background:var(--red-pale); border-color:#f1c9c9; color:var(--red) }
+.panel.warn { background:var(--gold-pale); border-color:var(--gold-border) }
+.panel h3 { font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; margin-bottom:8px }
+.panel ul { margin:6px 0 0 18px }
+table.preview { width:100%; border-collapse:collapse; margin-top:12px; font-size:12.5px }
+table.preview th, table.preview td { text-align:right; padding:5px 8px; border-bottom:1px solid var(--border) }
+table.preview th:first-child, table.preview td:first-child { text-align:left }
+table.preview th { font-size:9px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--muted) }
+table.preview td.na { color:var(--muted); font-style:italic }
+.scroller { overflow-x:auto }
+.hint { font-size:12px; color:var(--muted); margin-top:10px }
+@media (max-width:640px) {
+  header, main { padding-left:20px; padding-right:20px }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<header>
+  <a class="back-link" href="https://mrrlexy.github.io/The-Brain/">&larr; The Brain</a>
+  <div class="hdr-eyebrow">Fixed Income Desk</div>
+  <div class="hdr-title">Bloomberg Data Converter</div>
+  <div class="hdr-sub">Excel template &rarr; data.json, without leaving the browser</div>
+</header>
+
+<main>
+
+  <div class="privacy">
+    <strong>Your data never leaves this device.</strong> This page has no server and
+    makes no network requests. The file you pick is read and converted locally by
+    JavaScript in this tab. Required by <code>DATA_POLICY.md</code> &mdash; raw
+    Bloomberg values must stay on the licensed workstation.
+  </div>
+
+  <div class="sec-label">Step 1 &mdash; Get the template</div>
+  <p style="font-size:14px;color:var(--body);margin-bottom:12px">
+    Download once and keep it. It is a grid of <code>=BDP()</code> formulas that
+    refresh live every time you open it with the Bloomberg Excel add-in loaded.
+  </p>
+  <a class="btn gold" href="../bbg_template.xlsx" download>Download bbg_template.xlsx</a>
+
+  <div class="sec-label">Step 2 &mdash; Refresh it in Excel</div>
+  <ol class="steps">
+    <li>Open <code>bbg_template.xlsx</code> on a machine with the Bloomberg Excel add-in.</li>
+    <li>Wait for the formulas on the <strong>Data</strong> sheet to resolve to numbers.
+        <code>#N/A</code> is fine &mdash; that field doesn't apply to that security.</li>
+    <li><strong>File &rarr; Save As &rarr; CSV (Comma delimited)</strong>, under a new name.
+        Saving as CSV converts formulas to plain values automatically &mdash; that is the
+        &ldquo;save as values&rdquo; step, you don't need to do it separately.</li>
+  </ol>
+  <p class="hint">Keep the .xlsx intact as your reusable template; save each day's CSV separately.</p>
+
+  <div class="sec-label">Step 3 &mdash; Convert it here</div>
+  <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose or drop your CSV file">
+    <button class="btn" type="button" id="pick">Choose CSV file</button>
+    <p>or drag it here</p>
+    <input type="file" id="file" accept=".csv,.txt,text/csv" hidden>
+  </div>
+
+  <div id="result"></div>
+
+  <div class="sec-label">Step 4 &mdash; Use it</div>
+  <ol class="steps">
+    <li>Save the downloaded <code>data.json</code> into the briefing folder, replacing
+        the existing one.</li>
+    <li>Regenerate / reload the briefing.</li>
+  </ol>
+  <p class="hint">
+    Never commit <code>data.json</code> or the CSV to git &mdash; both are gitignored,
+    keep it that way. Prefer the command line? <code>python import_bbg_paste.py yourfile.csv</code>
+    does the same thing.
+  </p>
+
+</main>
+</div>
+
+<script>
+// ─────────────────────────────────────────────────────────────────────────────
+// Mirrors build_payload() in fetch_bloomberg.py. If the payload schema changes
+// there, change it here too — these are two implementations of one contract.
+// ─────────────────────────────────────────────────────────────────────────────
+
+const FIELDS = ["PX_LAST","CHG_NET_1D","CHG_PCT_1D","YLD_YTM_BID",
+                "OAS_SPREAD_ASK","DUR_ADJ_MID","RETURN_YTD","RETURN_QTD"];
+
+const YELLOW_KEY = { govt:"GOV", index:"IND", curncy:"CUR", comdty:"COM",
+                     equity:"US", "us equity":"US" };
+const TICKER_OVERRIDES = { "USGGT10Y INDEX":"USGGT10Y:GOV" };
+
+const WATCHLIST = [
+  { ticker:"AGG:US",       label:"iShares US Agg ETF"      },
+  { ticker:"LQD:US",       label:"iShares IG Corp ETF"     },
+  { ticker:"HYG:US",       label:"iShares HY Bond ETF"     },
+  { ticker:"EMB:US",       label:"iShares EM Bond ETF"     },
+  { ticker:"MOVE:IND",     label:"MOVE Vol Index"          },
+  { ticker:"VIX:IND",      label:"CBOE VIX"                },
+  { ticker:"CL1:COM",      label:"WTI Crude (front-month)" },
+  { ticker:"USGG10YR:IND", label:"10Y UST Yield"           },
+];
+
+function normalizeTicker(rawIn) {
+  const s = String(rawIn || "").trim().replace(/\s+/g, " ");
+  if (!s) return null;
+  if (s.includes(":") && !s.includes(" ")) return s.toUpperCase();
+  if (TICKER_OVERRIDES[s.toUpperCase()]) return TICKER_OVERRIDES[s.toUpperCase()];
+  const parts = s.split(" ");
+  if (parts.length < 2) return null;
+  for (const n of [2, 1]) {
+    if (parts.length > n) {
+      const key = parts.slice(-n).join(" ").toLowerCase();
+      if (YELLOW_KEY[key]) {
+        return parts.slice(0, -n).join("").toUpperCase() + ":" + YELLOW_KEY[key];
+      }
+    }
+  }
+  return null;
+}
+
+function parseNumber(cell) {
+  if (cell == null) return null;
+  let s = String(cell).trim();
+  if (!s || ["--","-","#N/A","N.A.","N/A","NA","#N/A N/A","#VALUE!","#NAME?"].includes(s.toUpperCase())) return null;
+  const neg = s.startsWith("(") && s.endsWith(")");
+  if (neg) s = s.slice(1, -1);
+  s = s.replace(/,/g, "").replace(/%/g, "").replace(/\$/g, "").trim();
+  const v = parseFloat(s);
+  if (!isFinite(v)) return null;
+  return neg ? -v : v;
+}
+
+// Minimal RFC4180-ish parser: handles quoted fields and embedded commas.
+function parseDelimited(text) {
+  const firstLine = text.split(/\r?\n/)[0] || "";
+  const delim = (firstLine.split("\t").length - 1) >= (firstLine.split(",").length - 1) ? "\t" : ",";
+  const rows = [];
+  let row = [], field = "", inQ = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (inQ) {
+      if (c === '"') {
+        if (text[i+1] === '"') { field += '"'; i++; } else inQ = false;
+      } else field += c;
+    } else if (c === '"') inQ = true;
+    else if (c === delim) { row.push(field); field = ""; }
+    else if (c === "\n") { row.push(field); rows.push(row); row = []; field = ""; }
+    else if (c !== "\r") field += c;
+  }
+  if (field !== "" || row.length) { row.push(field); rows.push(row); }
+  return rows.filter(r => r.some(c => String(c).trim() !== ""));
+}
+
+function round(v, digits) {
+  if (v == null) return null;
+  const f = Math.pow(10, digits);
+  return Math.round(v * f) / f;
+}
+function g(raw, ticker, field, scale, digits) {
+  const v = raw[ticker] ? raw[ticker][field] : null;
+  if (v == null) return null;
+  return round(v * (scale == null ? 1 : scale), digits == null ? 2 : digits);
+}
+
+function benchmark(raw, tk, label, ticker, spreadKey) {
+  const o = {
+    label, ticker,
+    level:      g(raw, tk, "PX_LAST", 1, 2),
+    yield_pct:  g(raw, tk, "YLD_YTM_BID", 1, 3),
+    duration:   g(raw, tk, "DUR_ADJ_MID", 1, 2),
+    return_qtd: g(raw, tk, "RETURN_QTD", 1, 2),
+    return_ytd: g(raw, tk, "RETURN_YTD", 1, 2),
+  };
+  o[spreadKey] = g(raw, tk, "OAS_SPREAD_ASK", 1, 1);
+  return o;
+}
+function spreadPair(raw, tk) {
+  return {
+    spread_bps: g(raw, tk, "PX_LAST", 1, 1),
+    chg_1d_bps: g(raw, tk, "CHG_NET_1D", 100, 1),
+  };
+}
+function ratePair(raw, tk) {
+  return {
+    yield_pct:  g(raw, tk, "PX_LAST", 1, 3),
+    chg_1d_bps: g(raw, tk, "CHG_NET_1D", 100, 1),
+  };
+}
+
+function buildPayload(raw) {
+  const now = new Date();
+  const pad = n => String(n).padStart(2, "0");
+  const local = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}` +
+                `T${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+  return {
+    fetched_at: local,
+    data_date:  local.slice(0, 10),
+    source:     "Bloomberg (Excel template)",
+    benchmarks: {
+      leh_agg:   benchmark(raw, "LBUSTRUU:IND",     "Bloomberg US Aggregate",       "LBUSTRUU",     "oas_bps"),
+      leh_corp:  benchmark(raw, "LUACTRUU:IND",     "Bloomberg US Corporate",       "LUACTRUU",     "oas_bps"),
+      jpm_cembi: benchmark(raw, "JBCDCOMP:IND",     "JPMorgan CEMBI Broad Div.",    "JBCDCOMP",     "spread_bps"),
+      mlghybbh:  benchmark(raw, "BAMLH0A1HYBB:IND", "ICE BofA BB US High Yield",    "BAMLH0A1HYBB", "oas_bps"),
+    },
+    credit: {
+      ig_oas:  spreadPair(raw, "BAMLC0A0CM:IND"),
+      hy_oas:  spreadPair(raw, "BAMLH0A0HYM2:IND"),
+      hy_bb:   spreadPair(raw, "BAMLH0A1HYBB:IND"),
+      ccc_oas: spreadPair(raw, "BAMLH0A3HYC:IND"),
+    },
+    rates: {
+      us2y:         ratePair(raw, "GT2:GOV"),
+      us5y:         ratePair(raw, "GT5:GOV"),
+      us10y:        ratePair(raw, "GT10:GOV"),
+      us30y:        ratePair(raw, "GT30:GOV"),
+      tips10y:      { yield_pct: g(raw, "USGGT10Y:GOV", "PX_LAST", 1, 3) },
+      breakeven10y: { rate_pct:  g(raw, "USGGBE10:IND", "PX_LAST", 1, 3) },
+      sofr:         { rate_pct:  g(raw, "USOSFR:IND",   "PX_LAST", 1, 3) },
+    },
+    volatility: {
+      move: { level: g(raw, "MOVE:IND", "PX_LAST", 1, 1), chg_1d: g(raw, "MOVE:IND", "CHG_NET_1D", 1, 2) },
+    },
+    market: {
+      spx: { level: g(raw, "SPX:IND", "PX_LAST", 1, 0), chg_pct: g(raw, "SPX:IND", "CHG_PCT_1D", 1, 2) },
+      dxy: { level: g(raw, "DXY:CUR", "PX_LAST", 1, 2), chg_pct: g(raw, "DXY:CUR", "CHG_PCT_1D", 1, 2) },
+      wti: { level: g(raw, "CL1:COM", "PX_LAST", 1, 2), chg_pct: g(raw, "CL1:COM", "CHG_PCT_1D", 1, 2) },
+    },
+    watchlist: WATCHLIST.map(w => ({
+      ticker:  w.ticker,
+      label:   w.label,
+      px_last: g(raw, w.ticker, "PX_LAST", 1, 2),
+      chg_pct: g(raw, w.ticker, "CHG_PCT_1D", 1, 2),
+      yield:   g(raw, w.ticker, "YLD_YTM_BID", 1, 3),
+      oas:     g(raw, w.ticker, "OAS_SPREAD_ASK", 1, 1),
+      ytd_ret: g(raw, w.ticker, "RETURN_YTD", 1, 2),
+    })),
+  };
+}
+
+// ── UI ───────────────────────────────────────────────────────────────────────
+const resultEl = document.getElementById("result");
+const fileEl   = document.getElementById("file");
+const dropEl   = document.getElementById("drop");
+const esc = s => String(s).replace(/[&<>"']/g, c =>
+  ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+
+function show(html) { resultEl.innerHTML = html; }
+
+function handleText(text, filename) {
+  let rows;
+  try { rows = parseDelimited(text); }
+  catch (e) { return show(`<div class="panel err">Could not read that file: ${esc(e.message)}</div>`); }
+
+  if (!rows.length) return show(`<div class="panel err">That file appears to be empty.</div>`);
+
+  const header = rows[0].map(h => String(h).trim());
+  const colFields = {}, unknownCols = [];
+  header.slice(1).forEach((h, idx) => {
+    const canon = h.trim().replace(/\s+/g, "_").toUpperCase();
+    if (FIELDS.includes(canon)) colFields[idx + 1] = canon;
+    else if (h.trim()) unknownCols.push(h);
+  });
+
+  if (!Object.keys(colFields).length) {
+    return show(`<div class="panel err"><h3>No field columns recognized</h3>
+      Expected a header row containing one or more of:
+      <code>${FIELDS.join("</code>, <code>")}</code>.<br><br>
+      Found instead: <code>${esc(header.join(", ")) || "(nothing)"}</code>.
+      Did you save the <strong>Data</strong> sheet, with its header row included?</div>`);
+  }
+
+  const raw = {}, unmapped = [];
+  for (const row of rows.slice(1)) {
+    const tk = normalizeTicker(row[0]);
+    if (!tk) { if (row[0] && String(row[0]).trim()) unmapped.push(String(row[0]).trim()); continue; }
+    const vals = {};
+    FIELDS.forEach(f => vals[f] = null);
+    for (const [i, field] of Object.entries(colFields)) {
+      if (i < row.length) vals[field] = parseNumber(row[i]);
+    }
+    raw[tk] = vals;
+  }
+
+  if (!Object.keys(raw).length) {
+    return show(`<div class="panel err"><h3>No securities parsed</h3>
+      None of the rows had a recognizable ticker. Expected Bloomberg syntax like
+      <code>GT10 Govt</code> or shorthand like <code>GT10:GOV</code> in the first column.</div>`);
+  }
+
+  const payload = buildPayload(raw);
+
+  // How many values actually came through, vs cells that were blank/#N/A
+  let filled = 0, total = 0;
+  for (const tk of Object.keys(raw))
+    for (const f of Object.keys(colFields).map(i => colFields[i])) {
+      total++; if (raw[tk][f] != null) filled++;
+    }
+
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type:"application/json" });
+  const url  = URL.createObjectURL(blob);
+
+  const warn = [];
+  if (unknownCols.length) warn.push(`Ignored unrecognized column(s): <code>${esc(unknownCols.join(", "))}</code>`);
+  if (unmapped.length)    warn.push(`Could not map ticker(s): <code>${esc(unmapped.join(", "))}</code> &mdash; these contributed no data.`);
+  if (filled === 0)       warn.push(`Every cell was blank or <code>#N/A</code>. Did the formulas resolve before you saved?`);
+
+  const r = payload.rates, m = payload.market;
+  const cell = v => v == null ? '<td class="na">&mdash;</td>' : `<td>${v}</td>`;
+
+  show(`
+    <div class="panel ok">
+      <h3>Converted &mdash; ${Object.keys(raw).length} securities, ${filled} of ${total} values</h3>
+      <p style="margin-bottom:12px">From <code>${esc(filename)}</code>. Spot-check the numbers below against your Terminal before using.</p>
+      <a class="btn" href="${url}" download="data.json">Download data.json</a>
+      <div class="scroller">
+      <table class="preview">
+        <tr><th>Series</th><th>Value</th><th>1d chg</th></tr>
+        <tr><td>2Y UST</td>${cell(r.us2y.yield_pct)}${cell(r.us2y.chg_1d_bps)}</tr>
+        <tr><td>10Y UST</td>${cell(r.us10y.yield_pct)}${cell(r.us10y.chg_1d_bps)}</tr>
+        <tr><td>30Y UST</td>${cell(r.us30y.yield_pct)}${cell(r.us30y.chg_1d_bps)}</tr>
+        <tr><td>IG OAS</td>${cell(payload.credit.ig_oas.spread_bps)}${cell(payload.credit.ig_oas.chg_1d_bps)}</tr>
+        <tr><td>HY OAS</td>${cell(payload.credit.hy_oas.spread_bps)}${cell(payload.credit.hy_oas.chg_1d_bps)}</tr>
+        <tr><td>S&amp;P 500</td>${cell(m.spx.level)}${cell(m.spx.chg_pct)}</tr>
+        <tr><td>DXY</td>${cell(m.dxy.level)}${cell(m.dxy.chg_pct)}</tr>
+        <tr><td>WTI</td>${cell(m.wti.level)}${cell(m.wti.chg_pct)}</tr>
+        <tr><td>MOVE</td>${cell(payload.volatility.move.level)}${cell(payload.volatility.move.chg_1d)}</tr>
+      </table>
+      </div>
+    </div>
+    ${warn.length ? `<div class="panel warn" style="margin-top:12px"><h3>Notes</h3><ul><li>${warn.join("</li><li>")}</li></ul></div>` : ""}
+  `);
+}
+
+function readFile(f) {
+  if (!f) return;
+  const reader = new FileReader();
+  reader.onload = e => handleText(e.target.result, f.name);
+  reader.onerror = () => show(`<div class="panel err">Could not read that file.</div>`);
+  reader.readAsText(f);
+}
+
+document.getElementById("pick").addEventListener("click", e => { e.stopPropagation(); fileEl.click(); });
+dropEl.addEventListener("click", () => fileEl.click());
+dropEl.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); fileEl.click(); } });
+fileEl.addEventListener("change", e => readFile(e.target.files[0]));
+["dragenter","dragover"].forEach(ev =>
+  dropEl.addEventListener(ev, e => { e.preventDefault(); dropEl.classList.add("over"); }));
+["dragleave","drop"].forEach(ev =>
+  dropEl.addEventListener(ev, e => { e.preventDefault(); dropEl.classList.remove("over"); }));
+dropEl.addEventListener("drop", e => readFile(e.dataTransfer.files[0]));
+</script>
+</body>
+</html>

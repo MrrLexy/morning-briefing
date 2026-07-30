@@ -7,3 +7,9 @@ __pycache__/
 data.json
 *.csv
 manual_export*
+
+# Any workbook EXCEPT the formula-only template. A template that has been
+# refreshed in Excel contains live Bloomberg values — save those under a new
+# name (they land here) and never commit them.
+*.xlsx
+!bbg_template.xlsx
